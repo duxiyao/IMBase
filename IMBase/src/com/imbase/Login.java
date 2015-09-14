@@ -10,6 +10,8 @@ import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.StringUtils;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +20,6 @@ import android.widget.TextView;
 import com.kjstudy.bean.EUserInfo;
 import com.kjstudy.bean.data.UserInfo;
 import com.kjstudy.communication.CCPConfig;
-import com.kjstudy.communication.SDKCoreHelper;
 import com.kjstudy.communication.SDKHelper;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.DBUtil;
@@ -52,7 +53,31 @@ public class Login extends KJActivity {
 		switch (v.getId()) {
 		case R.id.tv_login:
 			ViewInject.toast(String.valueOf("on click"));
-			login();
+			Intent intent = new Intent("test");
+//			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.addFlags(32);
+			sendBroadcast(intent);
+			// sendBroadcast(new Intent("ACTION_ON_CALLIN"));
+			// Intent intent = new Intent();
+			// PackageManager packageManager = this.getPackageManager();
+			// intent = packageManager
+			// .getLaunchIntentForPackage("com.example.testcom");
+			// intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+			// | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+			// | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			// this.startActivity(intent);
+
+			// Intent intent = new Intent("myservice");
+			// intent.addCategory("myc");
+			// intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+			// // ComponentName cn = new
+			// ComponentName("com.example.testcom.ihu", "IhuTestMainAct");
+			// ComponentName cn = new ComponentName("com.example.testcom.ihu",
+			// "MyService");
+			// intent.setComponent(cn);
+			// startService(intent);
+			// startActivity(intent);
+			// login();
 			// skipActivity(this, Qrcode.class);
 			break;
 		default:
@@ -111,15 +136,15 @@ public class Login extends KJActivity {
 	}
 
 	private void showDialog() {
-		if(mProgressDialog!=null&&!mProgressDialog.isShowing())
+		if (mProgressDialog != null && !mProgressDialog.isShowing())
 			mProgressDialog.show();
 	}
 
 	private void dismissDialog() {
-		if(mProgressDialog!=null&&mProgressDialog.isShowing())
+		if (mProgressDialog != null && mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
