@@ -25,6 +25,7 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.JsonUtil;
+import com.kjstudy.test.act.ZndzAct;
 
 public class Login extends KJActivity {
 
@@ -52,11 +53,13 @@ public class Login extends KJActivity {
 		super.widgetClick(v);
 		switch (v.getId()) {
 		case R.id.tv_login:
-			ViewInject.toast(String.valueOf("on click"));
-			Intent intent = new Intent("test");
-//			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.addFlags(32);
-			sendBroadcast(intent);
+			Intent intent =new Intent(this, ZndzAct.class);
+			startActivity(intent);
+//			ViewInject.toast(String.valueOf("on click"));
+//			Intent intent = new Intent("test");
+////			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			intent.addFlags(32);
+//			sendBroadcast(intent);
 			// sendBroadcast(new Intent("ACTION_ON_CALLIN"));
 			// Intent intent = new Intent();
 			// PackageManager packageManager = this.getPackageManager();

@@ -82,6 +82,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity android:name="com.kjstudy.test.act.ZndzAct"></activity>
         <service
             android:name="com.hisun.phone.core.voice.CCPService"
             android:exported="false" />
