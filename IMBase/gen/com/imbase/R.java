@@ -106,7 +106,7 @@ containing a value of this type.
         public static final int action_bar_activity_content=0x7f070001;
         public static final int action_menu_divider=0x7f070002;
         public static final int action_menu_presenter=0x7f070003;
-        public static final int action_settings=0x7f070029;
+        public static final int action_settings=0x7f07002a;
         /**  二维码扫描需要用到的ID判断 
          */
         public static final int auto_focus=0x7f070007;
@@ -123,18 +123,19 @@ containing a value of this type.
         public static final int decode_failed=0x7f070009;
         public static final int decode_succeeded=0x7f07000a;
         public static final int et_im_chatting_content=0x7f07001d;
-        public static final int et_name=0x7f070023;
-        public static final int et_pwd=0x7f070024;
+        public static final int et_name=0x7f070024;
+        public static final int et_pwd=0x7f070025;
         public static final int extv_chattingview=0x7f07001a;
         public static final int home=0x7f070000;
-        public static final int iv_head_left=0x7f070026;
-        public static final int iv_head_right=0x7f070028;
+        public static final int iv=0x7f070022;
+        public static final int iv_head_left=0x7f070027;
+        public static final int iv_head_right=0x7f070029;
         public static final int iv_qrimg=0x7f070021;
         public static final int left_mask=0x7f070017;
-        public static final int ll_content=0x7f070027;
+        public static final int ll_content=0x7f070028;
         public static final int lv=0x7f07001f;
         public static final int lv_chatting=0x7f07001c;
-        public static final int page_login=0x7f070022;
+        public static final int page_login=0x7f070023;
         public static final int quit=0x7f07000c;
         public static final int restart_preview=0x7f07000b;
         public static final int result=0x7f070012;
@@ -142,7 +143,7 @@ containing a value of this type.
         public static final int top_mask=0x7f070011;
         public static final int tv=0x7f07001b;
         public static final int tv1=0x7f07000e;
-        public static final int tv_login=0x7f070025;
+        public static final int tv_login=0x7f070026;
         public static final int tv_result=0x7f070020;
         public static final int tv_send=0x7f07001e;
         public static final int tv_text=0x7f070019;

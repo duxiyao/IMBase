@@ -1,5 +1,8 @@
 package com.kjstudy.test.view;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.kymjs.kjframe.utils.KJLoger;
 
 import android.content.Context;
@@ -14,62 +17,49 @@ import android.widget.Toast;
 import com.imbase.R;
 
 public class CustomeImgView extends View {
-	private Bitmap[] mBitmaps = new Bitmap[10];
-	private OnClickBitmapListener clickBitmapListener;
+	private Bitmap[] mBitmaps;
 	private int mCurClickIndex = -1;
+	private List<MapInfo> mDatas;
+	private MapInfo mCurMapInfo;
+	private HashMap<Integer, MapInfo> mH;
 
 	public CustomeImgView(Context context) {
 		super(context);
-		// mBitmaps[0] = BitmapFactory.decodeResource(getResources(),
-		// R.drawable.tt);
-		// mBitmaps[1] = BitmapFactory
-		// .decodeResource(getResources(), R.drawable.t);
-		init();
 	}
 
 	public CustomeImgView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// mBitmaps[1] = BitmapFactory
-		// .decodeResource(getResources(), R.drawable.t);
-		// mBitmaps[0] = BitmapFactory.decodeResource(getResources(),
-		// R.drawable.tt);
-		init();
-	}
-
-	private void init() {
-		mBitmaps[0] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.man_front);
-		mBitmaps[1] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.head);
-		mBitmaps[2] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.neck);
-		mBitmaps[3] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.chest);
-		mBitmaps[4] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.arm);
-		mBitmaps[5] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.hand);
-		mBitmaps[6] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.abdomen);
-		mBitmaps[7] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.genitals);
-		mBitmaps[8] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.leg);
-		mBitmaps[9] = BitmapFactory.decodeResource(getResources(),
-				R.drawable.foot);
 	}
 
 	public CustomeImgView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 
-	/**
-	 * 设置图片
-	 * 
-	 * @date 2013-10-12
-	 */
-	public final void setBitmaps(Bitmap[] bitmap) {
-		this.mBitmaps = bitmap;
+	public void setDatas(List<MapInfo> datas) {
+		if (datas == null || datas.size() == 0)
+			return;
+		if (mH == null)
+			mH = new HashMap<Integer, MapInfo>();
+		mH.clear();
+		mDatas = datas;
+		int len = mDatas.size();
+		for (int i = 0; i < len; i++)
+			mH.put(i, mDatas.get(i));
+		mBitmaps = new Bitmap[len];
+		init();
+	}
+
+	private void init() {
+		if (mDatas == null)
+			return;
+		int len = mDatas.size();
+		for (int i = 0; i < len; i++) {
+			MapInfo mi = mH.get(i);
+			if (mi == null)
+				throw new RuntimeException("mapinfo could not be null");
+			mBitmaps[i] = BitmapFactory.decodeResource(getResources(),
+					mi.getResIdDef());
+		}
 		invalidate();
 	}
 
@@ -86,16 +76,12 @@ public class CustomeImgView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		int me = event.getAction();
-		KJLoger.debug("action---" + me + "");
-
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			which(event.getX(), event.getY());
 			onClick(true);
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
 			onClick(false);
 		}
-
 		return true;
 	}
 
@@ -112,9 +98,9 @@ public class CustomeImgView extends View {
 				// 判断坐标点是否是在图片得透明区域
 				if (mBitmap.getPixel((int) x, (int) y) != 0) {
 					mCurClickIndex = i;
-					Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT)
-							.show();
-					// clickBitmapListener.ClickBitmap(i);
+					mCurMapInfo = mH.get(i);
+					Toast.makeText(getContext(), mCurMapInfo.getName(),
+							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}
@@ -122,29 +108,24 @@ public class CustomeImgView extends View {
 	}
 
 	private void onClick(boolean du) {
-		if(mCurClickIndex==-1)
+		if (mCurClickIndex == -1 || mCurMapInfo == null)
 			return;
+		mBitmaps[mCurClickIndex].recycle();
+		MapInfo mi = mH.get(mCurClickIndex);
+		if (mi == null)
+			throw new RuntimeException("mapinfo could not be null");
+		OnClickListener lis = mi.getClickListener();
 		if (du) {
 			mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
-					getResources(), R.drawable.leg_click);
+					getResources(), mi.getResIdPress());
+			if (lis != null)
+				lis.onClick(this);
 		} else {
 			mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
-					getResources(), R.drawable.leg);
+					getResources(), mi.getResIdDef());
 			mCurClickIndex = -1;
+			mCurMapInfo = null;
 		}
 		invalidate();
-	}
-
-	public final void setOnClickBitmapListener(OnClickBitmapListener listener) {
-		this.clickBitmapListener = listener;
-	};
-
-	public static interface OnClickBitmapListener {
-		/**
-		 * @param index
-		 *            -1表示超出范围
-		 * @date 2013-10-12
-		 */
-		void ClickBitmap(int index);
 	}
 }
