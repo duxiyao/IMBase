@@ -5,7 +5,7 @@ import android.view.View.OnClickListener;
 public class MapInfo {
 	private String name;
 	private int resIdDef;
-	private int resIdPress;
+	private int resIdPress=-1;
 	private OnClickListener clickListener;
 
 	public String getName() {

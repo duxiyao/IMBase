@@ -19,6 +19,8 @@ import org.kymjs.kjframe.ui.FrameActivity;
 import org.kymjs.kjframe.ui.KJActivityStack;
 import org.kymjs.kjframe.utils.KJLoger;
 
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -68,6 +70,8 @@ public abstract class KJActivity extends FrameActivity {
 		super.onResume();
 		activityState = ActivityState.RESUME;
 		KJLoger.state(this.getClass().getName(), "---------onResume ");
+		MobclickAgent.onPageStart(this.getClass().getName()); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
+		MobclickAgent.onResume(this);
 	}
 
 	@Override
@@ -75,6 +79,10 @@ public abstract class KJActivity extends FrameActivity {
 		super.onPause();
 		activityState = ActivityState.PAUSE;
 		KJLoger.state(this.getClass().getName(), "---------onPause ");
+		MobclickAgent.onPageEnd(this.getClass().getName()); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+		// onPageEnd 在onPause
+		// 之前调用,因为 onPause 中会保存信息
+		MobclickAgent.onPause(this);
 	}
 
 	@Override
@@ -158,7 +166,7 @@ public abstract class KJActivity extends FrameActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if(intent==null)
+			if (intent == null)
 				return;
 			if (mIntentFilter != null
 					&& mIntentFilter.hasAction(intent.getAction()))

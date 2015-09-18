@@ -33,6 +33,9 @@ containing a value of this type.
          */
         public static final int angle=0x7f010000;
     }
+    public static final class color {
+        public static final int tb_munion_item_force=0x7f0a0000;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -100,13 +103,40 @@ containing a value of this type.
         public static final int scan_mask=0x7f020028;
         public static final int shape_im_bg=0x7f020029;
         public static final int t=0x7f02002a;
-        public static final int tt=0x7f02002b;
+        public static final int tb_munion_icon=0x7f02002b;
+        public static final int tb_munion_item_selector=0x7f02002c;
+        public static final int tt=0x7f02002d;
+        public static final int umeng_common_gradient_green=0x7f02002e;
+        public static final int umeng_common_gradient_orange=0x7f02002f;
+        public static final int umeng_common_gradient_red=0x7f020030;
+        public static final int umeng_update_btn_check_off_focused_holo_light=0x7f020031;
+        public static final int umeng_update_btn_check_off_holo_light=0x7f020032;
+        public static final int umeng_update_btn_check_off_pressed_holo_light=0x7f020033;
+        public static final int umeng_update_btn_check_on_focused_holo_light=0x7f020034;
+        public static final int umeng_update_btn_check_on_holo_light=0x7f020035;
+        public static final int umeng_update_btn_check_on_pressed_holo_light=0x7f020036;
+        public static final int umeng_update_button_cancel_bg_focused=0x7f020037;
+        public static final int umeng_update_button_cancel_bg_normal=0x7f020038;
+        public static final int umeng_update_button_cancel_bg_selector=0x7f020039;
+        public static final int umeng_update_button_cancel_bg_tap=0x7f02003a;
+        public static final int umeng_update_button_check_selector=0x7f02003b;
+        public static final int umeng_update_button_close_bg_selector=0x7f02003c;
+        public static final int umeng_update_button_ok_bg_focused=0x7f02003d;
+        public static final int umeng_update_button_ok_bg_normal=0x7f02003e;
+        public static final int umeng_update_button_ok_bg_selector=0x7f02003f;
+        public static final int umeng_update_button_ok_bg_tap=0x7f020040;
+        public static final int umeng_update_close_bg_normal=0x7f020041;
+        public static final int umeng_update_close_bg_tap=0x7f020042;
+        public static final int umeng_update_dialog_bg=0x7f020043;
+        public static final int umeng_update_title_bg=0x7f020044;
+        public static final int umeng_update_wifi_disable=0x7f020045;
     }
     public static final class id {
         public static final int action_bar_activity_content=0x7f070001;
         public static final int action_menu_divider=0x7f070002;
         public static final int action_menu_presenter=0x7f070003;
-        public static final int action_settings=0x7f07002a;
+        public static final int action_settings=0x7f070040;
+        public static final int ad_image=0x7f07002b;
         /**  二维码扫描需要用到的ID判断 
          */
         public static final int auto_focus=0x7f070007;
@@ -123,30 +153,51 @@ containing a value of this type.
         public static final int decode_failed=0x7f070009;
         public static final int decode_succeeded=0x7f07000a;
         public static final int et_im_chatting_content=0x7f07001d;
-        public static final int et_name=0x7f070024;
-        public static final int et_pwd=0x7f070025;
+        public static final int et_name=0x7f070025;
+        public static final int et_pwd=0x7f070026;
         public static final int extv_chattingview=0x7f07001a;
         public static final int home=0x7f070000;
-        public static final int iv=0x7f070022;
-        public static final int iv_head_left=0x7f070027;
-        public static final int iv_head_right=0x7f070029;
+        public static final int iv=0x7f070023;
+        public static final int iv_head_left=0x7f070028;
+        public static final int iv_head_right=0x7f07002a;
         public static final int iv_qrimg=0x7f070021;
         public static final int left_mask=0x7f070017;
-        public static final int ll_content=0x7f070028;
+        public static final int ll=0x7f070022;
+        public static final int ll_content=0x7f070029;
+        public static final int loading=0x7f07002f;
         public static final int lv=0x7f07001f;
         public static final int lv_chatting=0x7f07001c;
-        public static final int page_login=0x7f070023;
+        public static final int page_login=0x7f070024;
+        public static final int progress_frame=0x7f07002d;
+        public static final int promoter_frame=0x7f07002c;
         public static final int quit=0x7f07000c;
         public static final int restart_preview=0x7f07000b;
         public static final int result=0x7f070012;
         public static final int right_mask=0x7f070018;
+        public static final int status_msg=0x7f07002e;
         public static final int top_mask=0x7f070011;
         public static final int tv=0x7f07001b;
         public static final int tv1=0x7f07000e;
-        public static final int tv_login=0x7f070026;
+        public static final int tv_login=0x7f070027;
         public static final int tv_result=0x7f070020;
         public static final int tv_send=0x7f07001e;
         public static final int tv_text=0x7f070019;
+        public static final int umeng_common_icon_view=0x7f070030;
+        public static final int umeng_common_notification=0x7f070034;
+        public static final int umeng_common_notification_controller=0x7f070031;
+        public static final int umeng_common_progress_bar=0x7f070037;
+        public static final int umeng_common_progress_text=0x7f070036;
+        public static final int umeng_common_rich_notification_cancel=0x7f070033;
+        public static final int umeng_common_rich_notification_continue=0x7f070032;
+        public static final int umeng_common_title=0x7f070035;
+        public static final int umeng_update_content=0x7f07003b;
+        public static final int umeng_update_frame=0x7f070038;
+        public static final int umeng_update_id_cancel=0x7f07003e;
+        public static final int umeng_update_id_check=0x7f07003c;
+        public static final int umeng_update_id_close=0x7f07003a;
+        public static final int umeng_update_id_ignore=0x7f07003f;
+        public static final int umeng_update_id_ok=0x7f07003d;
+        public static final int umeng_update_wifi_indicator=0x7f070039;
         public static final int vp_main=0x7f07000d;
     }
     public static final class layout {
@@ -162,15 +213,33 @@ containing a value of this type.
         public static final int layout_zndz=0x7f030009;
         public static final int login=0x7f03000a;
         public static final int single_im_view=0x7f03000b;
+        public static final int tb_munion_aditem=0x7f03000c;
+        public static final int tb_munion_adview=0x7f03000d;
+        public static final int umeng_common_download_notification=0x7f03000e;
+        public static final int umeng_update_dialog=0x7f03000f;
     }
     public static final class menu {
-        public static final int main=0x7f0a0000;
+        public static final int main=0x7f0b0000;
     }
     public static final class raw {
         public static final int beep=0x7f040000;
         public static final int config=0x7f040001;
     }
     public static final class string {
+        public static final int UMAppUpdate=0x7f080024;
+        public static final int UMBreak_Network=0x7f08001c;
+        public static final int UMDialog_InstallAPK=0x7f080028;
+        public static final int UMGprsCondition=0x7f080022;
+        public static final int UMIgnore=0x7f080026;
+        public static final int UMNewVersion=0x7f08001e;
+        public static final int UMNotNow=0x7f080025;
+        public static final int UMTargetSize=0x7f080021;
+        public static final int UMToast_IsUpdating=0x7f080027;
+        public static final int UMUpdateCheck=0x7f080029;
+        public static final int UMUpdateContent=0x7f08001f;
+        public static final int UMUpdateNow=0x7f080023;
+        public static final int UMUpdateSize=0x7f080020;
+        public static final int UMUpdateTitle=0x7f08001d;
         public static final int action_settings=0x7f080002;
         public static final int app_name=0x7f080001;
         public static final int empty_data=0x7f080004;
@@ -183,6 +252,7 @@ containing a value of this type.
          */
         public static final int request_from_net=0x7f08000a;
         public static final int scan_tips=0x7f08000b;
+        public static final int tb_munion_tip_download_prefix=0x7f08000c;
         /**  login.xml 
          */
         public static final int tips_name=0x7f080005;
@@ -191,6 +261,21 @@ containing a value of this type.
          */
         public static final int title_act_login=0x7f080008;
         public static final int tv_send=0x7f080000;
+        public static final int umeng_common_action_cancel=0x7f080011;
+        public static final int umeng_common_action_continue=0x7f080010;
+        public static final int umeng_common_action_info_exist=0x7f08000d;
+        public static final int umeng_common_action_pause=0x7f08000f;
+        public static final int umeng_common_download_failed=0x7f080017;
+        public static final int umeng_common_download_finish=0x7f080018;
+        public static final int umeng_common_download_notification_prefix=0x7f080012;
+        public static final int umeng_common_icon=0x7f08001b;
+        public static final int umeng_common_info_interrupt=0x7f08000e;
+        public static final int umeng_common_network_break_alert=0x7f080016;
+        public static final int umeng_common_patch_finish=0x7f080019;
+        public static final int umeng_common_pause_notification_prefix=0x7f080013;
+        public static final int umeng_common_silent_download_finish=0x7f08001a;
+        public static final int umeng_common_start_download_notification=0x7f080014;
+        public static final int umeng_common_start_patch_notification=0x7f080015;
     }
     public static final class style {
         /** 

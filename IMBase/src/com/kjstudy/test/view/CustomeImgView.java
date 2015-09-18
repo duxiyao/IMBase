@@ -3,6 +3,7 @@ package com.kjstudy.test.view;
 import java.util.HashMap;
 import java.util.List;
 
+import org.kymjs.kjframe.utils.DensityUtils;
 import org.kymjs.kjframe.utils.KJLoger;
 
 import android.content.Context;
@@ -12,11 +13,13 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.imbase.R;
+import com.kjstudy.core.util.DensityUtil;
 
-public class CustomeImgView extends View {
+public class CustomeImgView extends ImageView {
 	private Bitmap[] mBitmaps;
 	private int mCurClickIndex = -1;
 	private List<MapInfo> mDatas;
@@ -66,10 +69,12 @@ public class CustomeImgView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
 		if (mBitmaps != null) {
+			int left = DensityUtil.getScreenWidth(getContext()) / 2
+					- mBitmaps[0].getWidth() / 2;
+			left=0;
 			for (int i = 0; i < mBitmaps.length; i++) {
-				canvas.drawBitmap(mBitmaps[i], 0, 0, null);
+				canvas.drawBitmap(mBitmaps[i], left, 0, null);
 			}
 		}
 	}
@@ -110,19 +115,24 @@ public class CustomeImgView extends View {
 	private void onClick(boolean du) {
 		if (mCurClickIndex == -1 || mCurMapInfo == null)
 			return;
-		mBitmaps[mCurClickIndex].recycle();
 		MapInfo mi = mH.get(mCurClickIndex);
 		if (mi == null)
 			throw new RuntimeException("mapinfo could not be null");
 		OnClickListener lis = mi.getClickListener();
 		if (du) {
-			mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
-					getResources(), mi.getResIdPress());
+			if (mi.getResIdPress() != -1) {
+				mBitmaps[mCurClickIndex].recycle();
+				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
+						getResources(), mi.getResIdPress());
+			}
 			if (lis != null)
 				lis.onClick(this);
 		} else {
-			mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
-					getResources(), mi.getResIdDef());
+			if (mi.getResIdDef() != -1) {
+				mBitmaps[mCurClickIndex].recycle();
+				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
+						getResources(), mi.getResIdDef());
+			}
 			mCurClickIndex = -1;
 			mCurMapInfo = null;
 		}

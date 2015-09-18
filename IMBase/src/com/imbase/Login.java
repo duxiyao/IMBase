@@ -26,6 +26,7 @@ import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.JsonUtil;
 import com.kjstudy.test.act.ZndzAct;
+import com.umeng.update.UmengUpdateAgent;
 
 public class Login extends KJActivity {
 
@@ -46,6 +47,7 @@ public class Login extends KJActivity {
 	@Override
 	public void setRootView() {
 		setContentView(R.layout.login);
+		UmengUpdateAgent.update(this);
 	}
 
 	@Override

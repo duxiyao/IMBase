@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.imbase"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -81,8 +81,9 @@
             android:name="com.zbar.lib.CaptureActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.kjstudy.test.act.ZndzAct" >
+        </activity>
 
-        <activity android:name="com.kjstudy.test.act.ZndzAct"></activity>
         <service
             android:name="com.hisun.phone.core.voice.CCPService"
             android:exported="false" />
@@ -95,10 +96,27 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
+            android:value="55fa4c18e0f55a3b44001eca" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="imbase" />
+        <!--
+        <meta-data
+            android:name="UMENG_APPKEY"
             android:value="551bf59dfd98c5b39e002032" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="yuntongxun_im_5.0.1b" />
+        -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>
