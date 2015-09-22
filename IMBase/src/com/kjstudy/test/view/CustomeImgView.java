@@ -3,20 +3,17 @@ package com.kjstudy.test.view;
 import java.util.HashMap;
 import java.util.List;
 
-import org.kymjs.kjframe.utils.DensityUtils;
-import org.kymjs.kjframe.utils.KJLoger;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.imbase.R;
 import com.kjstudy.core.util.DensityUtil;
 
 public class CustomeImgView extends ImageView {
@@ -77,6 +74,7 @@ public class CustomeImgView extends ImageView {
 				canvas.drawBitmap(mBitmaps[i], left, 0, null);
 			}
 		}
+		System.out.println("click "+System.currentTimeMillis());
 	}
 
 	@Override
