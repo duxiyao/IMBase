@@ -3,14 +3,14 @@ package com.kjstudy.test.act;
 import java.util.List;
 
 import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.AnnotateUtil;
 import org.kymjs.kjframe.ui.BindView;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.widget.ImageView;
@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.imbase.R;
+import com.kjstudy.core.thread.ThreadManager;
 import com.kjstudy.test.view.CustomeImgView;
 import com.kjstudy.test.view.MapInfo;
 import com.kjstudy.test.view.ZndzDataUtil;
@@ -39,38 +40,52 @@ public class ZndzAct extends KJActivity {
 
 	@Override
 	public void setRootView() {
-		 setContentView(R.layout.layout_zndz);
+		setContentView(R.layout.layout_zndz);
 	}
 
 	@SuppressLint("NewApi")
 	@Override
 	public void initWidget() {
 		mZndzAssistant = new ZndzAssistant();
-//		mLl.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-//
-//			@Override
-//			public void onLayoutChange(View v, int left, int top, int right,
-//					int bottom, int oldLeft, int oldTop, int oldRight,
-//					int oldBottom) {
-//				float w = mLl.getWidth();
-//				float h = mLl.getHeight();
-//				float cw = mIv.getWidth();
-//				float ch = mIv.getHeight();
-//
-//				mZndzAssistant.clickWoMan();
-//				System.out.println(w / cw);
-//				float sx = w / cw;
-//				if (sx > 1.7)
-//					sx = 1.7f;
-//				ObjectAnimator anim = ObjectAnimator.ofFloat(mIv, "scaleX", sx);
-//				anim.setDuration(1000);
-//				anim.start();
-//
-//				anim = ObjectAnimator.ofFloat(mIv, "scaleY", h / ch);
-//				anim.setDuration(1000);
-//				anim.start();
-//			}
-//		});
+		mIv.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+
+			@Override
+			public void onLayoutChange(View v, int left, int top, int right,
+					int bottom, int oldLeft, int oldTop, int oldRight,
+					int oldBottom) {
+				int h = mIv.getMeasuredHeight();
+				int w = mIv.getMeasuredWidth();
+				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(w,
+						h);
+				mIv.setLayoutParams(lp);
+				mIv.setBackground(null);
+			}
+		});
+		// mLl.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+		//
+		// @Override
+		// public void onLayoutChange(View v, int left, int top, int right,
+		// int bottom, int oldLeft, int oldTop, int oldRight,
+		// int oldBottom) {
+		// float w = mLl.getWidth();
+		// float h = mLl.getHeight();
+		// float cw = mIv.getWidth();
+		// float ch = mIv.getHeight();
+		//
+		// mZndzAssistant.clickWoMan();
+		// System.out.println(w / cw);
+		// float sx = w / cw;
+		// if (sx > 1.7)
+		// sx = 1.7f;
+		// ObjectAnimator anim = ObjectAnimator.ofFloat(mIv, "scaleX", sx);
+		// anim.setDuration(1000);
+		// anim.start();
+		//
+		// anim = ObjectAnimator.ofFloat(mIv, "scaleY", h / ch);
+		// anim.setDuration(1000);
+		// anim.start();
+		// }
+		// });
 	}
 
 	@Override
@@ -81,7 +96,7 @@ public class ZndzAct extends KJActivity {
 			break;
 		case R.id.iv_sex_male:
 			mZndzAssistant.clickMan();
-			System.out.println("click man "+System.currentTimeMillis());
+			System.out.println("click man " + System.currentTimeMillis());
 			break;
 		case R.id.tv_ctl:
 			mZndzAssistant.clickCtl();
@@ -102,24 +117,29 @@ public class ZndzAct extends KJActivity {
 
 		public void clickMan() {
 			setIvSexBg(false);
-			mCurFrontDatas = ZndzDataUtil.getManFront();
-			mCurBackDatas = ZndzDataUtil.getManBack();
-			if (mFrontOrBack)
-				mIv.setBackground(getResources().getDrawable(R.drawable.man_front));
-//				mIv.setBackgroundResource(R.drawable.man_front);
-			else
-				mIv.setBackgroundResource(R.drawable.man_back);
+			System.out.println("before clickMan " + System.currentTimeMillis());
+			ThreadManager.getInstance().exeRunnable(new Runnable() {
+
+				@Override
+				public void run() {
+					mCurFrontDatas = ZndzDataUtil.getManFront();
+					mCurBackDatas = ZndzDataUtil.getManBack();
+				}
+			});
+			System.out.println("after clickMan " + System.currentTimeMillis());
 			setCur();
 		}
 
 		public void clickWoMan() {
 			setIvSexBg(true);
-			mCurFrontDatas = ZndzDataUtil.getWoManFront();
-			mCurBackDatas = ZndzDataUtil.getWoManBack();
-			if (mFrontOrBack)
-				mIv.setBackgroundResource(R.drawable.woman_front);
-			else
-				mIv.setBackgroundResource(R.drawable.woman_back);
+			ThreadManager.getInstance().exeRunnable(new Runnable() {
+
+				@Override
+				public void run() {
+					mCurFrontDatas = ZndzDataUtil.getWoManFront();
+					mCurBackDatas = ZndzDataUtil.getWoManBack();
+				}
+			});
 			setCur();
 		}
 
@@ -134,13 +154,38 @@ public class ZndzAct extends KJActivity {
 		}
 
 		private void setCur() {
-			if (mFrontOrBack && mCurFrontDatas != null) {
-				mIv.setDatas(mCurFrontDatas);
-			} else {
-				if (mCurBackDatas != null) {
-					mIv.setDatas(mCurBackDatas);
+			rotate(mIv, new Runnable() {
+
+				@Override
+				public void run() {
+					ZndzAct.this.runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							ThreadManager.getInstance().exeRunnable(
+									new Runnable() {
+
+										@Override
+										public void run() {
+											if (mFrontOrBack
+													&& mCurFrontDatas != null) {
+												while (mCurFrontDatas == null)
+													;
+												mIv.setDatas(mCurFrontDatas);
+											} else {
+												if (mCurBackDatas != null) {
+													while (mCurBackDatas == null)
+														;
+													mIv.setDatas(mCurBackDatas);
+												}
+											}
+
+										}
+									});
+						}
+					});
 				}
-			}
+			});
 		}
 
 		/**
@@ -150,7 +195,7 @@ public class ZndzAct extends KJActivity {
 		 * @param txt
 		 */
 		private void setTvCtl(final String txt) {
-			rotate(mTvCtl,new Runnable() {
+			rotate(mTvCtl, new Runnable() {
 
 				@Override
 				public void run() {
@@ -159,11 +204,12 @@ public class ZndzAct extends KJActivity {
 			});
 		}
 
-		private void rotate(final View v,final Runnable run) {
-
-			ObjectAnimator anim = ObjectAnimator.ofFloat(v, "rotationY",
-					0.0f, 90.0f);
-			anim.setDuration(500);
+		private void rotate(final View v, final Runnable run) {
+			if (run != null)
+				run.run();
+			ObjectAnimator anim = ObjectAnimator.ofFloat(v, "rotationY", 0.0f,
+					90.0f);
+			anim.setDuration(600);
 			anim.addListener(new AnimatorListener() {
 
 				@Override
@@ -181,7 +227,7 @@ public class ZndzAct extends KJActivity {
 
 					ObjectAnimator anim = ObjectAnimator.ofFloat(v,
 							"rotationY", 270.0f, 360.0f);
-					anim.setDuration(500);
+					anim.setDuration(600);
 					anim.start();
 				}
 
@@ -207,5 +253,6 @@ public class ZndzAct extends KJActivity {
 				mIvSexFemale.setBackgroundResource(R.drawable.zndz_female_grey);
 			}
 		}
+
 	}
 }

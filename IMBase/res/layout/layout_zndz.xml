@@ -21,8 +21,9 @@
             <com.kjstudy.test.view.CustomeImgView
                 android:id="@+id/iv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:background="@drawable/woman_front"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/woman_front" />
+ 
         </LinearLayout>
 
         <RelativeLayout

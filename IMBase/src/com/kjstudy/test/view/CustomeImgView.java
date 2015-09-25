@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.kjstudy.core.thread.ThreadManager;
 import com.kjstudy.core.util.DensityUtil;
 
 public class CustomeImgView extends ImageView {
@@ -35,7 +36,8 @@ public class CustomeImgView extends ImageView {
 		super(context, attrs, defStyle);
 	}
 
-	public void setDatas(List<MapInfo> datas) {
+	public void setDatas(final List<MapInfo> datas) {
+		System.out.println("before setdata " + System.currentTimeMillis());
 		if (datas == null || datas.size() == 0)
 			return;
 		if (mH == null)
@@ -46,12 +48,14 @@ public class CustomeImgView extends ImageView {
 		for (int i = 0; i < len; i++)
 			mH.put(i, mDatas.get(i));
 		mBitmaps = new Bitmap[len];
+		System.out.println("after setdata " + System.currentTimeMillis());
 		init();
 	}
 
 	private void init() {
 		if (mDatas == null)
 			return;
+		System.out.println("before init  " + System.currentTimeMillis());
 		int len = mDatas.size();
 		for (int i = 0; i < len; i++) {
 			MapInfo mi = mH.get(i);
@@ -59,22 +63,26 @@ public class CustomeImgView extends ImageView {
 				throw new RuntimeException("mapinfo could not be null");
 			mBitmaps[i] = BitmapFactory.decodeResource(getResources(),
 					mi.getResIdDef());
+			// mBitmaps[i]=mi.getBmpDef();
 		}
-		invalidate();
+		System.out.println("after init " + System.currentTimeMillis());
+		postInvalidate();
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		if (mBitmaps != null) {
+		System.out.println("before draw  " + System.currentTimeMillis());
+		if (mBitmaps != null&&mBitmaps[0]!=null) {
 			int left = DensityUtil.getScreenWidth(getContext()) / 2
 					- mBitmaps[0].getWidth() / 2;
-			left=0;
+			left = 0;
 			for (int i = 0; i < mBitmaps.length; i++) {
-				canvas.drawBitmap(mBitmaps[i], left, 0, null);
+				if (mBitmaps[i] != null)
+					canvas.drawBitmap(mBitmaps[i], left, 0, null);
 			}
 		}
-		System.out.println("click "+System.currentTimeMillis());
+		System.out.println("after draw " + System.currentTimeMillis());
 	}
 
 	@Override
@@ -122,6 +130,7 @@ public class CustomeImgView extends ImageView {
 				mBitmaps[mCurClickIndex].recycle();
 				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
 						getResources(), mi.getResIdPress());
+				// mBitmaps[mCurClickIndex] =mi.getBmpPress();
 			}
 			if (lis != null)
 				lis.onClick(this);
