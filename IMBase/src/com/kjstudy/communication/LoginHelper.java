@@ -78,7 +78,8 @@ public class LoginHelper implements InitListener, OnECDeviceConnectListener {
 
 	@Override
 	public void onDisconnect(ECError error) {
-		ViewInject.toast("login error");
-		ViewInject.toast(error.toString());
+		if(100==error.errorCode)
+		ViewInject.toast("connecting communication server");
+//		ViewInject.toast(error.toString());
 	}
 }

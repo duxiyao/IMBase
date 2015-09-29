@@ -25,6 +25,7 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.JsonUtil;
+import com.kjstudy.test.act.ImgHeadAct;
 import com.kjstudy.test.act.ZndzAct;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -55,13 +56,16 @@ public class Login extends KJActivity {
 		super.widgetClick(v);
 		switch (v.getId()) {
 		case R.id.tv_login:
-			Intent intent =new Intent(this, ZndzAct.class);
-			startActivity(intent);
-//			ViewInject.toast(String.valueOf("on click"));
-//			Intent intent = new Intent("test");
-////			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			intent.addFlags(32);
-//			sendBroadcast(intent);
+			// Intent intent =new Intent(this, ZndzAct.class);
+			// startActivity(intent);
+//			Intent intent = new Intent(this, ImgHeadAct.class);
+//			startActivity(intent);
+
+			// ViewInject.toast(String.valueOf("on click"));
+			// Intent intent = new Intent("test");
+			// // intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			// intent.addFlags(32);
+			// sendBroadcast(intent);
 			// sendBroadcast(new Intent("ACTION_ON_CALLIN"));
 			// Intent intent = new Intent();
 			// PackageManager packageManager = this.getPackageManager();
@@ -82,7 +86,7 @@ public class Login extends KJActivity {
 			// intent.setComponent(cn);
 			// startService(intent);
 			// startActivity(intent);
-			// login();
+			 login();
 			// skipActivity(this, Qrcode.class);
 			break;
 		default:

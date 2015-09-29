@@ -24,24 +24,25 @@ public class SDKHelper {
 	private SDKHelper() {
 
 	}
-	
-	public void init(){
+
+	public void init() {
 		ECDevice.logout(new OnLogoutListener() {
-			
+
 			@Override
 			public void onLogout() {
-				
+
 			}
 		});
 		if (!ECDevice.isInitialized()) {
-			ECDevice.initial(MyApplication.getInstance().getApplicationContext(), LoginHelper.getInstance());
+			ECDevice.initial(MyApplication.getInstance()
+					.getApplicationContext(), LoginHelper.getInstance());
 			return;
 		}
 		// 已经初始化成功，直接进行注册
 		LoginHelper.getInstance().onInitialized();
 	}
-	
-	public ECInitParams getParams(){
+
+	public ECInitParams getParams() {
 		if (mInitParams == null || mInitParams.getInitParams() == null
 				|| mInitParams.getInitParams().isEmpty()) {
 			mInitParams = new ECInitParams();
@@ -69,14 +70,14 @@ public class SDKHelper {
 		mInitParams.setAuthType(ECInitParams.LoginAuthType.PASSWORD_AUTH);
 		// }
 
-
 		// 设置接收VoIP来电事件通知Intent
 		// 呼入界面activity、开发者需修改该类
-//		Intent intent = new Intent(getInstance().mContext, SDKCoreHelper.class);
-//		PendingIntent pendingIntent = PendingIntent.getActivity(
-//				getInstance().mContext, 0, intent,
-//				PendingIntent.FLAG_UPDATE_CURRENT);
-//		mInitParams.setPendingIntent(pendingIntent);
+		// Intent intent = new Intent(getInstance().mContext,
+		// SDKCoreHelper.class);
+		// PendingIntent pendingIntent = PendingIntent.getActivity(
+		// getInstance().mContext, 0, intent,
+		// PendingIntent.FLAG_UPDATE_CURRENT);
+		// mInitParams.setPendingIntent(pendingIntent);
 
 		// 设置SDK注册结果回调通知，当第一次初始化注册成功或者失败会通过该引用回调
 		// 通知应用SDK注册状态
@@ -86,7 +87,14 @@ public class SDKHelper {
 		// if(ECDevice.getECMeetingManager() != null) {
 		// ECDevice.getECMeetingManager().setOnMeetingListener(MeetingMsgReceiver.getInstance());
 		// }
-		mInitParams.setOnChatReceiveListener(IMHelper.getInstance()); 
+		mInitParams.setOnChatReceiveListener(IMHelper.getInstance());
 		return mInitParams;
+	}
+
+	public boolean isOnline() {
+		return ECDevice.isInitialized()
+				&& ECDevice.getECDeviceOnlineState() != null
+				&& ECDevice.getECDeviceOnlineState().ONLINE == ECDevice
+						.getECDeviceOnlineState();
 	}
 }
