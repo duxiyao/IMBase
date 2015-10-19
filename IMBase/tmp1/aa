@@ -19,3 +19,34 @@
 				R.drawable.leg);
 		mBitmaps[9] = BitmapFactory.decodeResource(getResources(),
 				R.drawable.foot);
+				
+				
+
+	// try {
+	// JsonReader reader = new JsonReader(new StringReader(json));
+	// while (reader.hasNext()) {
+	// reader.beginObject();
+	// while (reader.hasNext()) {
+	// String tagName = reader.nextName();
+	// if (tagName.equals("code")) {
+	// } else if (tagName.equals("exception")) {
+	// } else if (tagName.equals("identity ")) {
+	// mConsultInfo.setIdentity(reader.nextString());
+	// } else if (tagName.equals("name")) {
+	// mConsultInfo.setName(reader.nextString());
+	// } else if (tagName.equals("phone")) {
+	// mConsultInfo.setPhone(reader.nextString());
+	// } else if (tagName.equals("voipid")) {
+	// mConsultInfo.setVoipId(reader.nextString());
+	// } else if (tagName.equals("idcard")) {
+	// mConsultInfo.setIdCard(reader.nextString());
+	// } else if (tagName.equals("status")) {
+	// mConsultInfo.setStatus(reader.nextString());
+	// }
+	// }
+	//
+	// reader.endObject();
+	// }
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }

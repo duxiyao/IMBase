@@ -3,6 +3,8 @@ package com.kjstudy.test.view;
 import java.util.HashMap;
 import java.util.List;
 
+import org.kymjs.kjframe.utils.KJLoger;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,11 +20,17 @@ import com.kjstudy.core.thread.ThreadManager;
 import com.kjstudy.core.util.DensityUtil;
 
 public class CustomeImgView extends ImageView {
+
+	public interface OnDataInitListener {
+		void onDataInit(CustomeImgView v);
+	}
+
 	private Bitmap[] mBitmaps;
 	private int mCurClickIndex = -1;
 	private List<MapInfo> mDatas;
 	private MapInfo mCurMapInfo;
 	private HashMap<Integer, MapInfo> mH;
+	private OnDataInitListener mOnDataInitListener;
 
 	public CustomeImgView(Context context) {
 		super(context);
@@ -37,7 +45,6 @@ public class CustomeImgView extends ImageView {
 	}
 
 	public void setDatas(final List<MapInfo> datas) {
-		System.out.println("before setdata " + System.currentTimeMillis());
 		if (datas == null || datas.size() == 0)
 			return;
 		if (mH == null)
@@ -48,32 +55,30 @@ public class CustomeImgView extends ImageView {
 		for (int i = 0; i < len; i++)
 			mH.put(i, mDatas.get(i));
 		mBitmaps = new Bitmap[len];
-		System.out.println("after setdata " + System.currentTimeMillis());
 		init();
+		if (mOnDataInitListener != null)
+			mOnDataInitListener.onDataInit(this);
 	}
 
 	private void init() {
 		if (mDatas == null)
 			return;
-		System.out.println("before init  " + System.currentTimeMillis());
 		int len = mDatas.size();
 		for (int i = 0; i < len; i++) {
 			MapInfo mi = mH.get(i);
-			if (mi == null)
-				throw new RuntimeException("mapinfo could not be null");
+			if (mi == null){
+//				throw new RuntimeException("mapinfo could not be null");
+				return;
+			}
 			mBitmaps[i] = BitmapFactory.decodeResource(getResources(),
 					mi.getResIdDef());
-			// mBitmaps[i]=mi.getBmpDef();
 		}
-		System.out.println("after init " + System.currentTimeMillis());
-		postInvalidate();
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+	protected synchronized void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		System.out.println("before draw  " + System.currentTimeMillis());
-		if (mBitmaps != null&&mBitmaps[0]!=null) {
+		if (mBitmaps != null && mBitmaps[0] != null) {
 			int left = DensityUtil.getScreenWidth(getContext()) / 2
 					- mBitmaps[0].getWidth() / 2;
 			left = 0;
@@ -82,67 +87,104 @@ public class CustomeImgView extends ImageView {
 					canvas.drawBitmap(mBitmaps[i], left, 0, null);
 			}
 		}
-		System.out.println("after draw " + System.currentTimeMillis());
 	}
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+	public synchronized boolean onTouchEvent(final MotionEvent event) {
+		KJLoger.debug("action-->" + event.getAction());
+
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			recoveryHighlight();
 			which(event.getX(), event.getY());
-			onClick(true);
+			onClick(1);
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
-			onClick(false);
+			postDelayed(new Runnable() {
+
+				@Override
+				public synchronized void run() {
+					synchronized (this) {
+						onClick(2);	
+					}					
+				}
+			}, 1);
+		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			recoveryHighlight();
+			which(event.getX(), event.getY());
+			onClick(3);
 		}
 		return true;
 	}
 
-	public void which(float x, float y) {
+	private synchronized void recoveryHighlight() {
+		if (mCurClickIndex == -1 || mCurMapInfo == null)
+			return;
+		try {
+			if (mCurMapInfo.getResIdDef() != -1) {
+				mBitmaps[mCurClickIndex].recycle();
+				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
+						getResources(), mCurMapInfo.getResIdDef());
+			}
+		} catch (Exception e) {
+			KJLoger.debug("eeee-->"+mBitmaps.length);
+			KJLoger.debug("eeeecur-->"+mCurClickIndex);
+		}
+
+	}
+
+	public synchronized void which(float x, float y) {
 		if (mBitmaps != null) {
 			for (int i = mBitmaps.length - 1; i >= 1; i--) {
 				// 判断坐标点不超过图片得宽高
 				if ((int) x > mBitmaps[0].getWidth()
-						|| (int) y > mBitmaps[0].getHeight()) {
+						|| (int) y > mBitmaps[0].getHeight()||x<0||y<0) {
 					// clickBitmapListener.ClickBitmap(-1);
 					break;
 				}
 				Bitmap mBitmap = mBitmaps[i];
 				// 判断坐标点是否是在图片得透明区域
-				if (mBitmap.getPixel((int) x, (int) y) != 0) {
+				if (mBitmap != null && mBitmap.getPixel((int) x, (int) y) != 0) {
 					mCurClickIndex = i;
 					mCurMapInfo = mH.get(i);
-					Toast.makeText(getContext(), mCurMapInfo.getName(),
-							Toast.LENGTH_SHORT).show();
 					break;
 				}
 			}
 		}
 	}
 
-	private void onClick(boolean du) {
+	private synchronized void onClick(int du) {
 		if (mCurClickIndex == -1 || mCurMapInfo == null)
 			return;
 		MapInfo mi = mH.get(mCurClickIndex);
-		if (mi == null)
-			throw new RuntimeException("mapinfo could not be null");
+		if (mi == null){
+//			throw new RuntimeException("mapinfo could not be null");
+			return;
+		}
 		OnClickListener lis = mi.getClickListener();
-		if (du) {
+		if (du == 1 || du == 3) {
 			if (mi.getResIdPress() != -1) {
 				mBitmaps[mCurClickIndex].recycle();
 				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
 						getResources(), mi.getResIdPress());
-				// mBitmaps[mCurClickIndex] =mi.getBmpPress();
 			}
-			if (lis != null)
-				lis.onClick(this);
-		} else {
+		
+		} else if (du == 2) {
 			if (mi.getResIdDef() != -1) {
 				mBitmaps[mCurClickIndex].recycle();
 				mBitmaps[mCurClickIndex] = BitmapFactory.decodeResource(
 						getResources(), mi.getResIdDef());
 			}
+			if (lis != null && du == 2){
+				lis.onClick(this);
+				Toast.makeText(getContext(), mCurMapInfo.getName(),
+						Toast.LENGTH_SHORT).show();
+			}
 			mCurClickIndex = -1;
 			mCurMapInfo = null;
 		}
 		invalidate();
+	}
+
+	public void setOnDataInitListener(OnDataInitListener lis) {
+		mOnDataInitListener = lis;
 	}
 }

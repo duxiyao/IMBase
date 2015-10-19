@@ -12,10 +12,6 @@ public class MapInfo {
 	private String name;
 	private int resIdDef;
 	private int resIdPress = -1;
-	private Bitmap bmpDef;
-	private Bitmap bmpPress;
-	private Drawable drDef;
-	private Drawable drPress;
 	private OnClickListener clickListener;
 
 	public String getName() {
@@ -32,8 +28,8 @@ public class MapInfo {
 
 	public void setResIdDef(int resIdDef) {
 		this.resIdDef = resIdDef;
-//		 bmpDef = getBmp(resIdDef);
-//		drDef = getDrawable(resIdDef);
+		// bmpDef = getBmp(resIdDef);
+		// drDef = getDrawable(resIdDef);
 	}
 
 	public int getResIdPress() {
@@ -42,8 +38,8 @@ public class MapInfo {
 
 	public void setResIdPress(int resIdPress) {
 		this.resIdPress = resIdPress;
-//		 bmpPress = getBmp(resIdPress);
-//		drPress = getDrawable(resIdPress);
+		// bmpPress = getBmp(resIdPress);
+		// drPress = getDrawable(resIdPress);
 	}
 
 	public OnClickListener getClickListener() {
@@ -53,39 +49,23 @@ public class MapInfo {
 	public void setClickListener(OnClickListener clickListener) {
 		this.clickListener = clickListener;
 	}
-
-	public Bitmap getBmpDef() {
-		return bmpDef;
-	}
-
-	public void setBmpDef(Bitmap bmpDef) {
-		this.bmpDef = bmpDef;
-	}
-
-	public Bitmap getBmpPress() {
-		return bmpPress;
-	}
-
-	public void setBmpPress(Bitmap bmpPress) {
-		this.bmpPress = bmpPress;
-	}
-
-	private Bitmap getBmp(int resId) {
-		// return BitmapFactory.decodeResource(MyApplication.getInstance()
-		// .getResources(), resId);
-		return getbmp(resId);
-	}
-
-	private Drawable getDrawable(int resId) {
-		return MyApplication.getInstance().getResources().getDrawable(resId);
-	}
-
-	Bitmap getbmp(int resId) {
-		BitmapFactory.Options opt = new BitmapFactory.Options();
-		opt.inPreferredConfig = Bitmap.Config.RGB_565;
-		opt.inPurgeable = true;
-		opt.inInputShareable = true;
-		return BitmapFactory.decodeResource(MyApplication.getInstance()
-				.getResources(), R.drawable.man_front, opt);
-	}
+//
+//	private Bitmap getBmp(int resId) {
+//		// return BitmapFactory.decodeResource(MyApplication.getInstance()
+//		// .getResources(), resId);
+//		return getbmp(resId);
+//	}
+//
+//	private Drawable getDrawable(int resId) {
+//		return MyApplication.getInstance().getResources().getDrawable(resId);
+//	}
+//
+//	Bitmap getbmp(int resId) {
+//		BitmapFactory.Options opt = new BitmapFactory.Options();
+//		opt.inPreferredConfig = Bitmap.Config.RGB_565;
+//		opt.inPurgeable = true;
+//		opt.inInputShareable = true;
+//		return BitmapFactory.decodeResource(MyApplication.getInstance()
+//				.getResources(), R.drawable.man_front, opt);
+//	}
 }

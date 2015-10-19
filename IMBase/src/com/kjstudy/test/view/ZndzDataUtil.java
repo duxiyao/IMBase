@@ -3,6 +3,9 @@ package com.kjstudy.test.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.View;
+import android.view.View.OnClickListener;
+
 import com.imbase.R;
 
 public class ZndzDataUtil {
@@ -74,6 +77,13 @@ public class ZndzDataUtil {
 			mi.setName("leg");
 			mi.setResIdDef(R.drawable.man_leg);
 			mi.setResIdPress(R.drawable.man_leg_click);
+			mi.setClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+				}
+			});
 			datas.add(mi);
 
 			mi = new MapInfo();
