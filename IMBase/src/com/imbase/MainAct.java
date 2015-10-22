@@ -59,10 +59,10 @@ public class MainAct extends KJActivity {
 	@Override
 	public void initWidget() {
 		super.initWidget();
-		if (!SDKHelper.getInstance().isOnline()) {
-			skipActivity(this, Login.class);
-			return;
-		}
+//		if (!SDKHelper.getInstance().isOnline()) {
+//			skipActivity(this, Login.class);
+//			return;
+//		}
 		mVp.setOnViewChangeListener(new OnViewChangeListener() {
 
 			@Override
@@ -133,7 +133,7 @@ public class MainAct extends KJActivity {
 //		registerReceiver(new String[] { CASIntent.INTETN_KICKOFF,
 //				CASIntent.INTENT_DISCONNECT_CCP, 
 //				SLDIntent.ACTION_ACCOUNT_LOGOUT });
-		setFilters(CCPIntentUtils.INTENT_KICKEDOFF);
+//		setFilters(CCPIntentUtils.INTENT_KICKEDOFF);
 	}
 
 	@Override

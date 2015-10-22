@@ -79,16 +79,8 @@ public class MainFooterView extends LinearLayout implements OnClickListener {
 	private void initView() {
 		if (isInEditMode())
 			return;
-//		View v = LayoutInflater.from(getContext()).inflate(
-//				R.layout.layout_main_footer, this);
-//		mTvHome = (TextView) v.findViewById(R.id.tv_hospital_main_ui_home);
-//		mTvHomeUnclick = (TextView) v
-//				.findViewById(R.id.tv_hospital_main_ui_home_unclick);
-//		mTvMsg = (TextView) v.findViewById(R.id.tv_hospital_main_ui_msg);
-//		mTvMsgUnclick = (TextView) v
-//				.findViewById(R.id.tv_hospital_main_ui_msg_unclick);
-//		mTvHomeUnclick.setOnClickListener(this);
-//		mTvMsgUnclick.setOnClickListener(this);
+		View v = LayoutInflater.from(getContext()).inflate(
+				R.layout.layout_main_footer, this);
 	}
 
 	/**
@@ -171,14 +163,14 @@ public class MainFooterView extends LinearLayout implements OnClickListener {
 		if (v instanceof TextView) {
 			int itemIndex = -1;
 			switch (v.getId()) {
-//			case R.id.tv_hospital_main_ui_home_unclick:
-//				onTvClick(mTvMsg, mTvHomeUnclick, mTvHome, mTvMsgUnclick);
-//				itemIndex = 0;
-//				break;
-//			case R.id.tv_hospital_main_ui_msg_unclick:
-//				onTvClick(mTvMsgUnclick, mTvHome, mTvMsg, mTvHomeUnclick);
-//				itemIndex = 1;
-//				break;
+			// case R.id.tv_hospital_main_ui_home_unclick:
+			// onTvClick(mTvMsg, mTvHomeUnclick, mTvHome, mTvMsgUnclick);
+			// itemIndex = 0;
+			// break;
+			// case R.id.tv_hospital_main_ui_msg_unclick:
+			// onTvClick(mTvMsgUnclick, mTvHome, mTvMsg, mTvHomeUnclick);
+			// itemIndex = 1;
+			// break;
 			default:
 				break;
 			}

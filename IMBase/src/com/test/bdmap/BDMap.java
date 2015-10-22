@@ -41,7 +41,6 @@ public class BDMap extends KJActivity {
 		mLocationClient.registerLocationListener(myListener); // 注册监听函数
 		initLocation();
 		mLocationClient.start();
-		// LocationClient
 
 		// Tencent tencent = Tencent.createInstance("1104917096",
 		// this.getApplicationContext());

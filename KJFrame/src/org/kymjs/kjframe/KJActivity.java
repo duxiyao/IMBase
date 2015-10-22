@@ -21,12 +21,14 @@ import org.kymjs.kjframe.utils.KJLoger;
 
 import com.umeng.analytics.MobclickAgent;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
 
 /**
  * @author kymjs (https://github.com/kymjs)
@@ -57,6 +59,9 @@ public abstract class KJActivity extends FrameActivity {
 		KJActivityStack.create().addActivity(this);
 		KJLoger.state(this.getClass().getName(), "---------onCreat ");
 		super.onCreate(savedInstanceState);
+		ActionBar bar = getActionBar();
+		bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		bar.setCustomView(getCustomBar());
 	}
 
 	@Override
@@ -200,5 +205,9 @@ public abstract class KJActivity extends FrameActivity {
 	public void unRegisterBroadcast() {
 		if (mIntentFilter != null)
 			unregisterReceiver(myBroadcastReceiver);
+	}
+
+	protected int getCustomBar() {
+		return R.layout.actionbar_default;
 	}
 }

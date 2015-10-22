@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingTop="@dimen/dp_3"
+    android:paddingBottom="@dimen/dp_3"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dp_3"
+        android:drawableTop="@drawable/im_plus_btn_bg"
+        android:gravity="center"
+        android:text="地图" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dp_3"
+        android:drawableTop="@drawable/im_plus_btn_bg"
+        android:gravity="center"
+        android:text="趣味" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dp_3"
+        android:drawableTop="@drawable/im_plus_btn_bg"
+        android:gravity="center"
+        android:text="好友" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dp_3"
+        android:drawableTop="@drawable/im_plus_btn_bg"
+        android:gravity="center"
+        android:text="我" />
+
+</LinearLayout>
