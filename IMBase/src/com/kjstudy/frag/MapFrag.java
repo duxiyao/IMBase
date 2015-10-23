@@ -2,6 +2,9 @@ package com.kjstudy.frag;
 
 import org.kymjs.kjframe.ui.BindView;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;

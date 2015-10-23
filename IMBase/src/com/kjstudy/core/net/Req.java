@@ -34,6 +34,8 @@ import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.http.HttpParams;
 import org.kymjs.kjframe.utils.KJLoger;
 
+import com.kjstudy.core.util.MM;
+
 import android.util.Log;
 
 public class Req {
@@ -41,14 +43,35 @@ public class Req {
 	private static String mHost = "http://www.doctorsclub.cn";
 	private static String mHandler = "/handlers/";
 	private static String mUrlPre = mHost + mHandler;
-	
-	public static void login(String name,String pwd,HttpCallBack cb){
-		String url=mUrlPre+"HLogin.ashx";
-        KJHttp kjh = new KJHttp();
-        HttpParams params = new HttpParams(); 
-        params.put("email", name);
-        params.put("pwd", pwd);
-        kjh.post(url, params,false,cb);
+
+	public static void login(String name, String pwd, HttpCallBack cb) {
+		String url = mUrlPre + "HLogin.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		params.put("email", name);
+		params.put("pwd", pwd);
+		kjh.post(url, params, false, cb);
+	}
+
+	public static void test() {
+		String url = "http://192.168.1.120:9542/ts/TestHandler.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		String content = "test";
+		String password = "12345678aaaaa";
+		byte[] encryptResult = MM.encrypt(content, password);
+		params.put("t", encryptResult);
+		kjh.post(url, params, false, new HttpCallBack() {
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+			}
+			
+			@Override
+			public void onFailure(int errorNo, String strMsg) {
+				super.onFailure(errorNo, strMsg);
+			}
+		});
 	}
 
 	protected List<NameValuePair> mNvps = new ArrayList<NameValuePair>();

@@ -6,12 +6,15 @@ import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.telephony.TelephonyManager;
 
+import com.kjstudy.core.net.Req;
 import com.kjstudy.frag.InterestFrag;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
@@ -82,21 +85,22 @@ public class MainTSAct extends KJActivity {
 		mFragAdapter = new MainFragmentAdapter(getSupportFragmentManager(),
 				frags);
 		mVp.setAdapter(mFragAdapter);
-		
+
 		mVp.setOnPageChangeListener(new OnPageChangeListener() {
-			
+
 			@Override
 			public void onPageSelected(int arg0) {
 				ViewInject.toast(String.valueOf(arg0));
+				Req.test();
 			}
-			
+
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 			}
-			
+
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 			}
-		});  
+		});
 	}
 }
