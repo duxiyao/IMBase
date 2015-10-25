@@ -13,6 +13,9 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import Decoder.BASE64Decoder;
+import Decoder.BASE64Encoder;
+
 public class MM {
 	/**
 	 * 加密
@@ -145,5 +148,27 @@ public class MM {
 		byte[] decryptFrom = parseHexStr2Byte(encryptResultStr);
 		byte[] decryptResult = decrypt(decryptFrom, password);
 		System.out.println("解密后：" + new String(decryptResult));
+	}
+	
+
+	public static String aesEncrypt(String str, String key) throws Exception {
+		if (str == null || key == null)
+			return null;
+		Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+		cipher.init(Cipher.ENCRYPT_MODE,
+				new SecretKeySpec(key.getBytes("utf-8"), "AES"));
+		byte[] bytes = cipher.doFinal(str.getBytes("utf-8"));
+		return new BASE64Encoder().encode(bytes);
+	}
+
+	public static String aesDecrypt(String str, String key) throws Exception {
+		if (str == null || key == null)
+			return null;
+		Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+		cipher.init(Cipher.DECRYPT_MODE,
+				new SecretKeySpec(key.getBytes("utf-8"), "AES"));
+		byte[] bytes = new BASE64Decoder().decodeBuffer(str);
+		bytes = cipher.doFinal(bytes);
+		return new String(bytes, "utf-8");
 	}
 }
