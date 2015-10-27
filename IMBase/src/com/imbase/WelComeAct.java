@@ -2,6 +2,7 @@ package com.imbase;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -29,11 +30,11 @@ public class WelComeAct extends KJActivity {
 
 	@Override
 	public void setRootView() {
-		// requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-		// WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.layout_welcom);
-	}
+	} 
 
 	@Override
 	public void initWidget() {
@@ -44,11 +45,6 @@ public class WelComeAct extends KJActivity {
 		super.initWidget();
 		mTimer = new Timer(true);
 		mTimer.schedule(mTask, 100, 1000);
-		try {
-			getActionBar().hide();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

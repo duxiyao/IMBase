@@ -96,4 +96,8 @@ public class AnnotateUtil {
     public static void initBindView(Fragment frag) {
         initBindView(frag, frag.getActivity().getWindow().getDecorView());
     }
+    
+    public static void initBindView(android.support.v4.app.Fragment frag) {
+        initBindView(frag, frag.getActivity().getWindow().getDecorView());
+    }
 }

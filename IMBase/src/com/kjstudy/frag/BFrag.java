@@ -1,5 +1,7 @@
 package com.kjstudy.frag;
 
+import org.kymjs.kjframe.ui.AnnotateUtil;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,7 @@ public class BFrag extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		AnnotateUtil.initBindView(this);
 		initWidget();
 	}
 

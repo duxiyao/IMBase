@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="action_bar_bg">#22292C</color>
+    <color name="content_black_bg">#EBEBEB</color>
+    <color name="content_white_bg">#ffffff</color>
+    <color name="txt_black_bg">#4A4A4A</color>
+    <color name="txt_grey_bg">#ABABAB</color>
+    <color name="txt_white_bg">#ffffff</color>
+    
     <color name="white">#ffffff</color>
     <color name="dialog_title_color">#ff74A6F1</color>
     <color name="big_line_color">#40000000</color>
@@ -31,7 +38,6 @@
     <color name="color_242526">#242526</color>
     <color name="color_babcbf">#babcbf</color>
     <color name="transparent">#00000000</color>
-    <color name="consult_bg">#F3F6F8</color>
     <color name="album_ui_bg">#ff191919</color>
     <color name="color_8d8f91">#FF8D8F91</color>
     <color name="color_red">#FF0000</color>

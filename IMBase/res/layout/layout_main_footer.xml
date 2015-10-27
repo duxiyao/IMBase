@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingTop="@dimen/dp_3"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/dp_3"
-    android:orientation="horizontal" >
+    android:paddingTop="@dimen/dp_3" >
 
     <TextView
         android:layout_width="0dp"
@@ -14,7 +14,9 @@
         android:drawablePadding="@dimen/dp_3"
         android:drawableTop="@drawable/im_plus_btn_bg"
         android:gravity="center"
-        android:text="地图" />
+        android:text="地图"
+        android:textColor="@color/txt_grey_bg"
+        android:textSize="@dimen/text_size_three" />
 
     <TextView
         android:layout_width="0dp"
@@ -23,7 +25,9 @@
         android:drawablePadding="@dimen/dp_3"
         android:drawableTop="@drawable/im_plus_btn_bg"
         android:gravity="center"
-        android:text="趣味" />
+        android:text="趣味"
+        android:textColor="@color/txt_grey_bg"
+        android:textSize="@dimen/text_size_three" />
 
     <TextView
         android:layout_width="0dp"
@@ -32,7 +36,9 @@
         android:drawablePadding="@dimen/dp_3"
         android:drawableTop="@drawable/im_plus_btn_bg"
         android:gravity="center"
-        android:text="好友" />
+        android:text="好友"
+        android:textColor="@color/txt_grey_bg"
+        android:textSize="@dimen/text_size_three" />
 
     <TextView
         android:layout_width="0dp"
@@ -41,6 +47,8 @@
         android:drawablePadding="@dimen/dp_3"
         android:drawableTop="@drawable/im_plus_btn_bg"
         android:gravity="center"
-        android:text="我" />
+        android:text="我"
+        android:textColor="@color/txt_grey_bg"
+        android:textSize="@dimen/text_size_three" />
 
 </LinearLayout>

@@ -13,6 +13,7 @@ import com.kjstudy.frag.maputil.MapLocation.LocationListener;
 
 public class MapFrag extends BFrag {
 
+	@BindView(id=R.id.bmapView)
 	private MapView mMapView;
 	private BaiduMap mBaiduMap;
 
@@ -23,7 +24,6 @@ public class MapFrag extends BFrag {
 
 	@Override
 	protected void initWidget() {
-		mMapView = findView(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
 		// 普通地图
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);

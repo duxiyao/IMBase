@@ -59,9 +59,15 @@ public abstract class KJActivity extends FrameActivity {
 		KJActivityStack.create().addActivity(this);
 		KJLoger.state(this.getClass().getName(), "---------onCreat ");
 		super.onCreate(savedInstanceState);
-		ActionBar bar = getActionBar();
-		bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		bar.setCustomView(getCustomBar());
+		try {
+			ActionBar bar = getActionBar();
+			if (bar != null) {
+				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+				bar.setCustomView(getCustomBar());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

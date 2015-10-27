@@ -6,7 +6,7 @@ import android.os.Environment;
 
 public class FileAccessor {
 
-	public static final String APP_NAME = "sinldo";
+	public static final String APP_NAME = "ts";
 	public static final String APPS_ROOT_DIR = getExternalStorePath() + "/"
 			+ APP_NAME;
 	public static final String CRASH_PATH = APPS_ROOT_DIR + "/Log";
@@ -14,6 +14,15 @@ public class FileAccessor {
 	public static final String DBNAME = "test.db";
 	public static final String DBPATH = "sdcard";
 	public static final String QRCODE_PATH = "/qrcode";
+
+	public static final String IMESSAGE_VOICE = APPS_ROOT_DIR + "/voice";
+	public static final String IMESSAGE_IMAGE = APPS_ROOT_DIR + "/image";
+	public static final String IMESSAGE_FILE = APPS_ROOT_DIR + "/file";
+	public static final String CCP_AVATAR = APPS_ROOT_DIR + "/avatar";
+	public static final String CONTACT_BAKUP = APPS_ROOT_DIR + "/backup";
+	public static final String ATTACH_IMAGE = APPS_ROOT_DIR + "/attach/"; 
+	public static final String IMAGE_HEADS = APPS_ROOT_DIR + "/image/heads";
+	public static final String IMAGE_CLAMP = APPS_ROOT_DIR + "/image/clamp";
 
 	/**
 	 * 是否有外存卡
