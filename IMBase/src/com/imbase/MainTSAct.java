@@ -18,8 +18,9 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.frag.InterestFrag;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
-import com.kjstudy.frag.MapFrag;
+import com.kjstudy.frag.NearByFrag;
 import com.kjstudy.plugin.MainFooterView;
+import com.kjstudy.plugin.MainFooterView.OnItemClickListener;
 
 public class MainTSAct extends KJActivity {
 
@@ -73,7 +74,7 @@ public class MainTSAct extends KJActivity {
 	@Override
 	public void initWidget() {
 		super.initWidget();
-		MapFrag mapFrag = new MapFrag();
+		NearByFrag mapFrag = new NearByFrag();
 		InterestFrag comFrag = new InterestFrag();
 		FriendFrag frdFrag = new FriendFrag();
 		IdentityFrag idyFrag = new IdentityFrag();
@@ -100,6 +101,14 @@ public class MainTSAct extends KJActivity {
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
+		mFoot.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onFootItemClick(int clickItemIndex) {
+				if (clickItemIndex >= 0 && clickItemIndex <= 3)
+					mVp.setCurrentItem(clickItemIndex);
 			}
 		});
 	}

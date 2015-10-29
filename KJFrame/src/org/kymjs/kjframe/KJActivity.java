@@ -21,14 +21,18 @@ import org.kymjs.kjframe.utils.KJLoger;
 
 import com.umeng.analytics.MobclickAgent;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * @author kymjs (https://github.com/kymjs)
@@ -59,15 +63,49 @@ public abstract class KJActivity extends FrameActivity {
 		KJActivityStack.create().addActivity(this);
 		KJLoger.state(this.getClass().getName(), "---------onCreat ");
 		super.onCreate(savedInstanceState);
+
 		try {
+
 			ActionBar bar = getActionBar();
 			if (bar != null) {
+				initStatusbarBg();
 				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 				bar.setCustomView(getCustomBar());
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void initStatusbarBg() {
+		try {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				setTranslucentStatus(true);
+			}
+
+			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+			tintManager.setStatusBarTintEnabled(true);
+			// tintManager.setNavigationBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(R.color.color_0698F6);
+//			tintManager.setTintColor(getResources().getColor(
+//					R.color.color_0698F6));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@TargetApi(19)
+	private void setTranslucentStatus(boolean on) {
+		Window win = getWindow();
+		WindowManager.LayoutParams winParams = win.getAttributes();
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		if (on) {
+			winParams.flags |= bits;
+		} else {
+			winParams.flags &= ~bits;
+		}
+		win.setAttributes(winParams);
 	}
 
 	@Override

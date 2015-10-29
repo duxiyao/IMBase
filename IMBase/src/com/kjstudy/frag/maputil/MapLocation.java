@@ -101,14 +101,6 @@ public class MapLocation {
 	public BDLocationListener myListener = new MyLocationListener();
 	private LocationListener mLocationListener;
 	private int mSpan = 0;
-	
-	public MapLocation(LocationListener lis) {
-		mLocationListener=lis;
-		mContext = MyApplication.getInstance().getApplicationContext();
-		mLocationClient = new LocationClient(mContext);
-		mLocationClient.registerLocationListener(new MyLocationListener());
-		initLocation();
-	}
 
 	private void initLocation() {
 		LocationClientOption option = new LocationClientOption();
@@ -126,7 +118,14 @@ public class MapLocation {
 		mLocationClient.setLocOption(option);
 	}
 
-	public void startLocation() {
+	public void startLocation(LocationListener lis) {
+		if (lis != null)
+			mLocationListener = lis;
+
+		mContext = MyApplication.getInstance().getApplicationContext();
+		mLocationClient = new LocationClient(mContext);
+		mLocationClient.registerLocationListener(new MyLocationListener());
+		initLocation();
 		if (mLocationClient != null)
 			mLocationClient.start();
 	}

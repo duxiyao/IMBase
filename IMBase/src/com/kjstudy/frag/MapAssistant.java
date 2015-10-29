@@ -8,14 +8,18 @@ import com.kjstudy.frag.maputil.MapOverlay;
 
 public class MapAssistant {
 
+	private static MapLocation mMapLocation;
+
 	public static void startLocation(LocationListener lis) {
-		new MapLocation(lis).startLocation();
+		if (mMapLocation == null) {
+			mMapLocation = new MapLocation();
+		}
+		mMapLocation.startLocation(lis);
 	}
 
-	public static void addOverlay(BaiduMap baiduMap, BDLocation location) { 
-		MapOverlay mapOverlay=new MapOverlay(baiduMap);
+	public static void addOverlay(BaiduMap baiduMap, BDLocation location) {
+		MapOverlay mapOverlay = new MapOverlay(baiduMap);
 		mapOverlay.locationMe(location);
 		mapOverlay.randomAroundMe(location);
 	}
 }
- 
