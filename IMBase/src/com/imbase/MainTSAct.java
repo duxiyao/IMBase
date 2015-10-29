@@ -18,7 +18,7 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.frag.InterestFrag;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
-import com.kjstudy.frag.NearByFrag;
+import com.kjstudy.frag.SearchFrag;
 import com.kjstudy.plugin.MainFooterView;
 import com.kjstudy.plugin.MainFooterView.OnItemClickListener;
 
@@ -74,7 +74,7 @@ public class MainTSAct extends KJActivity {
 	@Override
 	public void initWidget() {
 		super.initWidget();
-		NearByFrag mapFrag = new NearByFrag();
+		SearchFrag mapFrag = new SearchFrag();
 		InterestFrag comFrag = new InterestFrag();
 		FriendFrag frdFrag = new FriendFrag();
 		IdentityFrag idyFrag = new IdentityFrag();

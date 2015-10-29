@@ -19,15 +19,14 @@ public class IdentityFrag extends BFrag {
 	private FragmentTransaction mTransaction;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.frag_layout_main, container, false);
-		return v;
+	protected int getLayoutId() {
+		return R.layout.frag_layout_main;
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	protected void initWidget() {
+		super.initWidget();
+
 		mTeacherFrag = new TeacherFrag();
 		mStudentFrag = new StudentFrag();
 		mCurFrag = mStudentFrag;

@@ -102,6 +102,26 @@ public class MapLocation {
 	private LocationListener mLocationListener;
 	private int mSpan = 0;
 
+	private static MapLocation mInstance;
+
+	private MapLocation() {
+		mContext = MyApplication.getInstance().getApplicationContext();
+		mLocationClient = new LocationClient(mContext);
+		initLocation();
+		mLocationClient.registerLocationListener(myListener);
+	}
+
+	public static MapLocation getInstance() {
+		if (mInstance == null) {
+			synchronized (MapLocation.class) {
+				if (mInstance == null) {
+					mInstance = new MapLocation();
+				}
+			}
+		}
+		return mInstance;
+	}
+
 	private void initLocation() {
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
@@ -118,15 +138,16 @@ public class MapLocation {
 		mLocationClient.setLocOption(option);
 	}
 
-	public void startLocation(LocationListener lis) {
+	public MapLocation setLLis(LocationListener lis) {
 		if (lis != null)
 			mLocationListener = lis;
+		if (mLocationClient.isStarted()) {
+			mLocationClient.stop();
+		}
+		return this;
+	}
 
-		mContext = MyApplication.getInstance().getApplicationContext();
-		mLocationClient = new LocationClient(mContext);
-		mLocationClient.registerLocationListener(new MyLocationListener());
-		initLocation();
-		if (mLocationClient != null)
-			mLocationClient.start();
+	public void startLocation() {
+		mLocationClient.start();
 	}
 }
