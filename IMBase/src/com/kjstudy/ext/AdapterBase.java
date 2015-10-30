@@ -1,7 +1,11 @@
 package com.kjstudy.ext;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.kymjs.kjframe.ui.AnnotateUtil;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -17,8 +21,7 @@ import com.imbase.MyApplication;
 import com.imbase.R;
 import com.kjstudy.core.util.DensityUtil;
 
-
-public abstract class AdapterBase<T, V> extends BaseAdapter{
+public abstract class AdapterBase<T, V> extends BaseAdapter {
 	protected Context mContext;
 	protected List<T> mDatas;
 	private View emptyView;
@@ -91,7 +94,7 @@ public abstract class AdapterBase<T, V> extends BaseAdapter{
 		// mHolderMem = new HashMap<Integer, V>();
 		// mHolderView = new WeakHashMap<Integer, View>();
 	}
-	
+
 	protected AdapterBase(Context context) {
 		this.mContext = context;
 		// mHolderMem = new HashMap<Integer, V>();
@@ -175,7 +178,9 @@ public abstract class AdapterBase<T, V> extends BaseAdapter{
 
 	protected abstract int getItemLayout();
 
-	protected abstract V init(int position, View v);
+	protected V init(int position, View v) {
+		return null;
+	}
 
 	protected abstract void process(int position, V h);
 
@@ -239,8 +244,38 @@ public abstract class AdapterBase<T, V> extends BaseAdapter{
 	protected V initHolder(int position, View convertView) {
 		V holder;
 		holder = init(position, convertView);
-		convertView.setTag(holder);
+		if (holder == null) {
+			holder = getHolder();
+			if (holder != null)
+				AnnotateUtil.initBindView(holder, convertView);
+		}
+		if (holder != null)
+			convertView.setTag(holder);
 		return holder;
+	}
+
+	private V getHolder() {
+		try {
+			return (V) getGenericType(1).newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Class getGenericType(int index) {
+		Type genType = getClass().getGenericSuperclass();
+		if (!(genType instanceof ParameterizedType)) {
+			return Object.class;
+		}
+		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+		if (index >= params.length || index < 0) {
+			throw new RuntimeException("Index outof bounds");
+		}
+		if (!(params[index] instanceof Class)) {
+			return Object.class;
+		}
+		return (Class) params[index];
 	}
 
 	protected <W> W find(int id, View v) {
@@ -255,5 +290,5 @@ public abstract class AdapterBase<T, V> extends BaseAdapter{
 			tv.setText("");
 		else
 			tv.setText(s);
-	} 
+	}
 }

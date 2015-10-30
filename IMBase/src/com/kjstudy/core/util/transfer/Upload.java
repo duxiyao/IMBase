@@ -85,12 +85,16 @@ public class Upload extends AbstractTransfered {
 			for(NameValuePair nvp :params.params)				
 				addStringPart(nvp.getName(), nvp.getValue(), entity);
 		}
-		if (params.file != null)
-			entity.addPart("file", new FileBody(params.file,
-					ContentType.DEFAULT_BINARY, params.file.getName()));
-		if (params.fileImg != null)
-			entity.addPart("fileImg", new ByteArrayBody(params.fileImg,
-					ContentType.DEFAULT_BINARY, "tmpimg.jpg"));
+		if(params.sparams!=null){
+			for(String k :params.sparams.keySet())
+				entity.addPart(k, params.sparams.get(k));
+		}
+//		if (params.file != null)
+//			entity.addPart("file", new FileBody(params.file,
+//					ContentType.DEFAULT_BINARY, params.file.getName()));
+//		if (params.fileImg != null)
+//			entity.addPart("fileImg", new ByteArrayBody(params.fileImg,
+//					ContentType.DEFAULT_BINARY, "tmpimg.jpg"));
 		totalSize = entity.getContentLength();
 		return entity;
 	}
