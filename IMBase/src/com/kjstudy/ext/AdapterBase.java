@@ -188,8 +188,8 @@ public abstract class AdapterBase<T, V> extends BaseAdapter {
 	}
 
 	private View getEmptyView(int position, View convertView, ViewGroup parent) {
-		final int screenWidth = DensityUtil.getScreenWidth(mContext);
-		final int screenHeight = DensityUtil.getScreenHeight(mContext);
+		final int screenWidth = DensityUtil.getScreenWidth();
+		final int screenHeight = DensityUtil.getScreenHeight();
 		final int listViewBottom = parent.getBottom();
 		AbsListView.LayoutParams params = null;
 		switch (displayPlace) {

@@ -64,35 +64,6 @@ public abstract class KJActivity extends FrameActivity {
 		KJLoger.state(this.getClass().getName(), "---------onCreat ");
 		super.onCreate(savedInstanceState);
 
-		try {
-
-			ActionBar bar = getActionBar();
-			if (bar != null) {
-				initStatusbarBg();
-				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-				bar.setCustomView(getCustomBar());
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void initStatusbarBg() {
-		try {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-				setTranslucentStatus(true);
-			}
-
-			SystemBarTintManager tintManager = new SystemBarTintManager(this);
-			tintManager.setStatusBarTintEnabled(true);
-			// tintManager.setNavigationBarTintEnabled(true);
-			tintManager.setStatusBarTintResource(R.color.color_0698F6);
-//			tintManager.setTintColor(getResources().getColor(
-//					R.color.color_0698F6));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@TargetApi(19)
@@ -251,7 +222,34 @@ public abstract class KJActivity extends FrameActivity {
 			unregisterReceiver(myBroadcastReceiver);
 	}
 
-	protected int getCustomBar() {
-		return R.layout.actionbar_default;
+	protected void setCustomBar(View v) {
+		try {
+			ActionBar bar = getActionBar();
+			if (bar != null) {
+				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+				bar.setCustomView(v);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void setCustomBarBg(int resId) {
+		if(resId==-1)
+			return;
+		try {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				setTranslucentStatus(true);
+			}
+
+			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+			tintManager.setStatusBarTintEnabled(true);
+			// tintManager.setNavigationBarTintEnabled(true);
+			tintManager.setStatusBarTintResource(resId);
+			// tintManager.setTintColor(getResources().getColor(
+			// R.color.color_0698F6));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

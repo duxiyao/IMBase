@@ -2,6 +2,8 @@ package com.kjstudy.frag;
 
 import org.kymjs.kjframe.ui.AnnotateUtil;
 
+import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class BFrag extends Fragment {
-	
+
 	View mView = null;
-	
+
 	protected int getLayoutId() {
 		return -1;
 	}
@@ -24,12 +26,11 @@ public class BFrag extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		int resId = getLayoutId();
-		
+
 		if (resId != -1)
 			mView = inflater.inflate(resId, container, false);
 		if (mView == null)
-			mView = super
-					.onCreateView(inflater, container, savedInstanceState);
+			mView = super.onCreateView(inflater, container, savedInstanceState);
 		return mView;
 	}
 
@@ -37,7 +38,22 @@ public class BFrag extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		AnnotateUtil.initBindView(this);
+		ObjectAnimator an = ObjectAnimator.ofFloat(mView, "alpha", 0f, 1f);
+		an.setDuration(100);
+		an.start();
 		initWidget();
+	}
+
+	protected void setCustomBar(View v) {
+		try {
+			ActionBar bar = getActivity().getActionBar();
+			if (bar != null) {
+				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+				bar.setCustomView(v);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void initWidget() {
@@ -90,7 +106,7 @@ public class BFrag extends Fragment {
 
 	}
 
-	protected <T> T findView(int vId){
+	protected <T> T findView(int vId) {
 		return (T) mView.findViewById(vId);
 	}
 }

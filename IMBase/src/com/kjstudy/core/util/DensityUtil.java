@@ -1,18 +1,20 @@
 package com.kjstudy.core.util;
 
+import com.imbase.MyApplication;
+
 import android.content.Context;
 import android.view.WindowManager;
 
 public class DensityUtil {
 
-	public static int getScreenWidth(Context context) {
-		WindowManager wm = (WindowManager) context
+	public static int getScreenWidth() {
+		WindowManager wm = (WindowManager) MyApplication.getInstance()
 				.getSystemService(Context.WINDOW_SERVICE);
 		return wm.getDefaultDisplay().getWidth();
 	}
 
-	public static int getScreenHeight(Context context) {
-		WindowManager wm = (WindowManager) context
+	public static int getScreenHeight() {
+		WindowManager wm = (WindowManager) MyApplication.getInstance()
 				.getSystemService(Context.WINDOW_SERVICE);
 		return wm.getDefaultDisplay().getHeight();
 	}

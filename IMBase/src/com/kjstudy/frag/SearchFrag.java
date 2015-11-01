@@ -3,11 +3,14 @@ package com.kjstudy.frag;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.imbase.R;
+import com.kjstudy.bars.BarDefault;
 import com.kjstudy.frag.SupportMapFragment1.OnMapCreated;
 import com.kjstudy.frag.maputil.MapLocation.LocationListener;
 
@@ -18,6 +21,8 @@ public class SearchFrag extends BFrag {
 	private Fragment mCurFrag;
 	private FragmentManager mManager;
 	private FragmentTransaction mTransaction;
+	private BarDefault mBar;
+	private static int mIndex = -1;
 
 	@Override
 	protected int getLayoutId() {
@@ -30,8 +35,31 @@ public class SearchFrag extends BFrag {
 
 		mNearByListFrag = new NearByListFrag();
 		mMapFrag = new MapFrag();
-		mCurFrag = mNearByListFrag;
-		showFragment();
+		if (mIndex == -1 || mIndex == 1)
+			showNearByFrag();
+		else
+			showMapFrag();
+		mBar = new BarDefault();
+		mBar.setTxt(1, "列表");
+		mBar.setTxt(2, "地图");
+		mBar.setOnClickLis(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				switch (v.getId()) {
+				case R.id.tv1:
+					showNearByFrag();
+					break;
+				case R.id.tv2:
+					showMapFrag();
+					break;
+				default:
+					break;
+				}
+
+			}
+		});
+		setCustomBar(mBar.getBarView());
 	}
 
 	private void showFragment() {
@@ -46,11 +74,13 @@ public class SearchFrag extends BFrag {
 	}
 
 	public void showNearByFrag() {
+		mIndex = 1;
 		mCurFrag = mNearByListFrag;
 		showFragment();
 	}
 
 	public void showMapFrag() {
+		mIndex = 2;
 		mCurFrag = mMapFrag;
 		showFragment();
 	}

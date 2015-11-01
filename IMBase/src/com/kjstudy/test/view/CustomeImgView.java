@@ -79,7 +79,7 @@ public class CustomeImgView extends ImageView {
 	protected synchronized void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (mBitmaps != null && mBitmaps[0] != null) {
-			int left = DensityUtil.getScreenWidth(getContext()) / 2
+			int left = DensityUtil.getScreenWidth() / 2
 					- mBitmaps[0].getWidth() / 2;
 			left = 0;
 			for (int i = 0; i < mBitmaps.length; i++) {

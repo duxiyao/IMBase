@@ -3,6 +3,8 @@ package com.kjstudy.act;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.ui.BindView;
 
+import android.view.Window;
+
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
@@ -18,6 +20,7 @@ public class MapAct extends KJActivity {
 
 	@Override
 	public void setRootView() {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.layout_map);
 	}
 

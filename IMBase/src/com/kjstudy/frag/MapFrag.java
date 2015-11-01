@@ -22,9 +22,9 @@ public class MapFrag extends BFrag implements OnMapCreated {
 	@Override
 	protected void initWidget() {
 		super.initWidget();
-		FragmentManager fm = getActivity().getSupportFragmentManager();
+		FragmentManager fm = getChildFragmentManager();
 		mMap = SupportMapFragment1.newInstance(this);
-		fm.beginTransaction().replace(R.id.map, mMap).commit();
+		fm.beginTransaction().replace(R.id.map, mMap).commitAllowingStateLoss();
 	}
 
 	@Override
@@ -35,6 +35,8 @@ public class MapFrag extends BFrag implements OnMapCreated {
 			@Override
 			public void run() {
 				mBaiduMap = mMap.getBaiduMap();
+				if(mBaiduMap==null)
+					return;
 				// 普通地图
 				mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 
