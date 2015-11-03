@@ -94,7 +94,8 @@ public class VerifyCodeAct extends KJActivity {
 						BroadCastUtil
 								.sendBroadCast(IntentNameUtil.REGISTER_SUCCESS);
 					} else {
-						ViewInject.toast(user.getMsg());
+						if (user != null)
+							ViewInject.toast(user.getMsg());
 						dismissDialog();
 					}
 				}
@@ -106,6 +107,7 @@ public class VerifyCodeAct extends KJActivity {
 
 				@Override
 				public void onFinish() {
+					dismissDialog();
 				}
 			});
 			break;

@@ -50,7 +50,7 @@ public class RegisterAct extends KJActivity {
 
 	public void initWidget() {
 		setFilters(IntentNameUtil.REGISTER_SUCCESS);
-		BarDefault bar=new BarDefault();
+		BarDefault bar = new BarDefault();
 		setCustomBar(bar.getBarView());
 	}
 
@@ -88,7 +88,8 @@ public class RegisterAct extends KJActivity {
 									R.anim.sideslip_in_from_right,
 									R.anim.sideslip_out_from_left);
 						} else {
-							ViewInject.toast(user.getMsg());
+							if (user != null)
+								ViewInject.toast(user.getMsg());
 							dismissDialog();
 						}
 					}
@@ -100,6 +101,7 @@ public class RegisterAct extends KJActivity {
 
 					@Override
 					public void onFinish() {
+						dismissDialog();
 					}
 				});
 			}

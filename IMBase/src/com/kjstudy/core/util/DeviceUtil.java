@@ -25,9 +25,9 @@ public class DeviceUtil {
 		}
 		return IMEI;
 	}
-	
-	public static String getCurTime(){
-		return String.valueOf(System.currentTimeMillis());
+
+	public static String getCurTime() {
+		return DateUtil.getCommonDate(System.currentTimeMillis());
 	}
 
 	public static String getAesCode(String time) throws Exception {

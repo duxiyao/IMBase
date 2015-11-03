@@ -85,7 +85,8 @@ public class Req {
 	}
 
 	public static void getVerifyCode(String phone, String pwd, HttpCallBack cb) {
-		String url = mUrlPre + "HGetVerifyCode.ashx";
+//		String url = mUrlPre + "HGetVerifyCode.ashx";
+		String url="http://192.168.1.113:9542/ts/HGetVerifyCode.ashx";
 		KJHttp kjh = new KJHttp();
 		HttpParams params = new HttpParams();
 		if (!addKey(params))

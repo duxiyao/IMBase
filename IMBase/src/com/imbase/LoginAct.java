@@ -67,7 +67,7 @@ public class LoginAct extends KJActivity {
 	public void initWidget() {
 		super.initWidget();
 		setFilters(IntentNameUtil.REGISTER_SUCCESS);
-		BarDefault bar=new BarDefault();
+		BarDefault bar = new BarDefault();
 		setCustomBar(bar.getBarView());
 	}
 
@@ -116,7 +116,8 @@ public class LoginAct extends KJActivity {
 							Globle.setCURUSER(u);
 							ViewInject.toast("登录成功！！");
 						} else {
-							ViewInject.toast(user.getMsg());
+							if (user != null)
+								ViewInject.toast(user.getMsg());
 							dismissDialog();
 						}
 					}
@@ -128,6 +129,7 @@ public class LoginAct extends KJActivity {
 
 					@Override
 					public void onFinish() {
+						dismissDialog();
 					}
 				});
 			}
