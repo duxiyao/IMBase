@@ -58,8 +58,8 @@ public class Login extends KJActivity {
 		case R.id.tv_login:
 			// Intent intent =new Intent(this, ZndzAct.class);
 			// startActivity(intent);
-//			Intent intent = new Intent(this, ImgHeadAct.class);
-//			startActivity(intent);
+			// Intent intent = new Intent(this, ImgHeadAct.class);
+			// startActivity(intent);
 
 			// ViewInject.toast(String.valueOf("on click"));
 			// Intent intent = new Intent("test");
@@ -86,7 +86,7 @@ public class Login extends KJActivity {
 			// intent.setComponent(cn);
 			// startService(intent);
 			// startActivity(intent);
-			 login();
+			login();
 			// skipActivity(this, Qrcode.class);
 			break;
 		default:
@@ -106,9 +106,7 @@ public class Login extends KJActivity {
 			return;
 		}
 		KJLoger.debug("name=" + name + "  pwd=" + pwd);
-		if (mProgressDialog == null)
-			mProgressDialog = ViewInject.getprogress(this,
-					StringUtils.getResString(R.string.request_from_net), false);
+		showDialog();
 		Req.login(name, pwd, new HttpCallBack() {
 			@Override
 			public void onSuccess(Map<String, String> headers, byte[] t) {
@@ -145,6 +143,9 @@ public class Login extends KJActivity {
 	}
 
 	private void showDialog() {
+		if (mProgressDialog == null)
+			mProgressDialog = ViewInject.getprogress(this,
+					StringUtils.getResString(R.string.request_from_net), false);
 		if (mProgressDialog != null && !mProgressDialog.isShowing())
 			mProgressDialog.show();
 	}

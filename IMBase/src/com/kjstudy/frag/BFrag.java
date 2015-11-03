@@ -38,9 +38,16 @@ public class BFrag extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		AnnotateUtil.initBindView(this);
-		ObjectAnimator an = ObjectAnimator.ofFloat(mView, "alpha", 0f, 1f);
-		an.setDuration(100);
-		an.start();
+		try {
+			if (mView != null) {
+				ObjectAnimator an = ObjectAnimator.ofFloat(mView, "alpha", 0f,
+						1f);
+				an.setDuration(100);
+				an.start();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		initWidget();
 	}
 

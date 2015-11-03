@@ -27,6 +27,12 @@ import android.os.Environment;
  */
 public final class FileUtil
 {
+	/**
+	 * @date 2015年11月3日
+	 * @author duxiyao
+	 * @description file name of  current logined user phone
+	 */
+	public static final String FN_CURUSERPHONE="cur_user_phone";
 
 	// ------------------------------ 手机系统相关 ------------------------------
 	public static final String NEWLINE = System.getProperty("line.separator");// 系统的换行符

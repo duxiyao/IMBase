@@ -30,8 +30,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -176,7 +174,7 @@ public class CircleImageView extends ImageView {
 		invalidate();
 	}
 
-	public void setBorderColorResource(@ColorRes int borderColorRes) {
+	public void setBorderColorResource(int borderColorRes) {
 		setBorderColor(getContext().getResources().getColor(borderColorRes));
 	}
 
@@ -194,7 +192,7 @@ public class CircleImageView extends ImageView {
 		invalidate();
 	}
 
-	public void setFillColorResource(@ColorRes int fillColorRes) {
+	public void setFillColorResource(int fillColorRes) {
 		setFillColor(getContext().getResources().getColor(fillColorRes));
 	}
 
@@ -239,7 +237,7 @@ public class CircleImageView extends ImageView {
 	}
 
 	@Override
-	public void setImageResource(@DrawableRes int resId) {
+	public void setImageResource(int resId) {
 		super.setImageResource(resId);
 		mBitmap = getBitmapFromDrawable(getDrawable());
 		setup();

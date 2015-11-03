@@ -19,8 +19,6 @@ import org.kymjs.kjframe.ui.FrameActivity;
 import org.kymjs.kjframe.ui.KJActivityStack;
 import org.kymjs.kjframe.utils.KJLoger;
 
-import com.umeng.analytics.MobclickAgent;
-
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -33,6 +31,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author kymjs (https://github.com/kymjs)
@@ -235,7 +235,7 @@ public abstract class KJActivity extends FrameActivity {
 	}
 
 	protected void setCustomBarBg(int resId) {
-		if(resId==-1)
+		if (resId == -1)
 			return;
 		try {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

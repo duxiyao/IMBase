@@ -34,15 +34,87 @@ import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.http.HttpParams;
 import org.kymjs.kjframe.utils.KJLoger;
 
+import com.kjstudy.core.util.DeviceUtil;
 import com.kjstudy.core.util.MM;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 public class Req {
 
 	private static String mHost = "http://www.doctorsclub.cn";
-	private static String mHandler = "/handlers/";
+	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
+
+	public static void loginTSByQQ(String qqOpenId, String nickname,
+			String photoUrl, String gender, HttpCallBack cb) {
+		String url = mUrlPre + "HLogin.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		if (!addKey(params))
+			return;
+		params.put("type", "qq");
+		params.put("qqOpenId", qqOpenId);
+		params.put("nickname", nickname);
+		params.put("figureurl_qq_2", photoUrl);
+		params.put("gender", gender);
+		kjh.post(url, params, false, cb);
+	}
+
+	public static void loginTS(String phone, String pwd, HttpCallBack cb) {
+		String url = mUrlPre + "HLogin.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		if (!addKey(params))
+			return;
+		params.put("type", "phone");
+		params.put("phone", phone);
+		params.put("pwd", pwd);
+		kjh.post(url, params, false, cb);
+	}
+
+	public static void verifyCode(String phone, String pwd, String verifyCode,
+			HttpCallBack cb) {
+		String url = mUrlPre + "HRegister.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		params.put("phone", phone);
+		params.put("pwd", pwd);
+		params.put("verifyCode", verifyCode);
+		kjh.post(url, params, false, cb);
+	}
+
+	public static void getVerifyCode(String phone, String pwd, HttpCallBack cb) {
+		String url = mUrlPre + "HGetVerifyCode.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		if (!addKey(params))
+			return;
+		params.put("phone", phone);
+		params.put("pwd", pwd);
+		kjh.post(url, params, false, cb);
+	}
+
+	private static boolean addKey(HttpParams p) {
+		if (p == null)
+			return false;
+		String imei = DeviceUtil.getImei();
+		if (TextUtils.isEmpty(imei))
+			return false;
+		String time = DeviceUtil.getCurTime();
+		String aesCode = "";
+		try {
+			aesCode = DeviceUtil.getAesCode(time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (TextUtils.isEmpty(aesCode))
+			return false;
+		p.put("imei", imei);
+		p.put("time", time);
+		p.put("aesCode", aesCode);
+		return true;
+	}
 
 	public static void login(String name, String pwd, HttpCallBack cb) {
 		String url = mUrlPre + "HLogin.ashx";
@@ -66,7 +138,7 @@ public class Req {
 			public void onSuccess(String t) {
 				super.onSuccess(t);
 			}
-			
+
 			@Override
 			public void onFailure(int errorNo, String strMsg) {
 				super.onFailure(errorNo, strMsg);

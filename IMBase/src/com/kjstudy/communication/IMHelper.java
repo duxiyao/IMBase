@@ -3,16 +3,15 @@ package com.kjstudy.communication;
 import java.util.List;
 
 import org.kymjs.kjframe.ui.ViewInject;
+import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
-import android.bluetooth.BluetoothClass.Device;
 import android.os.Process;
 
 import com.imbase.R;
 import com.kjstudy.bean.ImMessage;
 import com.kjstudy.business.handler.IMHandlerManager;
 import com.kjstudy.core.thread.ThreadManager;
-import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.DateUtil;
 import com.kjstudy.core.util.IntentNameUtil;

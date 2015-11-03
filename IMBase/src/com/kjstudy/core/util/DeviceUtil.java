@@ -25,4 +25,12 @@ public class DeviceUtil {
 		}
 		return IMEI;
 	}
+	
+	public static String getCurTime(){
+		return String.valueOf(System.currentTimeMillis());
+	}
+
+	public static String getAesCode(String time) throws Exception {
+		return MM.aesEncrypt(getImei() + time, "sfgnuiqnyzjy1314");
+	}
 }
