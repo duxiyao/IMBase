@@ -2,9 +2,9 @@ package com.kjstudy.core.util.transfer;
 
 import java.io.File;
 
-import com.kjstudy.core.thread.ThreadManager;
-
 import android.text.TextUtils;
+
+import com.kjstudy.core.thread.ThreadManager;
 
 /**
  * @author duxiyao
@@ -43,22 +43,22 @@ public class TransferUtil {
 	 * @param dirPath
 	 * @param listener
 	 */
-	public static void download(String downUrl, String dirPath,
+	public static void download(String downUrl, String filePath,
 			ProgressListener listener) {
 
-		if (TextUtils.isEmpty(dirPath)) {
+		if (TextUtils.isEmpty(filePath)) {
 			if (null != listener)
 				listener.onResponse(false, "", new Exception("lllegal"));
 			return;
 		}
 
-		File f = new File(dirPath);
+		File f = new File(filePath);
 		if (!f.exists())
 			f.mkdirs();
 		if (!f.canWrite())
 			throw new FileCannotWriteException();
 
-		AbstractTransfered download = new Download(downUrl, dirPath);
+		AbstractTransfered download = new Download(downUrl, null, filePath);
 		exe(download, listener);
 	}
 

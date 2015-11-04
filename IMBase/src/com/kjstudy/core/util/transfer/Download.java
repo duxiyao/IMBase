@@ -13,6 +13,9 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+
+import android.util.Log;
 
 /**
  * @author duxiyao
@@ -20,11 +23,15 @@ import java.net.URLConnection;
  *         下载文件类。
  */
 public class Download extends AbstractTransfered {
-	private String downUrl, dirPath;
 
-	public Download(String downUrl, String dirPath) {
+	private static HashMap<String, ProgressListener> mHold = new HashMap<String, ProgressListener>();
+
+	private String downUrl, dirPath, filePath;
+
+	public Download(String downUrl, String dirPath, String filePath) {
 		this.downUrl = downUrl;
 		this.dirPath = dirPath;
+		this.filePath = filePath;
 	}
 
 	private String getFileName() {
@@ -33,24 +40,26 @@ public class Download extends AbstractTransfered {
 		String[] tmp = downUrl.split("/");
 		if (tmp.length <= 0)
 			return null;
-		String name = tmp[tmp.length - 1];
-		if (name.startsWith("imFileDownload?fileName=")) {
-			name = name.replace("imFileDownload?fileName=", "");
-		}
-		return name;
+		return tmp[tmp.length - 1];
 	}
 
 	public void download(ProgressListener listener) {
 		try {
-			String fileName = getFileName();
-			if (null == dirPath || null == fileName)
-				throw new Exception("lllegal dirPath or fileName");
-
-			File f = new File(dirPath + fileName);
+			File f = null;
+			if (filePath != null) {
+				f = new File(filePath);
+				if (!f.exists()) {
+					File tmpf = new File(filePath.substring(0,
+							filePath.lastIndexOf("/")));
+					tmpf.mkdirs();
+				}
+			} else {
+				String fileName = getFileName();
+				f = new File(dirPath + fileName);
+			}
 			// if (f.exists()) {
-			// if (null != listener)
-			// listener.transferred(100L);
-			// // throw new Exception("file exists");
+			// listener.onRespone(true, "file exists", null);
+			// return;
 			// }
 			f.setLastModified(System.currentTimeMillis());
 			int downloadSize = 0;
@@ -68,38 +77,45 @@ public class Download extends AbstractTransfered {
 			int fileSize = conn.getContentLength();
 			if (fileSize < 1 || is == null) {
 				// sendMessage(DOWNLOAD_ERROR);
+				System.out.println("DOWNLOAD_ERROR");
 				throw new Exception("lllegal");
 			} else {
-				saveFromInputStream(is, f);
+				System.out.println("DOWNLOAD_PREPARE");
+				FileOutputStream fos = new FileOutputStream(f);
+				byte[] bytes = new byte[1024];
+				int len = -1;
+				while ((len = is.read(bytes)) != -1) {
+					fos.write(bytes, 0, len);
+					downloadSize += len;
+					// sendMessage(DOWNLOAD_WORK);
+					System.out.println("--" + (downloadSize / (float) fileSize)
+							* 100);
+					Log.e("download file -----", String
+							.valueOf((downloadSize / (float) fileSize) * 100));
+					if (null != listener)
+						listener.transferred((long) ((downloadSize / (float) fileSize) * 100));
+				}
+				System.out.println("DOWNLOAD_OK");
 				is.close();
+				fos.close();
+				listener.onResponse(true, "", null);
+				mHold.remove(downUrl);
 			}
 		} catch (Exception e) {
+			System.out.println("DOWNLOAD_ERROR");
 			e.printStackTrace();
-			if (null != listener)
-				listener.onResponse(false,"", e);
+			listener.onResponse(false, "", e);
+			mHold.remove(downUrl);
 		}
 	}
 
 	@Override
 	public void exe(ProgressListener listener) {
-		download(listener);
-	}
-
-	private boolean saveFromInputStream(InputStream content, File f) {
-		try {
-			FileOutputStream out = new FileOutputStream(f);
-
-			byte[] b = new byte[131072];
-			int len = 0;
-			while ((len = content.read(b)) != -1) {
-				out.write(b, 0, len);
-			}
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (mHold.containsKey(downUrl)) {
+			listener = mHold.get(downUrl);
+		} else {
+			mHold.put(downUrl, listener);
+			download(listener);
 		}
-		return true;
 	}
 }
