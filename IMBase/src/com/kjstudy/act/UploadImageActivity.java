@@ -91,6 +91,14 @@ public class UploadImageActivity extends KJActivity {
 				// v.setEnabled(false);
 			}
 		});
+
+		v.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				close();
+			}
+		});
 		d.show();
 	}
 

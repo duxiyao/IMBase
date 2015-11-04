@@ -28,7 +28,7 @@ import com.kjstudy.core.io.FileUtil;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.CheckUtil;
 import com.kjstudy.core.util.DBUtil;
-import com.kjstudy.core.util.Globle;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
 

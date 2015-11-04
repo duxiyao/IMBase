@@ -54,7 +54,7 @@ public class DialogAssistant {
 
 	public static Dialog getCustomDialog(View v) {
 
-		int h = (int) (DensityUtil.getScreenHeight() * 0.5); // 高度设置为屏幕的0.6
+		int h = (int) (DensityUtil.getScreenHeight() * 0.4); // 高度设置为屏幕的0.6
 		int w = (int) (DensityUtil.getScreenWidth() * 0.8); // 宽度设置为屏幕的0.65
 
 		Activity act = KJActivityStack.create().topActivity();
@@ -65,8 +65,8 @@ public class DialogAssistant {
 		Window win = d.getWindow();
 		WindowManager.LayoutParams lp = win.getAttributes();
 		win.setGravity(Gravity.CENTER);
-		lp.width = h;
-		lp.height = w;
+		lp.width = w;
+		lp.height = h;
 		// lp.alpha = 0.7f;
 		win.setAttributes(lp);
 		d.setCanceledOnTouchOutside(false);

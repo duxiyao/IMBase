@@ -21,7 +21,7 @@ import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.DBUtil;
-import com.kjstudy.core.util.Globle;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
 
@@ -89,7 +89,7 @@ public class VerifyCodeAct extends KJActivity {
 						} else {
 							DBUtil.update(u, "phone='" + u.getPhone() + "'");
 						}
-						Globle.setCURUSER(u);
+						Global.setCURUSER(u);
 						ViewInject.toast("注册成功！！");
 						BroadCastUtil
 								.sendBroadCast(IntentNameUtil.REGISTER_SUCCESS);

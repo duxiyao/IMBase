@@ -27,7 +27,7 @@ import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.CheckUtil;
 import com.kjstudy.core.util.DBUtil;
-import com.kjstudy.core.util.Globle;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
 import com.tencent.connect.UserInfo;
@@ -66,7 +66,8 @@ public class LoginAct extends KJActivity {
 	@Override
 	public void initWidget() {
 		super.initWidget();
-		setFilters(IntentNameUtil.REGISTER_SUCCESS);
+		setFilters(IntentNameUtil.REGISTER_SUCCESS,
+				IntentNameUtil.LOGIN_SUCCESS);
 		BarDefault bar = new BarDefault();
 		setCustomBar(bar.getBarView());
 	}
@@ -76,7 +77,9 @@ public class LoginAct extends KJActivity {
 		super.dealBroadcase(intent);
 		if (intent == null)
 			return;
-		if (IntentNameUtil.REGISTER_SUCCESS.equals(intent.getAction())) {
+		String action = intent.getAction();
+		if (IntentNameUtil.REGISTER_SUCCESS.equals(action)
+				|| IntentNameUtil.LOGIN_SUCCESS.equals(action)) {
 			finish();
 		}
 	}
@@ -110,10 +113,9 @@ public class LoginAct extends KJActivity {
 									"phone='" + u.getPhone() + "'")) {
 								DBUtil.save(u);
 							} else {
-								DBUtil.update(user, "phone='" + u.getPhone()
-										+ "'");
+								DBUtil.update(u, "phone='" + u.getPhone() + "'");
 							}
-							Globle.setCURUSER(u);
+							Global.setCURUSER(u);
 							ViewInject.toast("登录成功！！");
 						} else {
 							if (user != null)
@@ -245,7 +247,7 @@ public class LoginAct extends KJActivity {
 																	+ u.getQqOpenId()
 																	+ "'");
 												}
-												Globle.setCURUSER(u, "qqOpenId");
+												Global.setCURUSER(u, "qqOpenId");
 												ViewInject.toast("登录成功！！");
 												finish();
 											} else {

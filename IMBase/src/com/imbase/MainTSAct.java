@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
+import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.view.View.OnLayoutChangeListener;
+import android.view.ViewGroup.LayoutParams;
 
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.frag.InterestFrag;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
@@ -92,7 +97,6 @@ public class MainTSAct extends KJActivity {
 			@Override
 			public void onPageSelected(int arg0) {
 				ViewInject.toast(String.valueOf(arg0));
-				Req.test();
 			}
 
 			@Override
@@ -111,5 +115,26 @@ public class MainTSAct extends KJActivity {
 					mVp.setCurrentItem(clickItemIndex);
 			}
 		});
+		Global.lastLoginUser();
+//		mFoot.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+//
+//			@Override
+//			public void onLayoutChange(View v, int left, int top, int right,
+//					int bottom, int oldLeft, int oldTop, int oldRight,
+//					int oldBottom) {
+//				if (oldBottom == 0) {
+//					int barHeight = getActionBar().getHeight();
+//					LayoutParams lp = mVp.getLayoutParams();
+//					int tmp = getWindow().getDecorView().getHeight();
+//					int tmp1=DensityUtils.getStatusBarHeight();
+//					lp.height = /* DensityUtil.getScreenHeight() */getWindow()
+//							.getDecorView().getHeight()
+//							- DensityUtils.getStatusBarHeight()
+//							- bottom
+//							- DensityUtils.getStatusBarHeight(getWindow());
+//					mVp.setLayoutParams(lp);
+//				}
+//			}
+//		});
 	}
 }

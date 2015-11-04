@@ -32,7 +32,7 @@ public final class FileUtil
 	 * @author duxiyao
 	 * @description file name of  current logined user phone
 	 */
-	public static final String FN_CURUSERPHONE="cur_user_phone";
+	public static final String FN_CURUSERKEY="cur_user_key";
 
 	// ------------------------------ 手机系统相关 ------------------------------
 	public static final String NEWLINE = System.getProperty("line.separator");// 系统的换行符

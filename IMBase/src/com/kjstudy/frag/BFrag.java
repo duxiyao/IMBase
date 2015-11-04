@@ -9,12 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 
-public class BFrag extends Fragment {
+public class BFrag extends Fragment implements OnClickListener {
 
 	View mView = null;
 
@@ -78,7 +81,7 @@ public class BFrag extends Fragment {
 
 	private InternalReceiver internalReceiver;
 
-	protected final void registerReceiver(String... actions) {
+	protected final void setFilters(String... actions) {
 		try {
 			if (actions != null && actions.length > 0) {
 				IntentFilter intentfilter = new IntentFilter();
@@ -115,5 +118,28 @@ public class BFrag extends Fragment {
 
 	protected <T> T findView(int vId) {
 		return (T) mView.findViewById(vId);
+	}
+
+	// 当线程中初始化的数据初始化完成后，调用回调方法
+	private Handler threadHandle = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			handleMsg(msg);
+		};
+	};
+
+	protected void sendMsg(Message msg) {
+		threadHandle.sendMessage(msg);
+	}
+
+	protected void handleMsg(Message msg) {
+	}
+
+	protected Message getOsEmptyMsg() {
+		return threadHandle.obtainMessage();
+	}
+
+	@Override
+	public void onClick(View v) {
 	}
 }

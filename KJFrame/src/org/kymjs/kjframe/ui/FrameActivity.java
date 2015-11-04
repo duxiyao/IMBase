@@ -18,6 +18,7 @@ package org.kymjs.kjframe.ui;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,12 +47,13 @@ public abstract class FrameActivity extends FragmentActivity implements
 	private static ThreadDataCallBack callback;
 
 	// 当线程中初始化的数据初始化完成后，调用回调方法
-	private static Handler threadHandle = new Handler() {
+	private Handler threadHandle = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
 			if (msg.what == WHICH_MSG) {
 				callback.onSuccess();
 			}
+			handleMsg(msg);
 		};
 	};
 
@@ -59,6 +61,17 @@ public abstract class FrameActivity extends FragmentActivity implements
 	 * 如果调用了initDataFromThread()，则当数据初始化完成后将回调该方法。
 	 */
 	protected void threadDataInited() {
+	}
+
+	protected void handleMsg(Message msg) {
+	}
+
+	protected void sendMsg(Message msg) {
+		threadHandle.sendMessage(msg);
+	}
+
+	protected Message getOsEmptyMsg() {
+		return threadHandle.obtainMessage();
 	}
 
 	/**

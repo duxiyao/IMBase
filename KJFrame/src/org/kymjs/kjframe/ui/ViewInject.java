@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -181,5 +182,34 @@ public class ViewInject {
 		// 设置ProgressBarDialog的显示样式
 		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		return progressDialog;
+	}
+
+	public static void hideSoftInputFromWindow(View view) {
+		try {
+			InputMethodManager inputMethodManager = (InputMethodManager) view
+					.getContext()
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			if (inputMethodManager == null) {
+				return;
+			}
+			inputMethodManager.hideSoftInputFromWindow(
+					view.getApplicationWindowToken(), 0);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
+	public static void showSoftInputFromWindow(View view) {
+		try {
+			InputMethodManager inputMethodManager = (InputMethodManager) view
+					.getContext()
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			if (inputMethodManager == null) {
+				return;
+			}
+			inputMethodManager.showSoftInput(view, 0);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 }

@@ -8,10 +8,13 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fl_footer"
+        android:paddingBottom="@dimen/dp_10" >
     </android.support.v4.view.ViewPager>
 
     <FrameLayout
+        android:id="@+id/fl_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >

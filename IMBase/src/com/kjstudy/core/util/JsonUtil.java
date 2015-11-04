@@ -13,7 +13,11 @@ public class JsonUtil {
 	public static <T> T json2Obj(String json, Class cls) {
 		if (GUtil.isEmpty(json))
 			return null;
-		return (T) JSON.parseObject(json, cls);
+		try {
+			return (T) JSON.parseObject(json, cls);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public static String obj2Json(Object obj) {

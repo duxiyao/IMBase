@@ -17,6 +17,7 @@ package org.kymjs.kjframe;
 
 import org.kymjs.kjframe.ui.FrameActivity;
 import org.kymjs.kjframe.ui.KJActivityStack;
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.KJLoger;
 
 import android.annotation.TargetApi;
@@ -124,6 +125,11 @@ public abstract class KJActivity extends FrameActivity {
 		KJLoger.state(this.getClass().getName(), "---------onDestroy ");
 		super.onDestroy();
 		KJActivityStack.create().finishActivity(this);
+		try {
+			ViewInject.hideSoftInputFromWindow(getWindow().getDecorView());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
