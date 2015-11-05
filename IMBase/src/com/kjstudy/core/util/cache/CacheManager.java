@@ -48,8 +48,6 @@ public class CacheManager {
 			return;
 		}
 		// get url from database
-		if (true)
-			throw new RuntimeException("unimplement");
 		String url = "";// UserSipInfoStorage.getInstance().queryPhotoUrl(phoneNum);
 		if (isFront)
 			inflateHead(url, iv, defResId, isFront, ((BitmapDrawable) iv
@@ -66,6 +64,11 @@ public class CacheManager {
 	 */
 	public static void inflateHead(String url, final ImageView iv, int defResId) {
 		inflateHead(url, iv, defResId, false, null);
+	}
+
+	public static void inflateHeadFront(String url, final ImageView iv,
+			int defResId) {
+		inflateHead(url, iv, defResId, true, null);
 	}
 
 	public static void inflateImage(String url, final ImageView iv, int defResId) {
@@ -156,7 +159,11 @@ public class CacheManager {
 							iv.setBackgroundResource(defaultResId);
 						}
 					} else {
-						iv.setScaleType(ImageView.ScaleType.FIT_XY);
+						try {
+							iv.setScaleType(ImageView.ScaleType.FIT_XY);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 						if (defaultBmp != null) {
 							iv.setImageBitmap(defaultBmp);
 						} else {

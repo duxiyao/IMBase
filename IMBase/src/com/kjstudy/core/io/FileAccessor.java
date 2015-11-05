@@ -23,6 +23,8 @@ public class FileAccessor {
 	public static final String ATTACH_IMAGE = APPS_ROOT_DIR + "/attach/"; 
 	public static final String IMAGE_HEADS = APPS_ROOT_DIR + "/image/heads";
 	public static final String IMAGE_CLAMP = APPS_ROOT_DIR + "/image/clamp";
+	public static final String GENERAL_FILE = APPS_ROOT_DIR + "/general/file";
+	public static final String TMP_DIR = APPS_ROOT_DIR + "/tmp/";
 
 	/**
 	 * 是否有外存卡

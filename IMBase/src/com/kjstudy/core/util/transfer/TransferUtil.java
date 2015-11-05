@@ -20,19 +20,8 @@ public class TransferUtil {
 	 * @param listener
 	 */
 	public static void upload(ParamsUpload params, ProgressListener listener) {
-		File f = params.file;
-		if (f == null) {
-			if (null != listener)
-				listener.onResponse(false, "", new Exception("lllegal"));
-			return;
-		}
-		if (!f.exists() || !f.canRead()) {
-			if (null != listener)
-				listener.onResponse(false, "", new Exception("lllegal"));
-			return;
-		}
-		// AbstractTransfered upload = new Upload(params);
-		AbstractTransfered upload = new UploadGet(params);
+		AbstractTransfered upload = new Upload(params);
+		// AbstractTransfered upload = new UploadGet(params);
 		exe(upload, listener);
 	}
 

@@ -24,7 +24,7 @@ public final class R {
 		public static final int action_menu_divider = 0x7f090002;
 		public static final int action_menu_presenter = 0x7f090003;
 		public static final int home = 0x7f090000;
-		public static final int title = 0x7f09006e;
+		public static final int title = 0x7f090073;
 	}
 	public static final class integer {
 	}

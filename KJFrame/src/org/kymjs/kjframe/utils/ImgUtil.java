@@ -4,7 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
+import org.kymjs.kjframe.ui.KJActivityStack;
+
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +18,27 @@ import android.os.Environment;
 import android.util.Base64;
 
 public class ImgUtil {
+
+	public static Bitmap uri2Bmp(Uri uri) throws Exception {
+		ContentResolver cr = KJActivityStack.create().topActivity()
+				.getContentResolver();
+		InputStream in = cr.openInputStream(uri);
+		if (isUseable(in.available())) {
+			return BitmapFactory.decodeStream(in);
+		} else {
+			final BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;
+			BitmapFactory.decodeStream(in, null, options);
+
+			// Calculate inSampleSize
+			options.inSampleSize = calculateInSampleSize(options, 480, 800);
+
+			// Decode bitmap with inSampleSize set
+			options.inJustDecodeBounds = false;
+
+			return BitmapFactory.decodeStream(in, null, options);
+		}
+	}
 
 	public static Bitmap revitionImageSize(Context context, int resId, int size)
 			throws IOException {
@@ -179,5 +204,22 @@ public class ImgUtil {
 	 */
 	public static String getAlbumName() {
 		return "sheguantong";
+	}
+
+	private static boolean isUseable(double len) {
+		if (len >= 8)
+			return false;
+		else
+			return true;
+	}
+
+	public static byte[] bmp2Bytes(Bitmap bmp) {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+			return baos.toByteArray();
+		} catch (Exception e) {
+		}
+		return null;
 	}
 }

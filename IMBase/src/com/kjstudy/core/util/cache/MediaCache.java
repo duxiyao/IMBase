@@ -2,10 +2,11 @@ package com.kjstudy.core.util.cache;
 
 import java.io.File;
 
+import org.kymjs.kjframe.utils.FileUtils;
+
 import android.util.Log;
 
 import com.kjstudy.core.io.FileAccessor;
-import com.kjstudy.core.util.FileUtils;
 
 /**
  * @author Administrator

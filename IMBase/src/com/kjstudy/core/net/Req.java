@@ -46,6 +46,10 @@ public class Req {
 	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
 
+	public static String getUploadHeadImgAddr() {
+		return mUrlPre + "HUploadHeadImg.ashx";
+	}
+
 	public static void loginTSByQQ(String qqOpenId, String nickname,
 			String photoUrl, String gender, HttpCallBack cb) {
 		String url = mUrlPre + "HLogin.ashx";
@@ -86,8 +90,8 @@ public class Req {
 
 	public static void getVerifyCode(String phone, String pwd, HttpCallBack cb) {
 		String url = mUrlPre + "HGetVerifyCode.ashx";
-//		String url="http://192.168.1.120:9542/ts/HGetVerifyCode.ashx";
-//		String url="http://localhost:9542/ts/HGetVerifyCode.ashx";
+		// String url="http://192.168.1.120:9542/ts/HGetVerifyCode.ashx";
+		// String url="http://localhost:9542/ts/HGetVerifyCode.ashx";
 		KJHttp kjh = new KJHttp();
 		HttpParams params = new HttpParams();
 		if (!addKey(params))

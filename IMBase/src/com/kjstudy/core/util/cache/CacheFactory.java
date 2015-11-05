@@ -8,6 +8,10 @@ package com.kjstudy.core.util.cache;
  */
 public class CacheFactory {
 
+	public static IFileCache getGeneralFileCache() {
+		return new GeneralFileCache();
+	}
+
 	/**
 	 * 音视频文件存储接口
 	 * 

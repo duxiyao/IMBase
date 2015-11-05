@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.MeasureSpec;
 
 /**
  * @author duxiyao
@@ -15,12 +14,17 @@ import android.view.View.MeasureSpec;
  */
 public class AverageView extends ViewGroup {
 
+	public interface OnAddAllViews {
+		void onAddAllViews(List<View> vs);
+	}
+
 	private int mWidth, mHeight, mChildWidthMeasureSpec,
 			mChildHeightMeasureSpec;
 	private List<View> mVs;
 	private int mGap = 10;
 	private boolean isSquare = false;
 	private int mRowCount = 3;
+	private OnAddAllViews mOnAddAllViews;
 
 	public AverageView(Context context) {
 		super(context);
@@ -32,6 +36,10 @@ public class AverageView extends ViewGroup {
 
 	public AverageView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+	}
+
+	public void setOnAddAllViews(OnAddAllViews lis) {
+		mOnAddAllViews = lis;
 	}
 
 	/**
@@ -50,6 +58,17 @@ public class AverageView extends ViewGroup {
 		this.mRowCount = rowCount;
 		this.mVs = vs;
 		if (mVs != null) {
+			mVs.get(mVs.size() - 1).addOnLayoutChangeListener(
+					new OnLayoutChangeListener() {
+
+						@Override
+						public void onLayoutChange(View v, int left, int top,
+								int right, int bottom, int oldLeft, int oldTop,
+								int oldRight, int oldBottom) {
+							if (mOnAddAllViews != null)
+								mOnAddAllViews.onAddAllViews(mVs);
+						}
+					});
 			for (View v : mVs)
 				addView(v);
 		}

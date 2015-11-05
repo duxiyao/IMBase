@@ -1,8 +1,15 @@
 package com.kjstudy.act;
 
 import org.kymjs.kjframe.KJActivity;
+import org.kymjs.kjframe.utils.FileUtils;
+import org.kymjs.kjframe.utils.ImgUtil;
 
 import com.imbase.R;
+import com.kjstudy.bean.data.TSUserInfo;
+import com.kjstudy.core.util.DBUtil;
+import com.kjstudy.core.util.Global;
+import com.kjstudy.core.util.cache.CacheFactory;
+import com.kjstudy.core.util.cache.IFileCache;
 import com.kjstudy.dialog.DialogAssistant;
 
 import android.annotation.SuppressLint;
@@ -144,34 +151,35 @@ public class UploadImageActivity extends KJActivity {
 		};
 	};
 
-	// private void afterUpload(String fileUrl, ConsultImageUtil iu) {
-	// deleteMyPreHead();
-	// Bitmap tmp = iu.getBitmap();
-	// if (tmp != null){
-	// IFileCache ic=CacheFactory.getICache(fileUrl, 2);
-	// if(ic!=null&&!ic.isExists()){
-	// ic.put(tmp);
-	// }
-	// }
-	// SQLiteManager.getInstance().updateConsultUserInfo(fileUrl);
-	// UserSipInfoStorage.getInstance().updatePhotoUrl(Global.getPhoneNum(),
-	// fileUrl);
-	// }
-	//
-	// private void deleteMyPreHead(){
-	// String url = "";
-	// ConsultInfo m = Global.consultUserInfo();
-	// if (m != null) {
-	// url = m.getPhoto();
-	// }
-	// if (TextUtils.isEmpty(url))
-	// return;
-	// IFileCache ic=CacheFactory.getICache(url, 2);
-	// if(ic==null||!ic.isExists())
-	// return;
-	// ic.delete();
-	// }
-	//
+	private void afterUpload(String photoUrl, Bitmap tmp) {
+		TSUserInfo m = Global.getCURUSER();
+		if (m == null)
+			return;
+		deleteMyPreHead();
+		if (tmp != null) {
+			IFileCache ic = CacheFactory.getICache(photoUrl, 2);
+			if (ic != null && !ic.isExists()) {
+				ic.put(tmp);
+			}
+		}
+		m.setPhotoUrl(photoUrl);
+		DBUtil.update(m, "id=" + m.getId());
+	}
+
+	private void deleteMyPreHead() {
+		String url = "";
+		TSUserInfo m = Global.getCURUSER();
+		if (m != null) {
+			url = m.getPhotoUrl();
+		}
+		if (TextUtils.isEmpty(url))
+			return;
+		IFileCache ic = CacheFactory.getICache(url, 2);
+		if (ic == null || !ic.isExists())
+			return;
+		ic.delete();
+	}
+
 	/**
 	 * 用手机拍照。
 	 * 
@@ -225,8 +233,12 @@ public class UploadImageActivity extends KJActivity {
 	private void chooseFromAlbum(int resultCode, Intent data) {
 		if (resultCode == Activity.RESULT_OK) {
 			Uri uri = data.getData();
-			Log.e("uri", uri.toString());
-			ContentResolver cr = this.getContentResolver();
+			try {
+				Bitmap bmp = ImgUtil.uri2Bmp(uri);
+//				byte[] b= FileUtils.readFileBytes(filePath);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			// try {
 			// post.sendEmptyMessage(WHAT_LOADING_SHOW);
 			// final ConsultImageUtil iu = new ConsultImageUtil(uri, cr);
