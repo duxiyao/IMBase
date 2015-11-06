@@ -41,11 +41,13 @@ public class TransferUtil {
 			return;
 		}
 
-		File f = new File(filePath);
-		if (!f.exists())
-			f.mkdirs();
-		if (!f.canWrite())
-			throw new FileCannotWriteException();
+		try {
+			File f = new File(filePath);
+			if (!f.getParentFile().exists())
+				f.getParentFile().mkdirs();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		AbstractTransfered download = new Download(downUrl, null, filePath);
 		exe(download, listener);

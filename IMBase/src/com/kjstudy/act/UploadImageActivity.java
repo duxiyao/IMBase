@@ -1,11 +1,15 @@
 package com.kjstudy.act;
 
+import java.io.File;
+
 import org.kymjs.kjframe.KJActivity;
+import org.kymjs.kjframe.utils.ActUtil;
 import org.kymjs.kjframe.utils.FileUtils;
 import org.kymjs.kjframe.utils.ImgUtil;
 
 import com.imbase.R;
 import com.kjstudy.bean.data.TSUserInfo;
+import com.kjstudy.core.io.FileAccessor;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.cache.CacheFactory;
@@ -44,6 +48,7 @@ import android.widget.TextView;
 public class UploadImageActivity extends KJActivity {
 
 	private final int FROMALBUM = 1, PHOTO = 2;
+	private Dialog mChoiceDialog;
 
 	@Override
 	public void setRootView() {
@@ -57,6 +62,8 @@ public class UploadImageActivity extends KJActivity {
 
 			@Override
 			public void run() {
+				if (mChoiceDialog != null && mChoiceDialog.isShowing())
+					mChoiceDialog.dismiss();
 				finish();
 			}
 		});
@@ -65,8 +72,8 @@ public class UploadImageActivity extends KJActivity {
 	private void showUploadHeadChoice() {
 		View v = LayoutInflater.from(this).inflate(
 				R.layout.layout_dialog_select_headimg, null);
-		Dialog d = DialogAssistant.getCustomDialog(v);
-		d.setOnDismissListener(new OnDismissListener() {
+		mChoiceDialog = DialogAssistant.getCustomDialog(v);
+		mChoiceDialog.setOnDismissListener(new OnDismissListener() {
 
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -106,7 +113,7 @@ public class UploadImageActivity extends KJActivity {
 				close();
 			}
 		});
-		d.show();
+		mChoiceDialog.show();
 	}
 
 	@Override
@@ -123,61 +130,17 @@ public class UploadImageActivity extends KJActivity {
 		default:
 			break;
 		}
-	}
+	} 
 
-	/** show进度条 */
-	private final int WHAT_LOADING_SHOW = 0;
-	/** 结束进度条 */
-	private final int WHAT_LOADING_DISS = 1;
-	/** 进度条 */
-	public Dialog mLoadingDialog;
-
-	@SuppressLint("HandlerLeak")
-	private Handler post = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case WHAT_LOADING_SHOW:
-				mLoadingDialog = DialogAssistant.getProgressingDialog();
-				mLoadingDialog.show();
-				break;
-			case WHAT_LOADING_DISS:
-				if (mLoadingDialog != null) {
-					mLoadingDialog.dismiss();
-				}
-				break;
-			default:
-				break;
-			}
-		};
-	};
-
-	private void afterUpload(String photoUrl, Bitmap tmp) {
-		TSUserInfo m = Global.getCURUSER();
-		if (m == null)
-			return;
-		deleteMyPreHead();
-		if (tmp != null) {
-			IFileCache ic = CacheFactory.getICache(photoUrl, 2);
-			if (ic != null && !ic.isExists()) {
-				ic.put(tmp);
-			}
-		}
-		m.setPhotoUrl(photoUrl);
-		DBUtil.update(m, "id=" + m.getId());
-	}
-
-	private void deleteMyPreHead() {
-		String url = "";
-		TSUserInfo m = Global.getCURUSER();
-		if (m != null) {
-			url = m.getPhotoUrl();
-		}
-		if (TextUtils.isEmpty(url))
-			return;
-		IFileCache ic = CacheFactory.getICache(url, 2);
-		if (ic == null || !ic.isExists())
-			return;
-		ic.delete();
+	private void afterSelected(Bitmap bmp) {
+		close();
+		File f = new File(FileAccessor.TMP_HEAD_IMG_FILEPATH);
+		if (f.exists())
+			f.delete();
+		FileUtils.bitmapToFile(bmp, FileAccessor.TMP_HEAD_IMG_FILEPATH);
+		Bundle b = new Bundle();
+		b.putString(ImgPreviewAct.IMGDATA, FileAccessor.TMP_HEAD_IMG_FILEPATH);
+		ActUtil.startAct(ImgPreviewAct.class, b);
 	}
 
 	/**
@@ -195,35 +158,11 @@ public class UploadImageActivity extends KJActivity {
 				return;
 			}
 			Bundle bundle = data.getExtras();
-			Bitmap bitmap = (Bitmap) bundle.get("data");
-			// try {
-			// post.sendEmptyMessage(WHAT_LOADING_SHOW);
-			// final ConsultImageUtil iu = new ConsultImageUtil(bitmap);
-			// iu.uploadHeadPhoto(new SubmitImgable() {
-			// @Override
-			// public void onSuccess(String imgId, String fileUrl) {
-			// NetUtil.showSuccess();
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// afterUpload(fileUrl, iu);
-			// close();
-			// }
-			//
-			// @Override
-			// public void onFail(String reson, String imgId) {
-			// NetUtil.showMsgReqNetError();
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// close();
-			// }
-			// });
-			// } catch (Exception e) {
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// Log.e("error", e.getMessage());
-			// close();
-			// }
+			Bitmap bmp = (Bitmap) bundle.get("data");
+			afterSelected(bmp);
 		}
 	}
 
-	//
 	/**
 	 * 从相册选照片。
 	 * 
@@ -235,34 +174,10 @@ public class UploadImageActivity extends KJActivity {
 			Uri uri = data.getData();
 			try {
 				Bitmap bmp = ImgUtil.uri2Bmp(uri);
-//				byte[] b= FileUtils.readFileBytes(filePath);
+				afterSelected(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// try {
-			// post.sendEmptyMessage(WHAT_LOADING_SHOW);
-			// final ConsultImageUtil iu = new ConsultImageUtil(uri, cr);
-			// iu.uploadHeadPhoto(new SubmitImgable() {
-			// @Override
-			// public void onSuccess(String imgId, String fileUrl) {
-			// NetUtil.showSuccess();
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// afterUpload(fileUrl, iu);
-			// close();
-			// }
-			//
-			// @Override
-			// public void onFail(String reson, String imgId) {
-			// NetUtil.showMsgReqNetError();
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// close();
-			// }
-			// });
-			// } catch (Exception e) {
-			// Log.e("Exception", e.getMessage(), e);
-			// post.sendEmptyMessage(WHAT_LOADING_DISS);
-			// close();
-			// }
 		}
 	}
 

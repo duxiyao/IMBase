@@ -20,11 +20,13 @@ public class FileAccessor {
 	public static final String IMESSAGE_FILE = APPS_ROOT_DIR + "/file";
 	public static final String CCP_AVATAR = APPS_ROOT_DIR + "/avatar";
 	public static final String CONTACT_BAKUP = APPS_ROOT_DIR + "/backup";
-	public static final String ATTACH_IMAGE = APPS_ROOT_DIR + "/attach/"; 
+	public static final String ATTACH_IMAGE = APPS_ROOT_DIR + "/attach/";
 	public static final String IMAGE_HEADS = APPS_ROOT_DIR + "/image/heads";
 	public static final String IMAGE_CLAMP = APPS_ROOT_DIR + "/image/clamp";
 	public static final String GENERAL_FILE = APPS_ROOT_DIR + "/general/file";
 	public static final String TMP_DIR = APPS_ROOT_DIR + "/tmp/";
+	public static final String TMP_HEAD_IMG_FILEPATH = APPS_ROOT_DIR
+			+ "/tmp/tmphead.png";
 
 	/**
 	 * 是否有外存卡

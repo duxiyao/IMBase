@@ -4,6 +4,8 @@ import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.utils.ActUtil;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
+import com.kjstudy.core.util.cache.CacheManager;
 import com.kjstudy.plugin.CircleImageView;
 
 public class StudentFrag extends BFrag {
@@ -79,6 +82,9 @@ public class StudentFrag extends BFrag {
 				if (TextUtils.isEmpty(name))
 					name = "完善资料";
 				mTvName.setText(name);
+				String url = info.getPhotoUrl();
+				CacheManager.inflateHeadFront(url, mCIVHead,
+						R.drawable.default_nor_avatar);
 			}
 			break;
 
@@ -99,6 +105,8 @@ public class StudentFrag extends BFrag {
 				getActivity().overridePendingTransition(
 						R.anim.sideslip_in_from_right,
 						R.anim.sideslip_out_from_left);
+			} else {
+				
 			}
 			break;
 		default:

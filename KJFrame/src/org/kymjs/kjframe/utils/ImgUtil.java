@@ -23,21 +23,7 @@ public class ImgUtil {
 		ContentResolver cr = KJActivityStack.create().topActivity()
 				.getContentResolver();
 		InputStream in = cr.openInputStream(uri);
-		if (isUseable(in.available())) {
-			return BitmapFactory.decodeStream(in);
-		} else {
-			final BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = true;
-			BitmapFactory.decodeStream(in, null, options);
-
-			// Calculate inSampleSize
-			options.inSampleSize = calculateInSampleSize(options, 480, 800);
-
-			// Decode bitmap with inSampleSize set
-			options.inJustDecodeBounds = false;
-
-			return BitmapFactory.decodeStream(in, null, options);
-		}
+		return BitmapFactory.decodeStream(in);
 	}
 
 	public static Bitmap revitionImageSize(Context context, int resId, int size)
@@ -204,13 +190,6 @@ public class ImgUtil {
 	 */
 	public static String getAlbumName() {
 		return "sheguantong";
-	}
-
-	private static boolean isUseable(double len) {
-		if (len >= 8)
-			return false;
-		else
-			return true;
 	}
 
 	public static byte[] bmp2Bytes(Bitmap bmp) {

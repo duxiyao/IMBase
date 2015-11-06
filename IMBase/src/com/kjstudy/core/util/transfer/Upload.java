@@ -63,8 +63,9 @@ public class Upload extends AbstractTransfered {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private HttpEntity getEntity(final ProgressListener listener)
-			throws UnsupportedEncodingException {
+			throws Exception {
 		if (params.url == null)
 			throw new RuntimeException("you must set up url first");
 		CustomMultiPartEntity entity = new CustomMultiPartEntity(
