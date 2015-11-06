@@ -50,6 +50,16 @@ public class Req {
 		return mUrlPre + "HUploadHeadImg.ashx";
 	}
 
+	public static void updateUserInfo(String k, String v, HttpCallBack cb) {
+		String url = mUrlPre + "HUpdateUserInfo.ashx";
+		KJHttp kjh = new KJHttp();
+		HttpParams params = new HttpParams();
+		// if (!addKey(params))
+		// return;
+		params.put(k, v);
+		kjh.post(url, params, false, cb);
+	}
+
 	public static void loginTSByQQ(String qqOpenId, String nickname,
 			String photoUrl, String gender, HttpCallBack cb) {
 		String url = mUrlPre + "HLogin.ashx";

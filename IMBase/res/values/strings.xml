@@ -15,4 +15,6 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="verify">验证</string>
-</resources>
+    <string name="tips_var">填写提示语</string>
+
+</resources>

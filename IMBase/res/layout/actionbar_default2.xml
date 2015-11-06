@@ -12,7 +12,7 @@
         android:background="@drawable/arrow_back" />
 
     <TextView
-        android:id="@+id/tv_confirm_preview"
+        android:id="@+id/tv_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

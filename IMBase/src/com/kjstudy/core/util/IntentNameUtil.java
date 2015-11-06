@@ -25,4 +25,8 @@ public class IntentNameUtil {
 	 * @description 上传头像成功
 	 */
 	public static final String ON_UPLOAD_HEAD_IMG_SUCCESS = "upload_head_img_success";
+	/**
+	 * 修改个人信息成功
+	 */
+	public static final String ON_ALTER_PERSONAL_INFO_SUCCESS = "alter_personal_info_success";
 }

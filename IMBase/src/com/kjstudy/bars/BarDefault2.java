@@ -13,7 +13,7 @@ public class BarDefault2 extends AbsBarUtil {
 
 	@BindView(id = R.id.iv_back, click = true)
 	private ImageView mIvBack;
-	@BindView(id = R.id.tv_confirm_preview, click = true)
+	@BindView(id = R.id.tv_confirm, click = true)
 	private TextView mTv;
 
 	@Override
