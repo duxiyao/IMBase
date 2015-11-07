@@ -15,12 +15,14 @@
         android:layout_height="match_parent" >
 
         <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical" >
 
             <RelativeLayout
+                android:id="@+id/rl_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_10"
@@ -56,6 +58,7 @@
                 android:background="@color/color_EDEDED" />
 
             <RelativeLayout
+                android:id="@+id/rl_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -73,6 +76,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -90,6 +94,7 @@
                 android:background="@color/color_EDEDED" />
 
             <RelativeLayout
+                android:id="@+id/rl_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -107,6 +112,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -124,6 +130,7 @@
                 android:background="@color/color_EDEDED" />
 
             <RelativeLayout
+                android:id="@+id/rl_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -141,6 +148,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -158,6 +166,7 @@
                 android:background="@color/color_EDEDED" />
 
             <RelativeLayout
+                android:id="@+id/rl_resident"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_5"
@@ -176,6 +185,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_resident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -192,6 +202,7 @@
                 android:background="@color/content_black_bg" />
 
             <RelativeLayout
+                android:id="@+id/rl_grade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -211,6 +222,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_grade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -222,6 +234,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -241,6 +254,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_subject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -263,6 +277,7 @@
                 android:background="@color/content_black_bg" />
 
             <RelativeLayout
+                android:id="@+id/rl_personal_signature"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -282,6 +297,7 @@
                     android:textSize="@dimen/text_size_two" />
 
                 <TextView
+                    android:id="@+id/tv_personal_signature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

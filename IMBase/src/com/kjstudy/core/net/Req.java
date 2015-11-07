@@ -50,13 +50,18 @@ public class Req {
 		return mUrlPre + "HUploadHeadImg.ashx";
 	}
 
-	public static void updateUserInfo(String k, String v, HttpCallBack cb) {
+	public static void updateUserInfo(int type, String k, String v,
+			HttpCallBack cb) {
 		String url = mUrlPre + "HUpdateUserInfo.ashx";
+
+		if (TextUtils.isEmpty(url))
+			return;
 		KJHttp kjh = new KJHttp();
 		HttpParams params = new HttpParams();
 		// if (!addKey(params))
 		// return;
 		params.put(k, v);
+		params.put("intType", type);
 		kjh.post(url, params, false, cb);
 	}
 

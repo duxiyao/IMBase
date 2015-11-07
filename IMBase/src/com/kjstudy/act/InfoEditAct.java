@@ -21,10 +21,12 @@ public class InfoEditAct extends KJActivity {
 
 	public static final String KEY = "InfoEditAct.key";
 	public static final String HINTVALUE = "InfoEditAct.hintvalue";
+	public static final String INTTYPE = "InfoEditAct.inttype";
 
 	@BindView(id = R.id.et_content)
 	private EditText mEtContent;
 	private String mKey;
+	private int intType = -1;
 
 	@Override
 	public void setRootView() {
@@ -37,7 +39,8 @@ public class InfoEditAct extends KJActivity {
 		BarDefault2 bar = new BarDefault2();
 		bar.setOnClickLis(this);
 		mKey = getIntent().getStringExtra(KEY);
-		mEtContent.setText(getIntent().getStringExtra(HINTVALUE));
+		intType = getIntent().getIntExtra(INTTYPE, -1);
+		mEtContent.setHint(getIntent().getStringExtra(HINTVALUE));
 		setCustomBar(bar.getBarView());
 	}
 
@@ -55,7 +58,9 @@ public class InfoEditAct extends KJActivity {
 				ViewInject.toast("没写东西....");
 				return;
 			}
-			Req.updateUserInfo(mKey, value, new HttpCallBack() {
+			if (intType == -1)
+				return;
+			Req.updateUserInfo(intType, mKey, value, new HttpCallBack() {
 				@Override
 				public void onSuccess(String t) {
 					super.onSuccess(t);

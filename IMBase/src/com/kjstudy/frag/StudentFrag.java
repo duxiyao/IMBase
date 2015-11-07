@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.imbase.LoginAct;
 import com.imbase.R;
+import com.kjstudy.act.StuPreInfoEditAct;
 import com.kjstudy.act.UploadImageActivity;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.util.DBUtil;
@@ -106,7 +107,7 @@ public class StudentFrag extends BFrag {
 						R.anim.sideslip_in_from_right,
 						R.anim.sideslip_out_from_left);
 			} else {
-				
+				ActUtil.startAct(StuPreInfoEditAct.class);
 			}
 			break;
 		default:
