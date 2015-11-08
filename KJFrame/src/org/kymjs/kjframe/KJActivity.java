@@ -123,13 +123,13 @@ public abstract class KJActivity extends FrameActivity {
 	protected void onDestroy() {
 		activityState = ActivityState.DESTROY;
 		KJLoger.state(this.getClass().getName(), "---------onDestroy ");
-		super.onDestroy();
-		KJActivityStack.create().finishActivity(this);
 		try {
 			ViewInject.hideSoftInputFromWindow(getWindow().getDecorView());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		super.onDestroy();
+		KJActivityStack.create().finishActivity(this);
 	}
 
 	/**

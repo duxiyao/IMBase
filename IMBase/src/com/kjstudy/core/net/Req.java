@@ -33,8 +33,11 @@ import org.kymjs.kjframe.KJHttp;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.http.HttpParams;
 import org.kymjs.kjframe.utils.KJLoger;
+import org.kymjs.kjframe.utils.StringUtils;
 
+import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.util.DeviceUtil;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.MM;
 
 import android.text.TextUtils;
@@ -43,6 +46,7 @@ import android.util.Log;
 public class Req {
 
 	private static String mHost = "http://www.doctorsclub.cn";
+//	private static String mHost = "http://localhost:9542";
 	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
 
@@ -53,13 +57,15 @@ public class Req {
 	public static void updateUserInfo(int type, String k, String v,
 			HttpCallBack cb) {
 		String url = mUrlPre + "HUpdateUserInfo.ashx";
-
-		if (TextUtils.isEmpty(url))
+		TSUserInfo m=Global.getCURUSER();
+		String id=String.valueOf(m.getId());
+		if(m==null||StringUtils.isEmpty(id))
 			return;
 		KJHttp kjh = new KJHttp();
 		HttpParams params = new HttpParams();
 		// if (!addKey(params))
 		// return;
+		params.put("id", id);
 		params.put(k, v);
 		params.put("intType", type);
 		kjh.post(url, params, false, cb);

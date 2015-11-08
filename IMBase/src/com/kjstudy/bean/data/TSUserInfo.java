@@ -10,8 +10,8 @@ public class TSUserInfo extends EntityData {
 	private int id;
 	private String name;
 	private String pwd;
-	private int sex;
-	private int age;
+	private int sex=-1;
+	private int age=-1;
 	private String phone;
 	private String email;
 	private String qq;

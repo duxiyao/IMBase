@@ -109,6 +109,7 @@ public class LoginAct extends KJActivity {
 						if (user != null && user.getCode() == 0
 								&& user.getData() != null) {
 							TSUserInfo u = user.getData();
+							u.setPwd(mPwd);
 							if (!DBUtil.getDB().isExists(TSUserInfo.class,
 									"phone='" + u.getPhone() + "'")) {
 								DBUtil.save(u);

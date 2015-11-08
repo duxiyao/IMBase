@@ -1,17 +1,30 @@
 package com.kjstudy.act;
 
 import org.kymjs.kjframe.KJActivity;
+import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.ActUtil;
+import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.imbase.R;
+import com.kjstudy.bean.Entity;
+import com.kjstudy.bean.data.TSUserInfo;
+import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.Global;
+import com.kjstudy.core.util.IntentNameUtil;
+import com.kjstudy.core.util.JsonUtil;
+import com.kjstudy.dialog.DialogAssistant;
 import com.kjstudy.plugin.CircleImageView;
 
 public class StuPreInfoEditAct extends KJActivity {
@@ -50,6 +63,14 @@ public class StuPreInfoEditAct extends KJActivity {
 				v.setOnClickListener(this);
 			}
 		}
+		TSUserInfo m = Global.getCURUSER();
+		if (m != null) {
+			mTvName.setText(m.getName());
+			if (m.getSex() != -1)
+				mTvSex.setText(m.getSex() == 0 ? "男" : "女");
+			if (m.getAge() != -1)
+				mTvAge.setText(String.valueOf(m.getAge()));
+		}
 	}
 
 	@Override
@@ -62,15 +83,16 @@ public class StuPreInfoEditAct extends KJActivity {
 			ActUtil.startAct(UploadImageActivity.class);
 			break;
 		case R.id.rl_name:
-			key = "name";
+			key = "a.name";
 			strHint = "改名字！";
 			break;
 		case R.id.rl_sex:
-			key = "sex";
-			strHint = "";
+			// key = "a.sex";
+			// strHint = "";
+			choiceSex();
 			break;
 		case R.id.rl_age:
-			key = "age";
+			key = "a.age";
 			strHint = "";
 			break;
 		default:
@@ -89,8 +111,12 @@ public class StuPreInfoEditAct extends KJActivity {
 		case R.id.rl_resident:
 			break;
 		case R.id.rl_grade:
+			key = "b.grade";
+			strHint = "";
 			break;
 		case R.id.rl_subject:
+			key = "b.subject";
+			strHint = "";
 			break;
 		case R.id.rl_personal_signature:
 
@@ -106,5 +132,55 @@ public class StuPreInfoEditAct extends KJActivity {
 			ActUtil.startAct(InfoEditAct.class, b);
 			return;
 		}
+	}
+
+	private void choiceSex() {
+		View v = LayoutInflater.from(getApplicationContext()).inflate(
+				R.layout.layout_dialog_choice_sex, null);
+
+		final Dialog d = DialogAssistant.getCustomDialog(v);
+		OnClickListener lis = new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				switch (v.getId()) {
+				case R.id.tv_man:
+					reqSex("0");
+					break;
+				case R.id.tv_woman:
+					reqSex("1");
+					break;
+				case R.id.tv_cancle:
+					d.dismiss();
+					break;
+
+				default:
+					break;
+				}
+			}
+		};
+		v.findViewById(R.id.tv_man).setOnClickListener(lis);
+		v.findViewById(R.id.tv_woman).setOnClickListener(lis);
+		d.show();
+	}
+
+	private void reqSex(String v) {
+		Req.updateUserInfo(0, "a.sex", v, new HttpCallBack() {
+			@Override
+			public void onSuccess(String t) {
+				super.onSuccess(t);
+				try {
+					Entity en = JsonUtil.json2Obj(t, Entity.class);
+					if (0 == en.getCode())
+						BroadCastUtil
+								.sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
+					else
+						ViewInject.toast("修改失败！");
+				} catch (Exception e) {
+					ViewInject.toast("修改失败！");
+				}
+			}
+		});
 	}
 }

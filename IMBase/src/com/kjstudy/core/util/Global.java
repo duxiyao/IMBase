@@ -1,5 +1,9 @@
 package com.kjstudy.core.util;
 
+import java.util.Map;
+
+import org.kymjs.kjframe.http.HttpCallBack;
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.PreferenceHelper;
 
@@ -7,10 +11,12 @@ import android.text.TextUtils;
 
 import com.imbase.MyApplication;
 import com.imbase.RegisterAct;
+import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.communication.CCPConfig;
 import com.kjstudy.communication.SDKHelper;
 import com.kjstudy.core.io.FileUtil;
+import com.kjstudy.core.net.Req;
 
 public class Global {
 
@@ -43,7 +49,7 @@ public class Global {
 				.getApplicationContext(), FileUtil.FN_CURUSERKEY, KEY);
 		if (TextUtils.isEmpty(id))
 			return;
-		String loginType = PreferenceHelper.readString(MyApplication
+		final String loginType = PreferenceHelper.readString(MyApplication
 				.getInstance().getApplicationContext(), FileUtil.FN_CURUSERKEY,
 				LOGIN_TYPE);
 		if (DBUtil.getDB().isExists(TSUserInfo.class,
@@ -51,8 +57,31 @@ public class Global {
 			TSUserInfo u = DBUtil.findOne(TSUserInfo.class, loginType + "='"
 					+ id + "'");
 			if (u != null) {
-				setCURUSER(u, loginType);
-				BroadCastUtil.sendBroadCast(IntentNameUtil.ON_LAST_USER_LOGIN);
+				Req.loginTS(u.getPhone(), u.getPwd(), new HttpCallBack() {
+					@Override
+					public void onSuccess(Map<String, String> headers, byte[] t) {
+						String ret = new String(t);
+						ViewInject.toast(String.valueOf(ret));
+						ETSUserInfo user = JsonUtil.json2Obj(ret,
+								ETSUserInfo.class);
+						if (user != null && user.getCode() == 0
+								&& user.getData() != null) {
+							TSUserInfo u = user.getData();
+							if (!DBUtil.getDB().isExists(TSUserInfo.class,
+									"phone='" + u.getPhone() + "'")) {
+								DBUtil.save(u);
+							} else {
+								DBUtil.update(u, "phone='" + u.getPhone() + "'");
+							}
+							setCURUSER(u, loginType);
+							BroadCastUtil.sendBroadCast(IntentNameUtil.ON_LAST_USER_LOGIN);
+						} else {
+							if (user != null)
+								ViewInject.toast(user.getMsg());
+						}
+					}
+ 
+				});
 			}
 		}
 	}
