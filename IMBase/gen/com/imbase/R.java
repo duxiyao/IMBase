@@ -458,10 +458,10 @@ containing a value of this type.
         public static final int iv_head_left=0x7f090067;
         public static final int iv_head_right=0x7f090068;
         public static final int iv_icon=0x7f09005a;
-        public static final int iv_icon1=0x7f09005b;
-        public static final int iv_icon2=0x7f09005c;
-        public static final int iv_icon3=0x7f09005d;
-        public static final int iv_icon4=0x7f09005e;
+        public static final int iv_icon1=0x7f09005e;
+        public static final int iv_icon2=0x7f09005b;
+        public static final int iv_icon3=0x7f09005c;
+        public static final int iv_icon4=0x7f09005d;
         public static final int iv_img=0x7f09002b;
         public static final int iv_qq=0x7f09003c;
         public static final int iv_qrcode=0x7f090059;

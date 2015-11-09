@@ -51,6 +51,7 @@ public class RegisterAct extends KJActivity {
 	public void initWidget() {
 		setFilters(IntentNameUtil.REGISTER_SUCCESS);
 		BarDefault bar = new BarDefault();
+		bar.setCenter(View.GONE);
 		setCustomBar(bar.getBarView());
 	}
 

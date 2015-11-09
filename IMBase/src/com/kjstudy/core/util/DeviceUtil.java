@@ -27,7 +27,7 @@ public class DeviceUtil {
 	}
 
 	public static String getCurTime() {
-		return DateUtil.getCommonDate(System.currentTimeMillis());
+		return String.valueOf(System.currentTimeMillis());
 	}
 
 	public static String getAesCode(String time) throws Exception {

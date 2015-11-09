@@ -22,6 +22,7 @@ import org.kymjs.kjframe.utils.KJLoger;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -233,7 +234,9 @@ public abstract class KJActivity extends FrameActivity {
 			ActionBar bar = getActionBar();
 			if (bar != null) {
 				bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-				bar.setCustomView(v);
+				ActionBar.LayoutParams p = new ActionBar.LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+				bar.setCustomView(v, p);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

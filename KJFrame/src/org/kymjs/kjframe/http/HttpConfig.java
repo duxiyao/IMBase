@@ -39,7 +39,7 @@ public class HttpConfig {
     /** 线程池大小 **/
     public static int NETWORK_POOL_SIZE = 4;
     /** Http请求超时时间 **/
-    public static int TIMEOUT = 5000;
+    public static int TIMEOUT = 30000;
 
     /** 磁盘缓存大小 */
     public static int DISK_CACHE_SIZE = 5 * 1024 * 1024;

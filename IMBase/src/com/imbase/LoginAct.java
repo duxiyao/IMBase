@@ -71,6 +71,7 @@ public class LoginAct extends KJActivity {
 		BarDefault bar = new BarDefault();
 		bar.setCenter(View.GONE);
 		setCustomBar(bar.getBarView());
+		bar.setOnClickLis(this);
 	}
 
 	@Override

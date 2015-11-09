@@ -45,8 +45,8 @@ import android.util.Log;
 
 public class Req {
 
-	private static String mHost = "http://www.doctorsclub.cn";
-//	private static String mHost = "http://localhost:9542";
+//	private static String mHost = "http://www.doctorsclub.cn";
+	private static String mHost = "http://localhost:9542";
 	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
 

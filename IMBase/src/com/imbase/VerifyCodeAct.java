@@ -49,6 +49,7 @@ public class VerifyCodeAct extends KJActivity {
 		mPwd = getIntent().getStringExtra(PWD);
 		setFilters(IntentNameUtil.REGISTER_SUCCESS);
 		BarDefault bar = new BarDefault();
+		bar.setCenter(View.GONE);
 		setCustomBar(bar.getBarView());
 	}
 
