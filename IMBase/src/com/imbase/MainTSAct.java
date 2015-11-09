@@ -26,6 +26,7 @@ import com.kjstudy.frag.IdentityFrag;
 import com.kjstudy.frag.SearchFrag;
 import com.kjstudy.plugin.MainFooterView;
 import com.kjstudy.plugin.MainFooterView.OnItemClickListener;
+import com.umeng.update.UmengUpdateAgent;
 
 public class MainTSAct extends KJActivity {
 
@@ -74,6 +75,7 @@ public class MainTSAct extends KJActivity {
 	@Override
 	public void setRootView() {
 		setContentView(R.layout.layout_main);
+		UmengUpdateAgent.update(this);
 	}
 
 	@Override

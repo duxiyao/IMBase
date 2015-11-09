@@ -5,6 +5,7 @@ import org.kymjs.kjframe.utils.bars.AbsBarUtil;
 
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.imbase.R;
@@ -17,6 +18,8 @@ public class BarDefault extends AbsBarUtil {
 	private TextView mTv1;
 	@BindView(id = R.id.tv2, click = true)
 	private TextView mTv2;
+	@BindView(id = R.id.ll_center, click = true)
+	private LinearLayout mLlCenter;
 
 	@Override
 	protected int getLayoutId() {
@@ -32,5 +35,9 @@ public class BarDefault extends AbsBarUtil {
 			mTv1.setText(txt);
 		if (which == 2)
 			mTv2.setText(txt);
+	}
+
+	public void setCenter(int visibility) {
+		mLlCenter.setVisibility(visibility);
 	}
 }
