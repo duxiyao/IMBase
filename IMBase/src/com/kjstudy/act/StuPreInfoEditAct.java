@@ -1,5 +1,8 @@
 package com.kjstudy.act;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
@@ -8,8 +11,12 @@ import org.kymjs.kjframe.utils.ActUtil;
 import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,13 +25,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.imbase.R;
+import com.kjstudy.bars.BarDefault2;
 import com.kjstudy.bean.Entity;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
+import com.kjstudy.core.util.cache.CacheManager;
 import com.kjstudy.dialog.DialogAssistant;
+import com.kjstudy.plugin.AverageView;
 import com.kjstudy.plugin.CircleImageView;
 
 public class StuPreInfoEditAct extends KJActivity {
@@ -48,6 +58,8 @@ public class StuPreInfoEditAct extends KJActivity {
 	@BindView(id = R.id.ll_content)
 	private LinearLayout mLlContent;
 
+	private final int INITDATA = 1;
+
 	@Override
 	public void setRootView() {
 		setContentView(R.layout.layout_personal_info);
@@ -56,6 +68,9 @@ public class StuPreInfoEditAct extends KJActivity {
 	@Override
 	public void initWidget() {
 		super.initWidget();
+		setFilters(IntentNameUtil.ON_UPLOAD_HEAD_IMG_SUCCESS);
+		BarDefault2 bar = new BarDefault2();
+		setCustomBar(bar.getBarView());
 		int len = mLlContent.getChildCount();
 		for (int i = 0; i < len; i++) {
 			View v = mLlContent.getChildAt(i);
@@ -63,6 +78,29 @@ public class StuPreInfoEditAct extends KJActivity {
 				v.setOnClickListener(this);
 			}
 		}
+		init();
+	}
+
+	@Override
+	protected void dealBroadcase(Intent intent) {
+		super.dealBroadcase(intent);
+		if (IntentNameUtil.ON_UPLOAD_HEAD_IMG_SUCCESS
+				.equals(intent.getAction())) {
+			Message msg = getOsEmptyMsg();
+			msg.what = INITDATA;
+			sendMsg(msg);
+		}
+	}
+
+	@Override
+	protected void handleMsg(Message msg) {
+		super.handleMsg(msg);
+		if (INITDATA == msg.what) {
+			init();
+		}
+	}
+
+	private void init() {
 		TSUserInfo m = Global.getCURUSER();
 		if (m != null) {
 			mTvName.setText(m.getName());
@@ -70,6 +108,8 @@ public class StuPreInfoEditAct extends KJActivity {
 				mTvSex.setText(m.getSex() == 0 ? "男" : "女");
 			if (m.getAge() != -1)
 				mTvAge.setText(String.valueOf(m.getAge()));
+			CacheManager.inflateHeadFront(m.getPhotoUrl(), mIvHead,
+					R.drawable.default_nor_avatar);
 		}
 	}
 
@@ -111,12 +151,10 @@ public class StuPreInfoEditAct extends KJActivity {
 		case R.id.rl_resident:
 			break;
 		case R.id.rl_grade:
-			key = "b.grade";
-			strHint = "";
+			choiceGrade();
 			break;
 		case R.id.rl_subject:
-			key = "b.subject";
-			strHint = "";
+			choiceSubject();
 			break;
 		case R.id.rl_personal_signature:
 
@@ -134,6 +172,62 @@ public class StuPreInfoEditAct extends KJActivity {
 		}
 	}
 
+	private void choiceSubject() {
+		showChoice(R.layout.layout_dialog_choice_grade, R.array.subject_info);
+	}
+
+	private void choiceGrade() {
+		showChoice(R.layout.layout_dialog_choice_grade, R.array.grade_info);
+	}
+
+	@SuppressLint("InflateParams")
+	private void showChoice(int layId, final int arrId) {
+		LayoutInflater lif = LayoutInflater.from(getApplicationContext());
+		View v = lif.inflate(layId, null);
+		AverageView av = (AverageView) v.findViewById(R.id.av_grade_subject);
+		final Dialog d = DialogAssistant.getCustomDialog(v);
+		OnClickListener lis = new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (R.id.tv_cancle == v.getId())
+					d.dismiss();
+				else {
+					try {
+						int p = Integer.parseInt(String.valueOf(v.getTag()));
+						String value =Integer.toBinaryString(p);
+						ViewInject.toast(value);
+						if(R.array.subject_info==arrId){
+							reqUpdate(1,"b.subject",value);
+							d.dismiss();
+						}else if(R.array.grade_info==arrId){
+							reqUpdate(1,"b.grade",value);
+							d.dismiss();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		Resources res = getResources();
+		String[] data = res.getStringArray(arrId);
+		List<TextView> list = new ArrayList<TextView>();
+		for (String s : data) {
+			TextView tv = (TextView) lif.inflate(R.layout.tv_grade_subject,
+					null);
+			String[] str = s.split(":");
+			tv.setText(str[0]);
+			tv.setTag(str[1]);
+			tv.setOnClickListener(lis);
+			list.add(tv);
+		}
+		av.setViews(list, 4, false);
+		v.findViewById(R.id.tv_cancle).setOnClickListener(lis);
+		d.show();
+
+	}
+
 	private void choiceSex() {
 		View v = LayoutInflater.from(getApplicationContext()).inflate(
 				R.layout.layout_dialog_choice_sex, null);
@@ -146,10 +240,10 @@ public class StuPreInfoEditAct extends KJActivity {
 
 				switch (v.getId()) {
 				case R.id.tv_man:
-					reqSex("0");
+					reqUpdate(0,"a.sex", "0");
 					break;
 				case R.id.tv_woman:
-					reqSex("1");
+					reqUpdate(0,"a.sex", "1");
 					break;
 				case R.id.tv_cancle:
 					d.dismiss();
@@ -162,11 +256,12 @@ public class StuPreInfoEditAct extends KJActivity {
 		};
 		v.findViewById(R.id.tv_man).setOnClickListener(lis);
 		v.findViewById(R.id.tv_woman).setOnClickListener(lis);
+		v.findViewById(R.id.tv_cancle).setOnClickListener(lis);
 		d.show();
 	}
 
-	private void reqSex(String v) {
-		Req.updateUserInfo(0, "a.sex", v, new HttpCallBack() {
+	private void reqUpdate(int type,String key, String v) {
+		Req.updateUserInfo(type, key, v, new HttpCallBack() {
 			@Override
 			public void onSuccess(String t) {
 				super.onSuccess(t);

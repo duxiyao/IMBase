@@ -1,8 +1,10 @@
 package com.kjstudy.bars;
 
 import org.kymjs.kjframe.ui.BindView;
+import org.kymjs.kjframe.ui.KJActivityStack;
 import org.kymjs.kjframe.utils.bars.AbsBarUtil;
 
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,5 +25,18 @@ public class BarDefault2 extends AbsBarUtil {
 
 	public void setOnClickLis(OnClickListener lis) {
 		mOnClickListener = lis;
+	}
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.iv_back:
+			KJActivityStack.create().topActivity().finish();
+			break;
+
+		default:
+			break;
+		}
 	}
 }

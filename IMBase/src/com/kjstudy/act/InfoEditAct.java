@@ -7,13 +7,17 @@ import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.imbase.R;
 import com.kjstudy.bars.BarDefault2;
 import com.kjstudy.bean.Entity;
+import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
 
@@ -23,6 +27,8 @@ public class InfoEditAct extends KJActivity {
 	public static final String HINTVALUE = "InfoEditAct.hintvalue";
 	public static final String INTTYPE = "InfoEditAct.inttype";
 
+	@BindView(id = R.id.tv_subject)
+	private TextView mTvName;
 	@BindView(id = R.id.et_content)
 	private EditText mEtContent;
 	private String mKey;
@@ -38,10 +44,22 @@ public class InfoEditAct extends KJActivity {
 		super.initWidget();
 		BarDefault2 bar = new BarDefault2();
 		bar.setOnClickLis(this);
+		setCustomBar(bar.getBarView());
 		mKey = getIntent().getStringExtra(KEY);
+		if ("a.age".equals(mKey)) {
+			mEtContent.setInputType(InputType.TYPE_CLASS_NUMBER);
+		}
 		intType = getIntent().getIntExtra(INTTYPE, -1);
 		mEtContent.setHint(getIntent().getStringExtra(HINTVALUE));
-		setCustomBar(bar.getBarView());
+		
+		TSUserInfo m = Global.getCURUSER();
+		if (m != null) {
+			mTvName.setText(m.getName());
+			if (m.getAge() > 0)
+				mEtContent.setText(String.valueOf(m.getAge()));
+			else
+				mEtContent.setText("");
+		}
 	}
 
 	@Override
@@ -57,6 +75,18 @@ public class InfoEditAct extends KJActivity {
 			if (StringUtils.isEmail(value)) {
 				ViewInject.toast("没写东西....");
 				return;
+			}
+			if ("a.age".equals(mKey)) {
+				try {
+					int age=Integer.parseInt(value);
+					if(age<=0||age>100){
+						ViewInject.toast("你是人类吗....");
+						return;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
 			}
 			if (intType == -1)
 				return;

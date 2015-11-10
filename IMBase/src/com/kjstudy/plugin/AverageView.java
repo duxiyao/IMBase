@@ -2,6 +2,8 @@ package com.kjstudy.plugin;
 
 import java.util.List;
 
+import org.kymjs.kjframe.ui.ViewInject;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -15,12 +17,11 @@ import android.view.ViewGroup;
 public class AverageView extends ViewGroup {
 
 	public interface OnAddAllViews {
-		void onAddAllViews(List<View> vs);
+		void onAddAllViews(List<? extends View> vs);
 	}
 
-	private int mWidth, mHeight, mChildWidthMeasureSpec,
-			mChildHeightMeasureSpec;
-	private List<View> mVs;
+	private int mHeight, mChildWidthMeasureSpec, mChildHeightMeasureSpec;
+	private List<? extends View> mVs;
 	private int mGap = 10;
 	private boolean isSquare = false;
 	private int mRowCount = 3;
@@ -52,7 +53,7 @@ public class AverageView extends ViewGroup {
 	 * @param isSquare
 	 *            子view的宽高是否相同
 	 */
-	public void setViews(List<View> vs, int rowCount, boolean isSquare) {
+	public void setViews(List<? extends View> vs, int rowCount, boolean isSquare) {
 		removeAllViews();
 		this.isSquare = isSquare;
 		this.mRowCount = rowCount;
@@ -85,7 +86,7 @@ public class AverageView extends ViewGroup {
 			}
 		}
 
-		setMeasuredDimension(mWidth, mHeight);
+		setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mHeight);
 	}
 
 	private void measureChildWidthHeight(int widthMeasureSpec,
@@ -97,9 +98,14 @@ public class AverageView extends ViewGroup {
 				v.measure(widthMeasureSpec, heightMeasureSpec);
 				int w = v.getMeasuredWidth();
 				int h = v.getMeasuredHeight();
-				mWidth = w;
-				mChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
-						(mWidth - (mRowCount + 1) * mGap) / mRowCount, 1);
+				// mChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
+				// (w - (mRowCount + 1) * mGap) / mRowCount, 1);
+				mChildWidthMeasureSpec = MeasureSpec
+						.makeMeasureSpec(
+								(MeasureSpec.getSize(widthMeasureSpec) - (mRowCount + 1)
+										* mGap)
+										/ mRowCount, 1);
+
 				if (isSquare)
 					mChildHeightMeasureSpec = mChildWidthMeasureSpec;
 				else
@@ -108,8 +114,9 @@ public class AverageView extends ViewGroup {
 				int row = len / mRowCount;
 				if (len % mRowCount != 0)
 					row += 1;
-				mHeight = (MeasureSpec.getSize(mChildHeightMeasureSpec)) * row
-						+ (row + 1) * mGap;
+				if (mHeight == 0)
+					mHeight = (MeasureSpec.getSize(mChildHeightMeasureSpec))
+							* row + (row + 1) * mGap;
 			}
 		}
 
@@ -121,7 +128,11 @@ public class AverageView extends ViewGroup {
 		for (int i = 0; i < childCount; i++) {
 			View v = getChildAt(i);
 
-			int measureHeight = mChildHeightMeasureSpec;// v.getMeasuredHeight();
+			int measureHeight = 0;
+			if (isSquare)
+				measureHeight = mChildHeightMeasureSpec;
+			else
+				measureHeight = v.getMeasuredHeight();
 			int measuredWidth = mChildWidthMeasureSpec;// v.getMeasuredWidth();
 			int curRow = i / mRowCount + 1;
 			int curCol = i % mRowCount + 1;

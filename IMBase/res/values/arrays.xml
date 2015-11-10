@@ -9,10 +9,48 @@
  
    An additional intellectual property rights grant can be found
    in the file PATENTS.  All contributing project authors may
-   be found in the AUTHORS file in the root of the source tree.
+   be found in the AUTHORS file in the root of the source tree.
 -->
 <resources>
 
+    <string-array name="subject_info">
+        <item>语文:1</item>
+        <item>数学:2</item>
+        <item>英语:4</item>
+        <item>物理:8</item>
+        <item>化学:16</item>
+        <item>生物:32</item>
+        <item>政治:64</item>
+        <item>历史:128</item>
+        <item>地理:256</item>
+    </string-array>
+    <string-array name="grade_info">
+        <item>一年级:1</item>
+        <item>二年级:2</item>
+        <item>三年级:4</item>
+        <item>四年级:8</item>
+        <item>五年级:16</item>
+        <item>六年级:32</item>
+        <item>七年级:64</item>
+        <item>八年级:128</item>
+        <item>九年级:256</item>
+        <item>初一:512</item>
+        <item>初二:1024</item>
+        <item>初三:2048</item>
+        <item>高一:4096</item>
+        <item>高二:8192</item>
+        <item>高三:16384</item>
+        <item>大一:32768</item>
+        <item>大二:65536</item>
+        <item>大三:131072</item>
+        <item>大四:262144</item>
+        <item>大五:524288</item>
+        <item>研一:1048576</item>
+        <item>研二:2097152</item>
+        <item>研三:4194304</item>
+        <item>研四:8388608</item>
+        <item>研五:16777216</item>
+    </string-array>
     <string-array name="group_info">
         <item>临时组(上限100人)</item>
         <item>普通组(上限300人)</item>

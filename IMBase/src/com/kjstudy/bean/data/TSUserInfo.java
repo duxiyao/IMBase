@@ -4,14 +4,15 @@ import org.kymjs.kjframe.database.annotate.Id;
 import org.kymjs.kjframe.database.annotate.Transient;
 
 public class TSUserInfo extends EntityData {
+	@Transient
 	private static final long serialVersionUID = 5705944516627316949L;
 
 	private int _id;
 	private int id;
 	private String name;
 	private String pwd;
-	private int sex=-1;
-	private int age=-1;
+	private int sex = -1;
+	private int age = -1;
 	private String phone;
 	private String email;
 	private String qq;

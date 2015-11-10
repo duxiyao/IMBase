@@ -117,7 +117,7 @@ public class MainTSAct extends KJActivity {
 					mVp.setCurrentItem(clickItemIndex);
 			}
 		});
-		Global.lastLoginUser();
+		
 //		mFoot.addOnLayoutChangeListener(new OnLayoutChangeListener() {
 //
 //			@Override

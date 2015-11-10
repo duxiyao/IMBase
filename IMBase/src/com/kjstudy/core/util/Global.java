@@ -67,12 +67,6 @@ public class Global {
 						if (user != null && user.getCode() == 0
 								&& user.getData() != null) {
 							TSUserInfo u = user.getData();
-							if (!DBUtil.getDB().isExists(TSUserInfo.class,
-									"phone='" + u.getPhone() + "'")) {
-								DBUtil.save(u);
-							} else {
-								DBUtil.update(u, "phone='" + u.getPhone() + "'");
-							}
 							setCURUSER(u, loginType);
 							BroadCastUtil.sendBroadCast(IntentNameUtil.ON_LAST_USER_LOGIN);
 						} else {

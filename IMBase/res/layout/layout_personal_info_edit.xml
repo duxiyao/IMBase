@@ -54,7 +54,6 @@
                 android:layout_below="@+id/tv_name"
                 android:layout_marginTop="@dimen/dp_10"
                 android:gravity="center"
-                android:text="科目"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_two" />
         </RelativeLayout>

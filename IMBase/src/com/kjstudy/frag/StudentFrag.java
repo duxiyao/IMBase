@@ -1,13 +1,21 @@
 package com.kjstudy.frag;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.kymjs.kjframe.ui.BindView;
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.ActUtil;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -21,6 +29,8 @@ import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.cache.CacheManager;
+import com.kjstudy.dialog.DialogAssistant;
+import com.kjstudy.plugin.AverageView;
 import com.kjstudy.plugin.CircleImageView;
 
 public class StudentFrag extends BFrag {
@@ -44,6 +54,7 @@ public class StudentFrag extends BFrag {
 		super.initWidget();
 		setFilters(IntentNameUtil.LOGIN_SUCCESS,
 				IntentNameUtil.REGISTER_SUCCESS,
+				IntentNameUtil.ON_UPLOAD_HEAD_IMG_SUCCESS,
 				IntentNameUtil.ON_LAST_USER_LOGIN);
 		Message msg = getOsEmptyMsg();
 		msg.what = ONINITDATA;
@@ -65,6 +76,10 @@ public class StudentFrag extends BFrag {
 		} else if (IntentNameUtil.ON_LAST_USER_LOGIN.equals(action)) {
 			Message msg = getOsEmptyMsg();
 			msg.what = ONLASTUSERLOGIN;
+			sendMsg(msg);
+		} else if (IntentNameUtil.ON_UPLOAD_HEAD_IMG_SUCCESS.equals(action)) {
+			Message msg = getOsEmptyMsg();
+			msg.what = ONINITDATA;
 			sendMsg(msg);
 		}
 	}
