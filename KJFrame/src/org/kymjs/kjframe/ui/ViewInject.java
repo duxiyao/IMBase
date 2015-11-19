@@ -176,8 +176,8 @@ public class ViewInject {
 		// 实例化一个ProgressBarDialog
 		ProgressDialog progressDialog = new ProgressDialog(aty);
 		progressDialog.setMessage(msg);
-		progressDialog.getWindow().setLayout(DensityUtils.getScreenW(aty),
-				DensityUtils.getScreenH(aty));
+		progressDialog.getWindow().setLayout(DensityUtils.getScreenW(),
+				DensityUtils.getScreenH());
 		progressDialog.setCancelable(cancel);
 		// 设置ProgressBarDialog的显示样式
 		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);

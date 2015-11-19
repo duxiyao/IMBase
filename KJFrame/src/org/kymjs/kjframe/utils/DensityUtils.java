@@ -37,7 +37,8 @@ public final class DensityUtils {
 	/**
 	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
 	 */
-	public static int dip2px(Context context, float dpValue) {
+	public static int dip2px(float dpValue) {
+		Context context = KJActivityStack.create().topActivity();
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (dpValue * scale + 0.5f);
 	}
@@ -53,7 +54,8 @@ public final class DensityUtils {
 	/**
 	 * 根据手机的分辨率从 px(像素) 的单位 转成为 sp
 	 */
-	public static int px2sp(Context context, float pxValue) {
+	public static int px2sp(float pxValue) {
+		Context context = KJActivityStack.create().topActivity();
 		float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
 		return (int) (pxValue / fontScale + 0.5f);
 	}
@@ -61,7 +63,8 @@ public final class DensityUtils {
 	/**
 	 * 根据手机的分辨率从 sp 的单位 转成为 px
 	 */
-	public static int sp2px(Context context, float spValue) {
+	public static int sp2px(float spValue) {
+		Context context = KJActivityStack.create().topActivity();
 		float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
 		return (int) (spValue * fontScale + 0.5f);
 	}
@@ -69,7 +72,8 @@ public final class DensityUtils {
 	/**
 	 * 获取dialog宽度
 	 */
-	public static int getDialogW(Context aty) {
+	public static int getDialogW() {
+		Context aty = KJActivityStack.create().topActivity();
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = aty.getResources().getDisplayMetrics();
 		int w = dm.widthPixels - 100;
@@ -80,7 +84,8 @@ public final class DensityUtils {
 	/**
 	 * 获取屏幕宽度
 	 */
-	public static int getScreenW(Context aty) {
+	public static int getScreenW() {
+		Context aty = KJActivityStack.create().topActivity();
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = aty.getResources().getDisplayMetrics();
 		int w = dm.widthPixels;
@@ -91,12 +96,17 @@ public final class DensityUtils {
 	/**
 	 * 获取屏幕高度
 	 */
-	public static int getScreenH(Context aty) {
+	public static int getScreenH() {
+		Context aty = KJActivityStack.create().topActivity();
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = aty.getResources().getDisplayMetrics();
 		int h = dm.heightPixels;
 		// int h = aty.getWindowManager().getDefaultDisplay().getHeight();
 		return h;
+	}
+
+	public static int getAllScreenH() {
+		return getScreenH() + getStatusBarHeight();
 	}
 
 	public static int getSysStatusBarHeight() {
@@ -107,7 +117,8 @@ public final class DensityUtils {
 		return statusBarHeight;
 	}
 
-	public static int getStatusBarHeight(Window window) {
+	public static int getStatusBarHeightByDecor() {
+		Window window = KJActivityStack.create().topActivity().getWindow();
 		Rect outRect = new Rect();
 		window.getDecorView().getWindowVisibleDisplayFrame(outRect);
 		return outRect.top;

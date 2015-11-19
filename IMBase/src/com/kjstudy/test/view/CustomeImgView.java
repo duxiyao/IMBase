@@ -3,21 +3,17 @@ package com.kjstudy.test.view;
 import java.util.HashMap;
 import java.util.List;
 
+import org.kymjs.kjframe.utils.DensityUtils;
 import org.kymjs.kjframe.utils.KJLoger;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.kjstudy.core.thread.ThreadManager;
-import com.kjstudy.core.util.DensityUtil;
 
 public class CustomeImgView extends ImageView {
 
@@ -79,7 +75,7 @@ public class CustomeImgView extends ImageView {
 	protected synchronized void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (mBitmaps != null && mBitmaps[0] != null) {
-			int left = DensityUtil.getScreenWidth() / 2
+			int left = DensityUtils.getScreenW()/ 2
 					- mBitmaps[0].getWidth() / 2;
 			left = 0;
 			for (int i = 0; i < mBitmaps.length; i++) {

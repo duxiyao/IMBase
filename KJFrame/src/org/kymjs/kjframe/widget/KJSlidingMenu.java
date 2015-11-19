@@ -61,7 +61,7 @@ public class KJSlidingMenu extends HorizontalScrollView {
 
     public KJSlidingMenu(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mScreenWidth = DensityUtils.getScreenW(context);
+        mScreenWidth = DensityUtils.getScreenW();
         mMenuRightPadding = (int) (mScreenWidth * 0.27);
     }
 

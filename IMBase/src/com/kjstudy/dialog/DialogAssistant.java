@@ -4,11 +4,7 @@ import org.kymjs.kjframe.ui.KJActivityStack;
 import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.view.ContextThemeWrapper;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +14,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.imbase.MyApplication;
 import com.imbase.R;
-import com.kjstudy.core.util.DensityUtil;
 
 public class DialogAssistant {
 
 	public static Dialog getProgressingDialog() {
-		int h = (int) (DensityUtil.getScreenHeight() * 0.5); // 高度设置为屏幕的0.6
-		int w = (int) (DensityUtil.getScreenWidth() * 0.8); // 宽度设置为屏幕的0.65
+		int h = (int) (DensityUtils.getScreenH() * 0.5); // 高度设置为屏幕的0.6
+		int w = (int) (DensityUtils.getScreenW() * 0.8); // 宽度设置为屏幕的0.65
 
 		Activity act = KJActivityStack.create().topActivity();
 		View v = LayoutInflater.from(act).inflate(
@@ -54,8 +48,8 @@ public class DialogAssistant {
 
 	public static Dialog getCustomDialog(View v) {
 
-		int h = (int) (DensityUtil.getScreenHeight() * 0.5); // 高度设置为屏幕的0.6
-		int w = (int) (DensityUtil.getScreenWidth() * 0.8); // 宽度设置为屏幕的0.65
+		int h = (int) (DensityUtils.getScreenH() * 0.5); // 高度设置为屏幕的0.6
+		int w = (int) (DensityUtils.getDialogW() * 0.8); // 宽度设置为屏幕的0.65
 
 		// Activity act = KJActivityStack.create().topActivity();
 		//
@@ -71,7 +65,7 @@ public class DialogAssistant {
 		// win.setAttributes(lp);
 
 		Dialog d = getDialog(R.style.ccpalertdialog, v, w, h, Gravity.CENTER,
-				-1, -1, false, 1f);
+				-1, -1, 1f);
 		d.setCanceledOnTouchOutside(false);
 		d.setCancelable(true);
 		return d;
@@ -79,26 +73,24 @@ public class DialogAssistant {
 
 	public static Dialog getPwdDialog(View v) {
 
-		int h = (int) (DensityUtil.getScreenHeight());
-		int w = (int) (DensityUtil.getScreenWidth());
+		int h = (int) (DensityUtils.getAllScreenH());
+		int w = (int) (DensityUtils.getScreenW());
 
-		Dialog d = getDialog(R.style.ccpalertdialog, v, w, h, Gravity.LEFT
-				| Gravity.TOP, -1, -1, false, 0.8f);
+		Dialog d = getDialog(R.style.gesture_pwd_dialog, v, w, h,
+				Gravity.CENTER, -1, -1, 1f);
 		return d;
 	}
 
 	public static Dialog getDialog(int style, View v, int w, int h,
-			int gravity, int x, int y, boolean hasBar, float alpha) {
+			int gravity, int x, int y, float alpha) {
 
 		Activity act = KJActivityStack.create().topActivity();
 
 		Dialog d = new Dialog(act, style);
-		if (!hasBar)
-			d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(v);
 		Window win = d.getWindow();
 		WindowManager.LayoutParams lp = win.getAttributes();
-		win.setGravity(gravity);
 		lp.width = w;
 		lp.height = h;
 		if (x != -1)
@@ -107,6 +99,7 @@ public class DialogAssistant {
 			lp.y = y;
 		lp.alpha = alpha;
 		win.setAttributes(lp);
+		win.setGravity(gravity);
 		d.setCanceledOnTouchOutside(false);
 		d.setCancelable(false);
 		return d;

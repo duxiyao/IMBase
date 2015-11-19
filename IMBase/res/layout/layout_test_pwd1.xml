@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_bar"
+        android:layout_marginTop="@dimen/dp_50"
+        android:gravity="center"
+        android:text="请输入密码" />
+
+    <com.kjstudy.plugin.gesture_pwd.GestureContentView1
+        xmlns:gcv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/gcv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/dp_20"
+        gcv:gesture_gap="@dimen/dp_30"
+        gcv:gesture_p="@dimen/dp_20" />
+
+</RelativeLayout>

@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.kjstudy.core.util.DensityUtil;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -58,6 +56,30 @@ public class GestureDrawline extends View {
 	 */
 	private boolean isVerify;
 
+	public List<GesturePoint> getList() {
+		return list;
+	}
+
+	public void setList(List<GesturePoint> list) {
+		this.list = list;
+	}
+
+	public boolean isVerify() {
+		return isVerify;
+	}
+
+	public void setVerify(boolean isVerify) {
+		this.isVerify = isVerify;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
 	/**
 	 * 用户传入的passWord
 	 */
@@ -85,12 +107,8 @@ public class GestureDrawline extends View {
 	public GestureDrawline(Context context, List<GesturePoint> list,
 			boolean isVerify, String passWord, GestureCallBack callBack) {
 		super(context);
-		int w = DensityUtil.getScreenWidth();
-		int h = DensityUtil.getScreenHeight();
 		paint = new Paint(Paint.DITHER_FLAG);// 创建一个画笔
-		bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888); // 设置位图的宽高
-		canvas = new Canvas();
-		canvas.setBitmap(bitmap);
+
 		paint.setStyle(Style.STROKE);// 设置非填充
 		paint.setStrokeWidth(10);// 笔宽5像素
 		paint.setColor(mDefaultLine);// 设置默认连线颜色
@@ -106,6 +124,12 @@ public class GestureDrawline extends View {
 		this.isVerify = isVerify;
 		this.passWordSb = new StringBuilder();
 		this.passWord = passWord;
+	}
+
+	public void setWh(int w, int h) {
+		bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888); // 设置位图的宽高
+		canvas = new Canvas();
+		canvas.setBitmap(bitmap);
 	}
 
 	private void initAutoCheckPointMap() {

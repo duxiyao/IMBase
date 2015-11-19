@@ -216,10 +216,10 @@ public class KJBitmap {
         int w = imageView.getMeasuredWidth();
         int h = imageView.getMeasuredHeight();
         if (w < 5) {
-            w = DensityUtils.getScreenW(imageView.getContext()) / 2;
+            w = DensityUtils.getScreenW() / 2;
         }
         if (h < 5) {
-            h = DensityUtils.getScreenH(imageView.getContext()) / 2;
+            h = DensityUtils.getScreenH() / 2;
         }
         display(imageView, imageUrl, w, h, loadBitmap, errorBitmap, callback);
     }

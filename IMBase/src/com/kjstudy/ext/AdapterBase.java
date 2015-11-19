@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kymjs.kjframe.ui.AnnotateUtil;
+import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -19,7 +20,6 @@ import android.widget.TextView;
 
 import com.imbase.MyApplication;
 import com.imbase.R;
-import com.kjstudy.core.util.DensityUtil;
 
 public abstract class AdapterBase<T, V> extends BaseAdapter {
 	protected Context mContext;
@@ -188,8 +188,8 @@ public abstract class AdapterBase<T, V> extends BaseAdapter {
 	}
 
 	private View getEmptyView(int position, View convertView, ViewGroup parent) {
-		final int screenWidth = DensityUtil.getScreenWidth();
-		final int screenHeight = DensityUtil.getScreenHeight();
+		final int screenWidth = DensityUtils.getScreenW();
+		final int screenHeight = DensityUtils.getScreenH();
 		final int listViewBottom = parent.getBottom();
 		AbsListView.LayoutParams params = null;
 		switch (displayPlace) {

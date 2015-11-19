@@ -1,5 +1,7 @@
 package com.kjstudy.plugin.gesture_pwd;
 
+import org.kymjs.kjframe.utils.ImgUtil;
+
 import android.widget.ImageView;
 
 import com.imbase.R;
@@ -61,7 +63,8 @@ public class GesturePoint {
 
 	public void setGestureNodeNormal(int gestureNodeNormal) {
 		this.mGestureNodeNormal = gestureNodeNormal;
-		image.setBackgroundResource(mGestureNodeNormal);
+		// image.setBackgroundResource(mGestureNodeNormal);
+		image.setImageBitmap(ImgUtil.drawable2Bitmap(mGestureNodeNormal));
 	}
 
 	public int getGestureNodePressed() {
@@ -89,10 +92,14 @@ public class GesturePoint {
 		this.bottomY = bottomY;
 		this.image = image;
 
+		resetCenterXy();
+		this.num = num;
+	}
+
+	public void resetCenterXy() {
 		this.centerX = (leftX + rightX) / 2;
 		this.centerY = (topY + bottomY) / 2;
 
-		this.num = num;
 	}
 
 	public int getLeftX() {
@@ -159,13 +166,18 @@ public class GesturePoint {
 		pointState = state;
 		switch (state) {
 		case PointState.NORMAL:
-			this.image.setBackgroundResource(getGestureNodeNormal());
+			image.setImageBitmap(ImgUtil
+					.drawable2Bitmap(getGestureNodeNormal()));
+			// this.image.setBackgroundResource(getGestureNodeNormal());
 			break;
 		case PointState.SELECTED:
-			this.image.setBackgroundResource(getGestureNodePressed());
+			image.setImageBitmap(ImgUtil
+					.drawable2Bitmap(getGestureNodePressed()));
+			// this.image.setBackgroundResource(getGestureNodePressed());
 			break;
 		case PointState.ERROR:
-			this.image.setBackgroundResource(getGestureNodeWrong());
+			image.setImageBitmap(ImgUtil.drawable2Bitmap(getGestureNodeWrong()));
+			// this.image.setBackgroundResource(getGestureNodeWrong());
 			break;
 		default:
 			break;

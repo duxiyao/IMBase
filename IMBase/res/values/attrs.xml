@@ -10,5 +10,9 @@
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="GestureLockView">
+        <attr name="gesture_p" format="dimension" />
+        <attr name="gesture_gap" format="dimension" />
+    </declare-styleable>
 
 </resources>

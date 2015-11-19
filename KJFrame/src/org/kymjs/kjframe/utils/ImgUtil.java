@@ -24,6 +24,15 @@ import android.util.Base64;
 
 public class ImgUtil {
 
+	public static Bitmap drawable2Bitmap(int resId) {
+		try {
+			return drawable2Bitmap(KJActivityStack.create().topActivity()
+					.getResources().getDrawable(resId));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public static Bitmap drawable2Bitmap(Drawable drawable) {
 		if (drawable instanceof BitmapDrawable) {
 			return ((BitmapDrawable) drawable).getBitmap();

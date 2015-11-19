@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
+import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -14,12 +15,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kjstudy.bars.BarDefault;
 import com.kjstudy.dialog.DialogAssistant;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
@@ -28,6 +33,7 @@ import com.kjstudy.frag.SearchFrag;
 import com.kjstudy.plugin.MainFooterView;
 import com.kjstudy.plugin.MainFooterView.OnItemClickListener;
 import com.kjstudy.plugin.gesture_pwd.GestureContentView;
+import com.kjstudy.plugin.gesture_pwd.GestureContentView1;
 import com.kjstudy.plugin.gesture_pwd.GestureDrawline.GestureCallBack;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -85,9 +91,11 @@ public class MainTSAct extends KJActivity {
 
 	void testpwd() {
 		View pwdV = getLayoutInflater().inflate(R.layout.layout_test_pwd, null);
+		View bv = pwdV.findViewById(R.id.ll_bar);
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, 200);
+		bv.setLayoutParams(lp);
 		final TextView mTextTip = (TextView) pwdV.findViewById(R.id.tv_tips);
-		FrameLayout fl = (FrameLayout) pwdV
-				.findViewById(R.id.fl_gesture_container);
+		ViewGroup fl = (ViewGroup) pwdV.findViewById(R.id.fl_gesture_container);
 		DialogAssistant.getPwdDialog(pwdV).show();
 
 		mGestureContentView = new GestureContentView(this, true, "1596",
@@ -122,14 +130,47 @@ public class MainTSAct extends KJActivity {
 				});
 		// 设置手势解锁显示到哪个布局里面
 		mGestureContentView.setParentView(fl);
-		mGestureContentView.setGestureNodeNormal(R.drawable.gesture_node_normal1);
-		mGestureContentView.setGestureNodePressed(R.drawable.gesture_node_pressed1);
+		mGestureContentView
+				.setGestureNodeNormal(R.drawable.gesture_node_normal1);
+		mGestureContentView
+				.setGestureNodePressed(R.drawable.gesture_node_pressed1);
+		mGestureContentView.setGestureNodeWrong(R.drawable.gesture_node_wrong1);
+	}
+
+	void testpwd1() {
+		View pwdV = getLayoutInflater()
+				.inflate(R.layout.layout_test_pwd1, null);
+		final GestureContentView1 gcv = (GestureContentView1) pwdV
+				.findViewById(R.id.gcv1);
+		DialogAssistant.getPwdDialog(pwdV).show();
+		gcv.setGestureNodeNormal(R.drawable.gesture_node_normal1);
+		gcv.setGestureNodePressed(R.drawable.gesture_node_pressed1);
+		gcv.setGestureNodeWrong(R.drawable.gesture_node_wrong1);
+		gcv.setParams("12369", true, new GestureCallBack() {
+
+			@Override
+			public void onGestureCodeInput(String inputCode) {
+				ViewInject.toast(inputCode);
+			}
+
+			@Override
+			public void checkedSuccess() {
+				gcv.clearDrawlineState(0L);
+				ViewInject.toast("密码正确");
+			}
+
+			@Override
+			public void checkedFail() {
+				gcv.clearDrawlineState(1300L);
+				ViewInject.toast("error");
+			}
+		});
 	}
 
 	@Override
 	public void initWidget() {
 		super.initWidget();
-		testpwd();
+		testpwd1();
 		SearchFrag mapFrag = new SearchFrag();
 		InterestFrag comFrag = new InterestFrag();
 		FriendFrag frdFrag = new FriendFrag();
