@@ -29,4 +29,11 @@ public class IntentNameUtil {
 	 * 修改个人信息成功
 	 */
 	public static final String ON_ALTER_PERSONAL_INFO_SUCCESS = "alter_personal_info_success";
+	
+	/** 
+	* @Fields SERVICE_ACTION_ON_REQ_STU_TEA_DATA : 获取学生、老师个人身份的信息
+	* @author duxiyao 
+	* @date 2015年11月25日 下午8:12:33 
+	*/ 
+	public static final String SERVICE_ACTION_ON_REQ_STU_TEA_DATA="download_stu_tea_personal_info";
 }

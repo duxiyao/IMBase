@@ -55,7 +55,7 @@ public class InfoEditAct extends KJActivity {
 		TSUserInfo m = Global.getCURUSER();
 		if (m != null) {
 			mTvName.setText(m.getName());
-			if (m.getAge() > 0)
+			if (m.getAge() > 0&&"a.age".equals(mKey))
 				mEtContent.setText(String.valueOf(m.getAge()));
 			else
 				mEtContent.setText("");

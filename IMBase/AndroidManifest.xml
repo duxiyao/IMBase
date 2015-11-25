@@ -157,6 +157,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
+        <service android:name="com.kjstudy.service.ServiceMainData"></service>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

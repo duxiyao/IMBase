@@ -6,6 +6,7 @@ import java.util.List;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.ActUtil;
+import org.kymjs.kjframe.utils.ServiceUtil;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -32,6 +33,7 @@ import com.kjstudy.core.util.cache.CacheManager;
 import com.kjstudy.dialog.DialogAssistant;
 import com.kjstudy.plugin.AverageView;
 import com.kjstudy.plugin.CircleImageView;
+import com.kjstudy.service.ServiceMainData;
 
 public class StudentFrag extends BFrag {
 
@@ -92,6 +94,7 @@ public class StudentFrag extends BFrag {
 		case REGISTERSUCCESS:
 		case ONLASTUSERLOGIN:
 		case ONINITDATA:
+//		    ServiceUtil.startService(ServiceMainData.class);
 			TSUserInfo info = Global.getCURUSER();
 			if (info != null) {
 				String name = info.getName();

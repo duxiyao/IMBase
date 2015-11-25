@@ -46,10 +46,10 @@ public class DialogAssistant {
 		return d;
 	}
 
-	public static Dialog getCustomDialog(View v) {
+    public static Dialog getCustomDialog(View v) {
 
-		int h = (int) (DensityUtils.getScreenH() * 0.5); // 高度设置为屏幕的0.6
-		int w = (int) (DensityUtils.getDialogW() * 0.8); // 宽度设置为屏幕的0.65
+//		int h = (int) (DensityUtils.getScreenH() * 0.5); // 高度设置为屏幕的0.6
+//		int w = (int) (DensityUtils.getDialogW() * 0.8); // 宽度设置为屏幕的0.65
 
 		// Activity act = KJActivityStack.create().topActivity();
 		//
@@ -63,7 +63,9 @@ public class DialogAssistant {
 		// lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		// // lp.alpha = 0.7f;
 		// win.setAttributes(lp);
-
+		int w = WindowManager.LayoutParams.WRAP_CONTENT;
+        int h = WindowManager.LayoutParams.WRAP_CONTENT;
+        
 		Dialog d = getDialog(R.style.ccpalertdialog, v, w, h, Gravity.CENTER,
 				-1, -1, 1f);
 		d.setCanceledOnTouchOutside(false);
