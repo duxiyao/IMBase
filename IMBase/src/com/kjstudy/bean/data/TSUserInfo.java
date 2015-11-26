@@ -8,7 +8,7 @@ public class TSUserInfo extends EntityData {
 	private static final long serialVersionUID = 5705944516627316949L;
 
 	private int _id;
-	private int id;
+	private int id=-1;
 	private String name;
 	private String pwd;
 	private int sex = -1;

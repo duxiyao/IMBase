@@ -13,6 +13,10 @@ public class DBUtil {
 		return KJDB.create(MyApplication.getInstance().getApplicationContext(),
 				FileAccessor.DBPATH, FileAccessor.DBNAME, true);
 	}
+	
+	public static boolean isExists(Class<?> clazz, String strWhere) {
+	    return getDB().isExists(clazz, strWhere);
+	}
 
 	public static void save(Object obj) {
 		KJDB.create(MyApplication.getInstance().getApplicationContext(),

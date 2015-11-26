@@ -50,6 +50,36 @@ public class Req {
 	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
 
+	public static void getStudentInfo(int ubId,HttpCallBack cb){
+        String uBid=String.valueOf(ubId);
+        String type="student";
+        String url = mUrlPre + "HGetTSInfo.ashx";
+        if(StringUtils.isEmpty(uBid))
+            return;
+        KJHttp kjh = new KJHttp();
+        HttpParams params = new HttpParams();
+        // if (!addKey(params))
+        // return;
+        params.put("type", type);
+        params.put("uBid", uBid);
+        kjh.post(url, params, false, cb);
+    }
+	
+	public static void getTeacherInfo(int ubId,HttpCallBack cb){
+	    String uBid=String.valueOf(ubId);
+	    String type="teacher";
+	    String url = mUrlPre + "HGetTSInfo.ashx";
+        if(StringUtils.isEmpty(uBid))
+            return;
+        KJHttp kjh = new KJHttp();
+        HttpParams params = new HttpParams();
+        // if (!addKey(params))
+        // return;
+        params.put("type", type);
+        params.put("uBid", uBid);
+        kjh.post(url, params, false, cb);
+	}
+	
 	public static String getUploadHeadImgAddr() {
 		return mUrlPre + "HUploadHeadImg.ashx";
 	}
