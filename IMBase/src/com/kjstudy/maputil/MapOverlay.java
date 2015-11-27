@@ -1,4 +1,4 @@
-package com.kjstudy.frag.maputil;
+package com.kjstudy.maputil;
 
 import org.kymjs.kjframe.ui.ViewInject;
 

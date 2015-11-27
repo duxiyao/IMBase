@@ -2,9 +2,9 @@ package com.kjstudy.frag;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
-import com.kjstudy.frag.maputil.MapLocation;
-import com.kjstudy.frag.maputil.MapLocation.LocationListener;
-import com.kjstudy.frag.maputil.MapOverlay;
+import com.kjstudy.maputil.MapLocation;
+import com.kjstudy.maputil.MapOverlay;
+import com.kjstudy.maputil.MapLocation.LocationListener;
 
 public class MapAssistant {
 

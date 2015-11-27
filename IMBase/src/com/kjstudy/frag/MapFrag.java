@@ -7,7 +7,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.imbase.R;
 import com.kjstudy.frag.SupportMapFragment1.OnMapCreated;
-import com.kjstudy.frag.maputil.MapLocation.LocationListener;
+import com.kjstudy.maputil.MapLocation.LocationListener;
 
 public class MapFrag extends BFrag implements OnMapCreated {
 

@@ -86,12 +86,16 @@ public class Global {
         }
     }
 
+    public static void setCURUSER(String id) {
+        CURUSER = DBUtil.findOne(TSUserInfo.class, id + "=" + id);
+    }
+
     public static void setCURUSER(TSUserInfo u) {
         setCURUSER(u, "phone");
     }
 
     public static void setCURUSER(TSUserInfo u, String loginType) {
-        if(u==null||u.getId()==-1)
+        if (u == null || u.getId() == -1)
             return;
         if (!GUtil.isEmpty(loginType)) {
             if ("phone".equals(loginType)) {

@@ -50,6 +50,19 @@ public class Req {
 	private static String mHandler = "/ts/";
 	private static String mUrlPre = mHost + mHandler;
 
+	   public static void getBasicInfo(int id,HttpCallBack cb){
+	        String sid=String.valueOf(id);
+	        String url = mUrlPre + "HGetBasicInfo.ashx";
+	        if(StringUtils.isEmpty(sid))
+	            return;
+	        KJHttp kjh = new KJHttp();
+	        HttpParams params = new HttpParams();
+	         if (!addKey(params))
+	         return;
+	        params.put("id", sid);
+	        kjh.post(url, params, false, cb);
+	    }
+	   
 	public static void getStudentInfo(int ubId,HttpCallBack cb){
         String uBid=String.valueOf(ubId);
         String type="student";

@@ -97,8 +97,8 @@ public class InfoEditAct extends KJActivity {
 					try {
 						Entity en = JsonUtil.json2Obj(t, Entity.class);
 						if (0 == en.getCode())
-							BroadCastUtil
-									.sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
+	                        BroadCastUtil
+                            .sendBroadCast(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA); 
 						else
 							ViewInject.toast("修改失败！");
 					} catch (Exception e) {

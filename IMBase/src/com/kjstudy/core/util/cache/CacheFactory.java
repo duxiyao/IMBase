@@ -37,7 +37,7 @@ public class CacheFactory {
 	 */
 	public static IFileCache getICache(String url, int imgType) {
 		IFileCache f = null;
-		if (MediaType.IMG.equals(MediaType.getMediaType(url))) {
+//		if (MediaType.IMG.equals(MediaType.getMediaType(url))) {
 			switch (imgType) {
 			case 0:
 				f = new ImageCache();
@@ -57,7 +57,7 @@ public class CacheFactory {
 			default:
 				break;
 			}
-		}
+//		}
 		return f;
 	}
 }

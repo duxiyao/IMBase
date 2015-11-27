@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import com.imbase.R;
 import com.kjstudy.bars.BarDefault2;
 import com.kjstudy.bean.Entity;
+import com.kjstudy.bean.EntityT;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.io.FileAccessor;
 import com.kjstudy.core.net.Req;
@@ -140,9 +141,7 @@ public class ImgPreviewAct extends KJActivity {
 									Exception e) {
 								try {
 									if (isOk) {
-										Entity result = JsonUtil.json2Obj(ret,
-												Entity.class);
-										String url = result.getMsg();
+									    String url=JsonUtil.getString(ret, "data");
 										if (!TextUtils.isEmpty(url)) {
 											deleteMyPreHead();
 											IFileCache ifc = CacheFactory

@@ -5,6 +5,7 @@ import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.BroadCastUtil;
 
+import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.EntityT;
 import com.kjstudy.bean.data.TSStudentInfo;
 import com.kjstudy.bean.data.TSTeacherInfo;
@@ -43,6 +44,31 @@ public class ServiceMainData extends KJService {
                     TSUserInfo m = Global.getCURUSER();
                     if (m == null)
                         return;
+                    Req.getBasicInfo(m.getId(), new HttpCallBack() {
+                        @Override
+                        public void onSuccess(String t) {
+                            ETSUserInfo user = JsonUtil.json2Obj(t,
+                                    ETSUserInfo.class);
+                            if (user != null && user.getCode() == 0
+                                    && user.getData() != null) {
+                                TSUserInfo u = user.getData();
+                                if (!DBUtil.getDB().isExists(TSUserInfo.class,
+                                        "id=" + u.getId())) {
+                                    DBUtil.save(u);
+                                } else {
+                                    DBUtil.update(u, "id=" + u.getId());
+                                }
+                                if(u.getId()!=-1)
+                                    Global.setCURUSER(String.valueOf(u.getId()));
+                            } else {
+                                if (user != null)
+                                    ViewInject.toast(user.getMsg());
+                            }
+                            BroadCastUtil
+                                    .sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
+                        }
+                    });
+
                     Req.getStudentInfo(m.getId(), new HttpCallBack() {
                         @Override
                         public void onSuccess(String t) {
@@ -54,9 +80,9 @@ public class ServiceMainData extends KJService {
                                         "ubId=" + stu.getUbId()))
                                     DBUtil.save(stu);
                                 else
-                                    DBUtil.update(stu);
-                        BroadCastUtil
-                                .sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
+                                    DBUtil.update(stu, "ubId=" + stu.getUbId());
+                                BroadCastUtil
+                                        .sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
                             } else {
                                 ViewInject.toast(et.getMsg());
                             }
@@ -75,7 +101,7 @@ public class ServiceMainData extends KJService {
                                         "ubId=" + tea.getUbId()))
                                     DBUtil.save(tea);
                                 else
-                                    DBUtil.update(tea);
+                                    DBUtil.update(tea, "ubId=" + tea.getUbId());
 
                             } else {
                                 ViewInject.toast(et.getMsg());

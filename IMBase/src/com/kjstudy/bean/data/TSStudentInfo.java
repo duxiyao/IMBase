@@ -4,15 +4,25 @@ import org.kymjs.kjframe.database.annotate.Transient;
 
 public class TSStudentInfo extends EntityData {
 
-    /** 
-    * @Fields serialVersionUID : 
-    * @author duxiyao 
-    * @date 2015年11月26日 上午10:38:53 
-    */ 
+    /**
+     * @Fields serialVersionUID :
+     * @author duxiyao
+     * @date 2015年11月26日 上午10:38:53
+     */
     @Transient
     private static final long serialVersionUID = 8004793105967890197L;
 
-    private int id=-1;
+    private int _id;
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    private int id = -1;
 
     private String latlng;
 

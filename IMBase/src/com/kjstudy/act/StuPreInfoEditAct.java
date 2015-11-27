@@ -275,12 +275,12 @@ public class StuPreInfoEditAct extends KJActivity {
                     reqUpdate(0, "a.sex", "1");
                     break;
                 case R.id.tv_cancle:
-                    d.dismiss();
                     break;
 
                 default:
                     break;
                 }
+                d.dismiss();
             }
         };
         v.findViewById(R.id.tv_man).setOnClickListener(lis);
@@ -298,9 +298,7 @@ public class StuPreInfoEditAct extends KJActivity {
                     Entity en = JsonUtil.json2Obj(t, Entity.class);
                     if (0 == en.getCode()) {
                         BroadCastUtil
-                                .sendBroadCast(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA);
-                        BroadCastUtil
-                                .sendBroadCast(IntentNameUtil.ON_ALTER_PERSONAL_INFO_SUCCESS);
+                                .sendBroadCast(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA); 
                     } else
                         ViewInject.toast("修改失败！");
                 } catch(Exception e) {

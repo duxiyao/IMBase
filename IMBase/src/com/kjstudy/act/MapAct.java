@@ -10,7 +10,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.imbase.R;
 import com.kjstudy.frag.MapAssistant;
-import com.kjstudy.frag.maputil.MapLocation.LocationListener;
+import com.kjstudy.maputil.MapLocation.LocationListener;
 
 public class MapAct extends KJActivity {
 

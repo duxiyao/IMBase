@@ -11,6 +11,15 @@ public class TSTeacherInfo extends EntityData {
     @Transient
     private static final long serialVersionUID = -6003961029795556013L;
 
+    private int _id;
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
     private int id=-1;
 
     private String latlng;
