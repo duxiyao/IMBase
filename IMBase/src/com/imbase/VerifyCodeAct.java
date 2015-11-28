@@ -6,7 +6,6 @@ import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
 import android.app.ProgressDialog;
@@ -20,6 +19,7 @@ import com.kjstudy.bars.BarDefault;
 import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;

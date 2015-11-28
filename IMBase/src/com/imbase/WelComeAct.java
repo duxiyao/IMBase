@@ -11,6 +11,8 @@ import java.util.TimerTask;
 
 import org.kymjs.kjframe.KJActivity;
 
+import com.kjstudy.core.util.Global;
+
 @SuppressLint("NewApi")
 public class WelComeAct extends KJActivity {
 

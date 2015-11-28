@@ -52,7 +52,14 @@
             android:name="com.kjstudy.act.MapAct"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/ccpalertdialog"
+            android:theme="@style/mapdialog"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+        </activity>
+        <activity
+            android:name="com.kjstudy.act.LocMapAct"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/mapdialog"
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
         <activity android:name="com.imbase.Login" >
@@ -89,13 +96,16 @@
         </activity>
 
         <service
+            android:name="com.baidu.location.f"
+            android:process=":remote" >
+        </service>
+        <service
             android:name="com.hisun.phone.core.voice.CCPService"
             android:exported="false" />
         <service android:name="com.kjstudy.test.MyService" >
         </service>
         <service
             android:name="com.yuntongxun.ecsdk.ECClientService"
-            android:enabled="true"
             android:exported="false" />
 
         <meta-data
@@ -110,7 +120,7 @@
             android:value="551bf59dfd98c5b39e002032" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="yuntongxun_im_5.0.1b" />
+            android:value="yuntongxun_im_5.0.1b" />
         -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
@@ -157,11 +167,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
-        <service android:name="com.kjstudy.service.ServiceMainData"></service>
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" >
+        <service android:name="com.kjstudy.service.ServiceMainData" >
         </service>
     </application>
 
@@ -196,7 +202,7 @@
         允许一个程序初始化一个电话拨号不需通过拨号用户界面需要用户确认 
 		Allows an application to initiate a phone call 
 		without going through the Dialer user interface 
-		for the user to confirm the call being placed.)
+		for the user to confirm the call being placed.)
     -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />

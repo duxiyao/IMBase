@@ -4,21 +4,17 @@ import java.util.Map;
 
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.PreferenceHelper;
-import org.kymjs.kjframe.utils.ServiceUtil;
 
 import android.text.TextUtils;
 
 import com.imbase.MyApplication;
-import com.imbase.RegisterAct;
 import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.communication.CCPConfig;
 import com.kjstudy.communication.SDKHelper;
 import com.kjstudy.core.io.FileUtil;
 import com.kjstudy.core.net.Req;
-import com.kjstudy.service.ServiceMainData;
 
 public class Global {
 

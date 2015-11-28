@@ -3,7 +3,6 @@ package com.kjstudy.communication;
 import java.util.List;
 
 import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
 import android.os.Process;
@@ -12,6 +11,7 @@ import com.imbase.R;
 import com.kjstudy.bean.ImMessage;
 import com.kjstudy.business.handler.IMHandlerManager;
 import com.kjstudy.core.thread.ThreadManager;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.DateUtil;
 import com.kjstudy.core.util.IntentNameUtil;
@@ -23,6 +23,7 @@ import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.OnChatReceiveListener;
+import com.yuntongxun.ecsdk.im.ECMessageNotify;
 import com.yuntongxun.ecsdk.im.ECTextMessageBody;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
@@ -166,4 +167,8 @@ public class IMHelper implements OnChatReceiveListener{
 			}
 		});
 	}
+
+    @Override
+    public void onReceiveMessageNotify(ECMessageNotify arg0) {
+    }
 }

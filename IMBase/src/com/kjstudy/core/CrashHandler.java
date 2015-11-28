@@ -97,16 +97,17 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		if (!handleException(ex) && mDefaultHandler != null) {
 			// 如果用户没有处理则让系统默认的异常处理器来处理
 			mDefaultHandler.uncaughtException(thread, ex);
-		} else {
-			// Sleep一会后结束程序
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				Log.e(TAG, "Error : ", e);
-			}
-			android.os.Process.killProcess(android.os.Process.myPid());
-			System.exit(10);
-		}
+		} 
+//		else {
+//			// Sleep一会后结束程序
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				Log.e(TAG, "Error : ", e);
+//			}
+//			android.os.Process.killProcess(android.os.Process.myPid());
+//			System.exit(10);
+//		}
 	}
 
 	/**
@@ -124,6 +125,12 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		if (msg == null) {
 			return false;
 		}
+		if(msg.contains("cannot be cast")||msg.contains("ECClientService$ECServiceBinder")){
+		    //启动百度定位时，报错到运通讯通讯服务里了
+		    //未找到原因，待后边调查
+		    return true;
+		}
+		    
 		// 使用Toast来显示异常信息
 		new Thread() {
 			@Override
@@ -143,7 +150,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		saveCrashInfoToFile(ex);
 		// 发送错误报告到服务器
 		// sendCrashReportsToServer(mContext);
-		return true;
+		return false;
 	}
 
 	/**

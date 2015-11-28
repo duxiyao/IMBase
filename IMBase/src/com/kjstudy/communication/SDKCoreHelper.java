@@ -23,6 +23,7 @@ import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.OnChatReceiveListener;
 import com.yuntongxun.ecsdk.SdkErrorCode;
+import com.yuntongxun.ecsdk.im.ECMessageNotify;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
 /**
@@ -50,7 +51,7 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 
 	private void initOptions() {
 		mOptions = new ECNotifyOptions();
-		mOptions.enable = true;
+//		mOptions.enableShake(arg0);
 		// mOptions.mNewMsgShake =
 		// ECPreferences.getSharedPreferences().getBoolean(ECPreferenceSettings.SETTINGS_NEW_MSG_SHAKE.getId(),
 		// true);
@@ -190,6 +191,10 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 			@Override
 			public void OnReceiveGroupNoticeMessage(ECGroupNoticeMessage arg0) {
 			}
+
+            @Override
+            public void onReceiveMessageNotify(ECMessageNotify arg0) {
+            }
 		});
 		if(mInitParams.validate()){
 			ECDevice.login(mInitParams);

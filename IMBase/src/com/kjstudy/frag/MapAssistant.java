@@ -15,6 +15,6 @@ public class MapAssistant {
 	public static void addOverlay(BaiduMap baiduMap, BDLocation location) {
 		MapOverlay mapOverlay = new MapOverlay(baiduMap);
 		mapOverlay.locationMe(location);
-		mapOverlay.randomAroundMe(location);
+//		mapOverlay.randomAroundMe(location);
 	}
 }

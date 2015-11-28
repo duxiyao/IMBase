@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
+import com.kjstudy.core.util.Global;
 import com.kjstudy.frag.FriendFrag;
 import com.kjstudy.frag.IdentityFrag;
 import com.kjstudy.frag.InterestFrag;

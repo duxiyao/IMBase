@@ -68,7 +68,7 @@ public class LoginHelper implements InitListener, OnECDeviceConnectListener {
 
 		} else if (ECConnectState.CONNECT_SUCCESS.equals(state)) {
 			ViewInject.toast("connect success");
-			Object obj = KJActivityStack.create().topActivity();
+//			Object obj = KJActivityStack.create().topActivity();
 //			if (obj instanceof KJActivity) {
 //				KJActivity act = (KJActivity) obj;
 //				act.skipActivity(act, MyFriendsUI.class);

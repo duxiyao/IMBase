@@ -4,7 +4,6 @@ import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
 import android.text.InputType;
@@ -17,6 +16,7 @@ import com.kjstudy.bars.BarDefault2;
 import com.kjstudy.bean.Entity;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;

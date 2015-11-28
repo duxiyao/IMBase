@@ -162,7 +162,6 @@ public class CacheManager {
 						try {
 							iv.setScaleType(ImageView.ScaleType.FIT_XY);
 						} catch (Exception e) {
-							e.printStackTrace();
 						}
 						if (defaultBmp != null) {
 							iv.setImageBitmap(defaultBmp);

@@ -1,6 +1,5 @@
 package com.kjstudy.act;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -8,7 +7,6 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.ui.BindView;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.FileUtils;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -23,11 +21,10 @@ import android.widget.ImageView;
 
 import com.imbase.R;
 import com.kjstudy.bars.BarDefault2;
-import com.kjstudy.bean.Entity;
-import com.kjstudy.bean.EntityT;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.io.FileAccessor;
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;

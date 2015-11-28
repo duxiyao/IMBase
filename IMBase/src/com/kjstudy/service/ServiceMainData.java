@@ -3,7 +3,9 @@ package com.kjstudy.service;
 import org.kymjs.kjframe.KJService;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.BroadCastUtil;
+
+import android.content.Intent;
+import android.os.IBinder;
 
 import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.EntityT;
@@ -12,13 +14,11 @@ import com.kjstudy.bean.data.TSTeacherInfo;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.Req;
 import com.kjstudy.core.thread.ThreadManager;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
-
-import android.content.Intent;
-import android.os.IBinder;
 
 public class ServiceMainData extends KJService {
 

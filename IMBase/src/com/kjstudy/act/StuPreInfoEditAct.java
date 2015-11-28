@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.ActUtil;
-import org.kymjs.kjframe.utils.BroadCastUtil;
 import org.kymjs.kjframe.utils.StringUtils;
 
 import android.annotation.SuppressLint;
@@ -25,14 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.imbase.MyApplication;
 import com.imbase.R;
 import com.kjstudy.bars.BarDefault2;
 import com.kjstudy.bean.Entity;
 import com.kjstudy.bean.data.TSStudentInfo;
 import com.kjstudy.bean.data.TSUserInfo;
-import com.kjstudy.core.io.FileAccessor;
 import com.kjstudy.core.net.Req;
+import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
 import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.Global;
@@ -178,6 +175,8 @@ public class StuPreInfoEditAct extends KJActivity {
 
         switch (v.getId()) {
         case R.id.rl_resident:
+            
+            ActUtil.startAct(LocMapAct.class);
             break;
         case R.id.rl_grade:
             choiceGrade();
