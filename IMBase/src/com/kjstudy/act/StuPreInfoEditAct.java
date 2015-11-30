@@ -175,8 +175,9 @@ public class StuPreInfoEditAct extends KJActivity {
 
         switch (v.getId()) {
         case R.id.rl_resident:
-            
-            ActUtil.startAct(LocMapAct.class);
+            Bundle p = new Bundle();
+            p.putString(LocMapAct.IDENTITY, "student");
+            ActUtil.startAct(LocMapAct.class, p);
             break;
         case R.id.rl_grade:
             choiceGrade();
@@ -297,7 +298,7 @@ public class StuPreInfoEditAct extends KJActivity {
                     Entity en = JsonUtil.json2Obj(t, Entity.class);
                     if (0 == en.getCode()) {
                         BroadCastUtil
-                                .sendBroadCast(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA); 
+                                .sendBroadCast(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA);
                     } else
                         ViewInject.toast("修改失败！");
                 } catch(Exception e) {

@@ -20,6 +20,7 @@
     <color name="launcher_tab_text_color">#ff636363</color>
     <color name="normal_text_color_disable">#7f353535</color>
     <color name="last_msg_tv_color">#ffaaaaaa</color>
+<color name="half_transparent">#b0000000</color>
 
     <item name="menu_pressed_color" type="color">@color/small_line_color</item>
 
@@ -58,4 +59,5 @@
     <color name="color_EDEDED">#EDEDED</color>
     <color name="color_999999">#999999</color>
     <color name="color_333333">#333333</color>
+    
 </resources>
