@@ -1,48 +1,23 @@
 package com.kjstudy.core.net;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.security.cert.CertificateException;
-import javax.security.cert.X509Certificate;
-
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.util.EntityUtils;
 import org.kymjs.kjframe.KJHttp;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.http.HttpParams;
-import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.StringUtils;
+
+import android.text.TextUtils;
 
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.net.interfacebean.IEnCreatePOI;
+import com.kjstudy.core.net.interfacebean.IEnSearchPOI;
 import com.kjstudy.core.util.DeviceUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.MM;
-
-import android.text.TextUtils;
-import android.util.Log;
 
 public class Req {
 
@@ -53,6 +28,18 @@ public class Req {
 
     private static String mUrlPre = mHost + mHandler;
 
+    public static void searchPOI(IEnSearchPOI en,HttpCallBack cb){
+        if(en==null)
+            return;
+        String url = mUrlPre + "HSearchPOI.ashx";        
+        KJHttp kjh = new KJHttp();
+        HttpParams params =en.getP();
+        if (!addKey(params))
+            return;
+        
+        kjh.post(url, params, false, cb);
+    }
+    
     public static void createPOI(IEnCreatePOI en,HttpCallBack cb) {
         TSUserInfo m= Global.getCURUSER();
         if(m==null||m.getId()==-1||en==null){

@@ -71,7 +71,7 @@ public class ServiceMainData extends KJService {
 
                     Req.getStudentInfo(m.getId(), new HttpCallBack() {
                         @Override
-                        public void onSuccess(String t) {
+                        public void onSuccess(String t) { 
                             EntityT<TSStudentInfo> et = JsonUtil.json2ET(t,
                                     TSStudentInfo.class);
                             if (et.getCode() == 0) {
