@@ -38,6 +38,16 @@ public class ContentEntity extends Entity {
 
     private int distance;
 
+    private TSUserInfo uinfo;
+
+    public TSUserInfo getUinfo() {
+        return uinfo;
+    }
+
+    public void setUinfo(TSUserInfo uinfo) {
+        this.uinfo = uinfo;
+    }
+
     public String getUid() {
         return uid;
     }

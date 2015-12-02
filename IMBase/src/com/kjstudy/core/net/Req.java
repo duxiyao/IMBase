@@ -31,7 +31,7 @@ public class Req {
     public static void searchPOI(IEnSearchPOI en,HttpCallBack cb){
         if(en==null)
             return;
-        String url = mUrlPre + "HSearchPOI.ashx";        
+        String url = mUrlPre + "HSearchInfo.ashx";        
         KJHttp kjh = new KJHttp();
         HttpParams params =en.getP();
         if (!addKey(params))
