@@ -28,30 +28,44 @@ public class Req {
 
     private static String mUrlPre = mHost + mHandler;
 
-    public static void searchPOI(IEnSearchPOI en,HttpCallBack cb){
-        if(en==null)
-            return;
-        String url = mUrlPre + "HSearchInfo.ashx";        
+    public static void upRealtimePos(String ubId, String userType,
+            String latlng, HttpCallBack cb) {
+        String url = mUrlPre + "HUpRealTimePos.ashx";
         KJHttp kjh = new KJHttp();
-        HttpParams params =en.getP();
+        HttpParams params = new HttpParams();
+        params.put("ubid", ubId);
+        params.put("userType", userType);
+        params.put("latlng", latlng);
         if (!addKey(params))
             return;
-        
+
         kjh.post(url, params, false, cb);
     }
-    
-    public static void createPOI(IEnCreatePOI en,HttpCallBack cb) {
-        TSUserInfo m= Global.getCURUSER();
-        if(m==null||m.getId()==-1||en==null){
+
+    public static void searchPOI(IEnSearchPOI en, HttpCallBack cb) {
+        if (en == null)
             return;
-        }
-        String url = mUrlPre + "HCreatePOI.ashx";        
+        String url = mUrlPre + "HSearchInfo.ashx";
         KJHttp kjh = new KJHttp();
-        HttpParams params =en.getP();
+        HttpParams params = en.getP();
         if (!addKey(params))
             return;
-        params.put("ubId", m.getId()); 
-        
+
+        kjh.post(url, params, false, cb);
+    }
+
+    public static void createPOI(IEnCreatePOI en, HttpCallBack cb) {
+        TSUserInfo m = Global.getCURUSER();
+        if (m == null || m.getId() == -1 || en == null) {
+            return;
+        }
+        String url = mUrlPre + "HCreatePOI.ashx";
+        KJHttp kjh = new KJHttp();
+        HttpParams params = en.getP();
+        if (!addKey(params))
+            return;
+        params.put("ubId", m.getId());
+
         kjh.post(url, params, false, cb);
     }
 

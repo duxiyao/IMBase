@@ -6,7 +6,9 @@ import org.kymjs.kjframe.ui.ViewInject;
 
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.Message;
 
+import com.baidu.location.BDLocation;
 import com.kjstudy.bean.ETSUserInfo;
 import com.kjstudy.bean.EntityT;
 import com.kjstudy.bean.data.TSStudentInfo;
@@ -16,11 +18,41 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.core.thread.ThreadManager;
 import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
+import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
+import com.kjstudy.maputil.SeriesMapLocation;
+import com.kjstudy.maputil.SeriesMapLocation.LocationListener;
 
 public class ServiceMainData extends KJService {
+
+    private final static int START_REALTIME_LOC = 4352532;
+
+    private SeriesMapLocation mSML;
+
+    @Override
+    protected void handleMsg(Message msg) {
+        if(START_REALTIME_LOC==msg.what){
+            mSML = new SeriesMapLocation(60000, new LocationListener() {
+
+                @Override
+                public void onReceiveLocation(BDLocation location) {
+                    TSUserInfo m = Global.getCURUSER();
+                    if (m != null && m.getId() != -1) {
+                        String latlng = String.valueOf(location.getLongitude())
+                                + "," + String.valueOf(location.getLatitude());
+                        String ubid = String.valueOf(m.getId());
+                         Req.upRealtimePos(ubid, "", latlng,
+                         new HttpCallBack() {
+                        
+                         });
+                    }
+                }
+            });
+
+        }
+    }
 
     void r(Runnable r) {
         ThreadManager.getInstance().exeRunnable(r);
@@ -29,7 +61,9 @@ public class ServiceMainData extends KJService {
     @Override
     public void onCreate() {
         super.onCreate();
-        setFilters(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA);
+        setFilters(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA,
+                IntentNameUtil.SERVICE_ACTION_ON_UP_REAL_TIME_POS,
+                IntentNameUtil.SERVICE_ACTION_ON_STOP_REAL_TIME_POS);
     }
 
     @Override
@@ -58,7 +92,7 @@ public class ServiceMainData extends KJService {
                                 } else {
                                     DBUtil.update(u, "id=" + u.getId());
                                 }
-                                if(u.getId()!=-1)
+                                if (u.getId() != -1)
                                     Global.setCURUSER(String.valueOf(u.getId()));
                             } else {
                                 if (user != null)
@@ -71,7 +105,7 @@ public class ServiceMainData extends KJService {
 
                     Req.getStudentInfo(m.getId(), new HttpCallBack() {
                         @Override
-                        public void onSuccess(String t) { 
+                        public void onSuccess(String t) {
                             EntityT<TSStudentInfo> et = JsonUtil.json2ET(t,
                                     TSStudentInfo.class);
                             if (et.getCode() == 0) {
@@ -110,6 +144,12 @@ public class ServiceMainData extends KJService {
                     });
                 }
             });
+        } else if (IntentNameUtil.SERVICE_ACTION_ON_UP_REAL_TIME_POS
+                .equals(action)) {
+            sendMsg(getOsEmptyMsg(START_REALTIME_LOC));
+        } else if (IntentNameUtil.SERVICE_ACTION_ON_STOP_REAL_TIME_POS
+                .equals(action)) {
+            mSML.release();
         }
     }
 

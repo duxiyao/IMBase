@@ -36,4 +36,11 @@ public class IntentNameUtil {
 	* @date 2015年11月25日 下午8:12:33 
 	*/ 
 	public static final String SERVICE_ACTION_ON_REQ_STU_TEA_DATA="download_stu_tea_personal_info";
+	/** 
+	* @Fields SERVICE_ACTION_ON_UP_REAL_TIME_POS : 上传实时位置
+	* @author duxiyao 
+	* @date 2015年12月3日 下午2:49:24 
+	*/ 
+	public static final String SERVICE_ACTION_ON_UP_REAL_TIME_POS="up_real_time_pos";
+	public static final String SERVICE_ACTION_ON_STOP_REAL_TIME_POS="stop_up_real_time_pos";
 }

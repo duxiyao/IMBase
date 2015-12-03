@@ -10,11 +10,17 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
 import com.baidu.location.LocationClientOption.LocationMode;
+import com.baidu.location.Poi;
 import com.imbase.MyApplication;
 
-public class MapLocation {
+/**
+ * @ClassName: SeriesMapLocation
+ * @Description: 连续定位，每隔一段时间定位一次
+ * @author duxiyao
+ * @date 2015年12月3日 下午1:56:24
+ */
+public class SeriesMapLocation {
 
     public interface LocationListener {
         void onReceiveLocation(BDLocation location);
@@ -24,7 +30,6 @@ public class MapLocation {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            stopLocation();
             // Receive Location
             StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");
@@ -107,29 +112,16 @@ public class MapLocation {
 
     private int mSpan = 1;
 
-    private static MapLocation mInstance;
-
-    private MapLocation() {
+    public SeriesMapLocation(int span, LocationListener lis) {
         mContext = MyApplication.getInstance().getApplicationContext();
-        init();
+        setP(span, lis);
+        startLocation();
     }
 
     private void init() {
-        stopLocation();
         mLocationClient = new LocationClient(mContext);
         initLocation();
         mLocationClient.registerLocationListener(myListener);
-    }
-
-    public static MapLocation getInstance() {
-        if (mInstance == null) {
-            synchronized (MapLocation.class) {
-                if (mInstance == null) {
-                    mInstance = new MapLocation();
-                }
-            }
-        }
-        return mInstance;
     }
 
     private void initLocation() {
@@ -148,15 +140,7 @@ public class MapLocation {
         mLocationClient.setLocOption(option);
     }
 
-    public MapLocation setLParams(int span, LocationListener lis) {
-        return setP(span,lis);
-    }
-
-    public MapLocation setLLis(LocationListener lis) {
-        return setP(1,lis);
-    }
-
-    private MapLocation setP(int span, LocationListener lis) {
+    private void setP(int span, LocationListener lis) {
         mSpan = span;
         init();
         if (lis != null)
@@ -164,18 +148,25 @@ public class MapLocation {
         if (mLocationClient.isStarted()) {
             mLocationClient.stop();
         }
-        return this;
     }
 
-    public void startLocation() {
+    private void startLocation() {
         mLocationClient.start();
     }
 
     private void stopLocation() {
         if (mLocationClient != null) {
             mLocationClient.stop();
-            mLocationClient.unRegisterLocationListener(myListener);
+            if (myListener != null)
+                mLocationClient.unRegisterLocationListener(myListener);
             mLocationClient = null;
         }
+    }
+
+    public void release() {
+        stopLocation();
+        mLocationClient = null;
+        myListener = null;
+        mLocationListener = null;
     }
 }
