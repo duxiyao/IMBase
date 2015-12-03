@@ -1,6 +1,7 @@
 package com.kjstudy.core.util;
 
 import java.text.SimpleDateFormat;
+import java.util.TimerTask;
 
 public class DateUtil {
 	static final SimpleDateFormat format = new SimpleDateFormat(
@@ -49,5 +50,5 @@ public class DateUtil {
 		else if (ih >= 0 && ih <= 3)
 			return "深夜";
 		return "";
-	}
+	} 
 }

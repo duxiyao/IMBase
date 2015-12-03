@@ -1,5 +1,7 @@
 package com.kjstudy.service;
 
+import java.util.TimerTask;
+
 import org.kymjs.kjframe.KJService;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.ViewInject;
@@ -18,39 +20,71 @@ import com.kjstudy.core.net.Req;
 import com.kjstudy.core.thread.ThreadManager;
 import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
-import com.kjstudy.core.util.GUtil;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.core.util.IntentNameUtil;
 import com.kjstudy.core.util.JsonUtil;
-import com.kjstudy.maputil.SeriesMapLocation;
-import com.kjstudy.maputil.SeriesMapLocation.LocationListener;
+import com.kjstudy.core.util.MyTimer;
+import com.kjstudy.maputil.MapLocation;
+import com.kjstudy.maputil.MapLocation.LocationListener;
 
 public class ServiceMainData extends KJService {
 
     private final static int START_REALTIME_LOC = 4352532;
 
-    private SeriesMapLocation mSML;
+    private final static int EXE_TASK_EVE = 4352533;
+
+//    private SeriesMapLocation mSML;
+
+    private MyTimer mTimer;
 
     @Override
     protected void handleMsg(Message msg) {
-        if(START_REALTIME_LOC==msg.what){
-            mSML = new SeriesMapLocation(60000, new LocationListener() {
+        switch (msg.what) {
+        case START_REALTIME_LOC:
+            if (mTimer == null)
+                mTimer = new MyTimer();
+            mTimer.start(60, new TimerTask() {
 
+                @Override
+                public void run() {
+                    sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
+                }
+            });
+//            mSML = new SeriesMapLocation(60000, new LocationListener() {
+//
+//                @Override
+//                public void onReceiveLocation(BDLocation location) {
+//                    TSUserInfo m = Global.getCURUSER();
+//                    if (m != null && m.getId() != -1) {
+//                        String latlng = String.valueOf(location.getLongitude())
+//                                + "," + String.valueOf(location.getLatitude());
+//                        String ubid = String.valueOf(m.getId());
+//                        Req.upRealtimePos(ubid, "", latlng, new HttpCallBack() {
+//
+//                        });
+//                    }
+//                }
+//            });
+            break;
+        case EXE_TASK_EVE:
+            MapLocation.getInstance().setLLis(new LocationListener() {
+                
                 @Override
                 public void onReceiveLocation(BDLocation location) {
                     TSUserInfo m = Global.getCURUSER();
-                    if (m != null && m.getId() != -1) {
-                        String latlng = String.valueOf(location.getLongitude())
-                                + "," + String.valueOf(location.getLatitude());
-                        String ubid = String.valueOf(m.getId());
-                         Req.upRealtimePos(ubid, "", latlng,
-                         new HttpCallBack() {
-                        
-                         });
-                    }
-                }
-            });
+                  if (m != null && m.getId() != -1) {
+                      String latlng = String.valueOf(location.getLongitude())
+                              + "," + String.valueOf(location.getLatitude());
+                      String ubid = String.valueOf(m.getId());
+                      Req.upRealtimePos(ubid, "", latlng, new HttpCallBack() {
 
+                      });
+                  }
+                }
+            }).startLocation();
+            break;
+        default:
+            break;
         }
     }
 
@@ -149,7 +183,9 @@ public class ServiceMainData extends KJService {
             sendMsg(getOsEmptyMsg(START_REALTIME_LOC));
         } else if (IntentNameUtil.SERVICE_ACTION_ON_STOP_REAL_TIME_POS
                 .equals(action)) {
-            mSML.release();
+            if (mTimer != null)
+                mTimer.stop();
+//            mSML.release();
         }
     }
 
