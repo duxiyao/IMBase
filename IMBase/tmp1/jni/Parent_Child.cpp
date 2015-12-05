@@ -8,10 +8,10 @@ extern const char* g_userId;
 
 extern JNIEnv* g_env;
 
-//å­è¿›ç¨‹æœ‰æƒé™è®¿é—®çˆ¶è¿›ç¨‹çš„ç§æœ‰ç›®å½•,åœ¨æ­¤å»ºç«‹è·¨è¿›ç¨‹é€šä¿¡çš„å¥—æ¥å­—æ–‡ä»¶
+//×Ó½ø³ÌÓĞÈ¨ÏŞ·ÃÎÊ¸¸½ø³ÌµÄË½ÓĞÄ¿Â¼,ÔÚ´Ë½¨Á¢¿ç½ø³ÌÍ¨ĞÅµÄÌ×½Ó×ÖÎÄ¼ş
 static const char* PATH = "/data/data/com.imbase/my.sock";
 
-//æœåŠ¡åç§°
+//·şÎñÃû³Æ
 static const char* SERVICE_NAME = "com.imbase/com.kjstudy.service.ServiceMainData";
 
 bool ProcessBase::create_channel()
@@ -77,8 +77,8 @@ jobject Parent::get_jobj() const
 }
 
 /**
-* çˆ¶è¿›ç¨‹åˆ›å»ºé€šé“,è¿™é‡Œå…¶å®æ˜¯åˆ›å»ºä¸€ä¸ªå®¢æˆ·ç«¯å¹¶å°è¯•
-* è¿æ¥æœåŠ¡å™¨(å­è¿›ç¨‹)
+* ¸¸½ø³Ì´´½¨Í¨µÀ,ÕâÀïÆäÊµÊÇ´´½¨Ò»¸ö¿Í»§¶Ë²¢³¢ÊÔ
+* Á¬½Ó·şÎñÆ÷(×Ó½ø³Ì)
 */
 bool Parent::create_channel()
 {
@@ -123,8 +123,8 @@ bool Parent::create_channel()
 }
 
 /**
-* å­è¿›ç¨‹æ­»äº¡ä¼šå‘å‡ºSIGCHLDä¿¡å·,é€šè¿‡æ•æ‰æ­¤ä¿¡å·çˆ¶è¿›ç¨‹å¯ä»¥
-* çŸ¥é“å­è¿›ç¨‹å·²ç»æ­»äº¡,æ­¤å‡½æ•°å³ä¸ºSIGCHLDä¿¡å·çš„å¤„ç†å‡½æ•°.
+* ×Ó½ø³ÌËÀÍö»á·¢³öSIGCHLDĞÅºÅ,Í¨¹ı²¶×½´ËĞÅºÅ¸¸½ø³Ì¿ÉÒÔ
+* ÖªµÀ×Ó½ø³ÌÒÑ¾­ËÀÍö,´Ëº¯Êı¼´ÎªSIGCHLDĞÅºÅµÄ´¦Àíº¯Êı.
 */
 static void sig_handler(int signo)
 {
@@ -132,8 +132,8 @@ static void sig_handler(int signo)
 
 	int status;
 
-	//è°ƒç”¨waitç­‰å¾…å­è¿›ç¨‹æ­»äº¡æ—¶å‘å‡ºçš„SIGCHLD
-	//ä¿¡å·ä»¥ç»™å­è¿›ç¨‹æ”¶å°¸ï¼Œé˜²æ­¢å®ƒå˜æˆåƒµå°¸è¿›ç¨‹
+	//µ÷ÓÃwaitµÈ´ı×Ó½ø³ÌËÀÍöÊ±·¢³öµÄSIGCHLD
+	//ĞÅºÅÒÔ¸ø×Ó½ø³ÌÊÕÊ¬£¬·ÀÖ¹Ëü±ä³É½©Ê¬½ø³Ì
 	pid = wait(&status);
 
 	if (g_process != NULL)
@@ -172,7 +172,7 @@ bool Parent::create_child()
 	{
 		return false;
 	}
-	else if (pid == 0) //å­è¿›ç¨‹
+	else if (pid == 0) //×Ó½ø³Ì
 	{
 		LOGE("<<In child process,pid=%d>>", getpid());
 
@@ -182,7 +182,7 @@ bool Parent::create_child()
 
 		ref_child.do_work();
 	}
-	else if (pid > 0)  //çˆ¶è¿›ç¨‹
+	else if (pid > 0)  //¸¸½ø³Ì
 	{
 		LOGE("<<In parent process,pid=%d>>", getpid());
 	}
@@ -192,7 +192,7 @@ bool Parent::create_child()
 
 bool Child::create_child()
 {
-	//å­è¿›ç¨‹ä¸éœ€è¦å†å»åˆ›å»ºå­è¿›ç¨‹,æ­¤å‡½æ•°ç•™ç©º
+	//×Ó½ø³Ì²»ĞèÒªÔÙÈ¥´´½¨×Ó½ø³Ì,´Ëº¯ÊıÁô¿Õ
 	return false;
 }
 
@@ -210,27 +210,27 @@ Child::~Child()
 
 void Child::catch_child_dead_signal()
 {
-	//å­è¿›ç¨‹ä¸éœ€è¦æ•æ‰SIGCHLDä¿¡å·
+	//×Ó½ø³Ì²»ĞèÒª²¶×½SIGCHLDĞÅºÅ
 	return;
 }
 
 void Child::on_child_end()
 {
-	//å­è¿›ç¨‹ä¸éœ€è¦å¤„ç†
+	//×Ó½ø³Ì²»ĞèÒª´¦Àí
 	return;
 }
 
 void Child::handle_parent_die()
 {
-	//å­è¿›ç¨‹æˆä¸ºäº†å­¤å„¿è¿›ç¨‹,ç­‰å¾…è¢«Initè¿›ç¨‹æ”¶å…»ååœ¨è¿›è¡Œåç»­å¤„ç†
+	//×Ó½ø³Ì³ÉÎªÁË¹Â¶ù½ø³Ì,µÈ´ı±»Init½ø³ÌÊÕÑøºóÔÚ½øĞĞºóĞø´¦Àí
 	while (getppid() != 1)
 	{
-		usleep(500); //ä¼‘çœ 0.5ms
+		usleep(500); //ĞİÃß0.5ms
 	}
 
 	close(m_channel);
 
-	//é‡å¯çˆ¶è¿›ç¨‹æœåŠ¡
+	//ÖØÆô¸¸½ø³Ì·şÎñ
 	LOGE("<<parent died,restart now>>");
 
 	restart_parent();
@@ -241,7 +241,7 @@ void Child::restart_parent()
 	LOGE("<<restart_parent enter>>");
 
 	/**
-	* TODO é‡å¯çˆ¶è¿›ç¨‹,é€šè¿‡amå¯åŠ¨Javaç©ºé—´çš„ä»»ä¸€ç»„ä»¶(serviceæˆ–è€…activityç­‰)å³å¯è®©åº”ç”¨é‡æ–°å¯åŠ¨
+	* TODO ÖØÆô¸¸½ø³Ì,Í¨¹ıamÆô¶¯Java¿Õ¼äµÄÈÎÒ»×é¼ş(service»òÕßactivityµÈ)¼´¿ÉÈÃÓ¦ÓÃÖØĞÂÆô¶¯
 	*/
 	execlp("am",
 		"am",
@@ -249,7 +249,7 @@ void Child::restart_parent()
 		"--user",
 		g_userId,
 		"-n",
-		SERVICE_NAME, //æ³¨æ„æ­¤å¤„çš„åç§°
+		SERVICE_NAME, //×¢Òâ´Ë´¦µÄÃû³Æ
 		(char *)NULL);
 }
 
@@ -353,11 +353,13 @@ void Child::listen_msg()
 
 void Child::do_work()
 {
-	start_parent_monitor(); //å¯åŠ¨ç›‘è§†çº¿ç¨‹
+	start_parent_monitor(); //Æô¶¯¼àÊÓÏß³Ì
 
-	if (create_channel())  //ç­‰å¾…å¹¶ä¸”å¤„ç†æ¥è‡ªçˆ¶è¿›ç¨‹å‘é€çš„æ¶ˆæ¯
+	if (create_channel())  //µÈ´ı²¢ÇÒ´¦ÀíÀ´×Ô¸¸½ø³Ì·¢ËÍµÄÏûÏ¢
 	{
 		listen_msg();
 	}
 }
+
+
 

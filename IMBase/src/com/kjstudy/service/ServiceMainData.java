@@ -106,8 +106,6 @@ public class ServiceMainData extends KJService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Watcher w = new Watcher(this);
-        w.createAppMonitor(String.valueOf(android.os.Process.myUid()));
         // Notification notification = new Notification(R.drawable.ic_launcher,
         // getText(R.string.app_name),
         // System.currentTimeMillis());

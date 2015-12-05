@@ -44,7 +44,7 @@ JNIEXPORT jboolean JNICALL Java_com_guard_Watcher_createWatcher(JNIEnv* env, job
 
 		return JNI_FALSE;
 	}
-
+	LOGE("<<create child sucess!>>");
 	return JNI_TRUE;
 }
 

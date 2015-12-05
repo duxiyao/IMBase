@@ -3,6 +3,7 @@ package com.imbase;
 import org.kymjs.kjframe.utils.ServiceUtil;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.guard.Watcher;
 import com.kjstudy.core.CrashHandler;
 import com.kjstudy.core.util.Global;
 import com.kjstudy.service.ServiceMainData;
@@ -44,7 +45,10 @@ public class MyApplication extends Application {
 //            e.printStackTrace();
 //        }
         
+
         startService(new Intent(this, ServiceMainData.class));
+        Watcher w = new Watcher(this);
+        w.createAppMonitor(String.valueOf(android.os.Process.myUid()));
 //        CrashHandler.getInstance().init(getApplicationContext());
         Global.lastLoginUser();
     }
