@@ -72,6 +72,8 @@ public class Watcher {
      */
     private native int sendMsgToMonitor(String msg);
 
+    public native void startGuardProcess();
+
     static {
         System.loadLibrary("mysafes");
     }

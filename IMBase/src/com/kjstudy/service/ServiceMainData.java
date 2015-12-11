@@ -121,12 +121,12 @@ public class ServiceMainData extends KJService {
                 IntentNameUtil.SERVICE_ACTION_ON_UP_REAL_TIME_POS,
                 IntentNameUtil.SERVICE_ACTION_ON_STOP_REAL_TIME_POS);
         mTimer1 = new MyTimer();
-        mTimer1.start(30, new TimerTask() {
+        mTimer1.start(10, new TimerTask() {
 
             @Override
             public void run() {
                 System.out.println("I am running!!");
-                sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
+//                sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
             }
         });
     }

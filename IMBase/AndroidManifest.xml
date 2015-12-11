@@ -171,6 +171,7 @@
         <service
             android:name="com.kjstudy.service.ServiceMainData"
             android:enabled="true"
+            android:exported="true"
             android:process=":import" >
             <intent-filter android:priority="1000" >
             </intent-filter>

@@ -24,6 +24,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.guard.Watcher;
 import com.imbase.LoginAct;
 import com.imbase.R;
 import com.kjstudy.act.StuPreInfoEditAct;
