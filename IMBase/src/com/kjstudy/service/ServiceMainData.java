@@ -37,6 +37,8 @@ public class ServiceMainData extends KJService {
 
     private final static int EXE_TASK_EVE = 4352533;
 
+    private final static int LAST_LOGIN = 4352534;
+
     // private SeriesMapLocation mSML;
 
     private MyTimer mTimer, mTimer1;
@@ -75,24 +77,27 @@ public class ServiceMainData extends KJService {
 
                 @Override
                 public void onReceiveLocation(BDLocation location) {
-//                    TSUserInfo m = Global.getCURUSER();
-//                    if (m != null && m.getId() != -1) {
-                        String latlng = String.valueOf(location.getLongitude())
-                                + "," + String.valueOf(location.getLatitude());
-//                        String ubid = String.valueOf(m.getId());
-                        String ubid="17";
-                        Req.upRealtimePos(ubid, "", latlng, new HttpCallBack() {
-                            public void onSuccess(String t) {
-                                System.out.println(t);
-                            };
+                    // TSUserInfo m = Global.getCURUSER();
+                    // if (m != null && m.getId() != -1) {
+                    String latlng = String.valueOf(location.getLongitude())
+                            + "," + String.valueOf(location.getLatitude());
+                    // String ubid = String.valueOf(m.getId());
+                    String ubid = "17";
+                    Req.upRealtimePos(ubid, "", latlng, new HttpCallBack() {
+                        public void onSuccess(String t) {
+                            System.out.println(t);
+                        };
 
-                            public void onFinish() {
-                                System.out.println("loc req finish");
-                            };
-                        });
-                    }
-//                }
+                        public void onFinish() {
+                            System.out.println("loc req finish");
+                        };
+                    });
+                }
+                // }
             }).startLocation();
+            break;
+        case LAST_LOGIN:
+            Global.lastLoginUser();
             break;
         default:
             break;
@@ -120,13 +125,14 @@ public class ServiceMainData extends KJService {
         setFilters(IntentNameUtil.SERVICE_ACTION_ON_REQ_STU_TEA_DATA,
                 IntentNameUtil.SERVICE_ACTION_ON_UP_REAL_TIME_POS,
                 IntentNameUtil.SERVICE_ACTION_ON_STOP_REAL_TIME_POS);
+        sendMsg(getOsEmptyMsg(LAST_LOGIN));
         mTimer1 = new MyTimer();
         mTimer1.start(10, new TimerTask() {
 
             @Override
             public void run() {
                 System.out.println("I am running!!");
-//                sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
+                // sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
             }
         });
     }
@@ -238,5 +244,6 @@ public class ServiceMainData extends KJService {
             mTimer.stop();
         stopForeground(true);
         super.onDestroy();
+        System.out.println("onDestroy");
     }
 }

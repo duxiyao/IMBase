@@ -1,22 +1,18 @@
 package com.imbase;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.util.Calendar;
 
-import org.kymjs.kjframe.utils.FileUtils;
-
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.res.Configuration;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.guard.Watcher;
-import com.kjstudy.core.thread.ThreadManager;
-import com.kjstudy.core.util.Global;
+import com.kjstudy.rece.ClockReceiver;
 import com.kjstudy.service.ServiceMainData;
 
 public class MyApplication extends Application {
@@ -53,26 +49,41 @@ public class MyApplication extends Application {
         // }
 
         startService(new Intent(this, ServiceMainData.class));
-         Watcher w = new Watcher(this);
-         w.createAppMonitor(String.valueOf(android.os.Process.myUid()));
+        startClock();
+        // Watcher w = new Watcher(this);
+        // w.createAppMonitor(String.valueOf(android.os.Process.myUid()));
         // CrashHandler.getInstance().init(getApplicationContext());
-        Global.lastLoginUser();
-        ThreadManager.getInstance().exeRunnable(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-                    FileUtils.copyFromAssets(MyApplication.this.getAssets(),
-                            "ANProcessGuard", "/data/data/com.imbase/ANProcessGuard");
-//                    Watcher w = new Watcher(MyApplication.this);
-//                    w.startGuardProcess();
-//                     do_exec("ps | grep com.imbase >> /sdcard/a.txt");
-//                     do_exec("/sdcard/ANProcessGuard");
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        // ThreadManager.getInstance().exeRunnable(new Runnable() {
+        //
+        // @Override
+        // public void run() {
+        // try {
+        // FileUtils.copyFromAssets(MyApplication.this.getAssets(),
+        // "ANProcessGuard", "/data/data/com.imbase/ANProcessGuard");
+        // // Watcher w = new Watcher(MyApplication.this);
+        // // w.startGuardProcess();
+        // // do_exec("ps | grep com.imbase >> /sdcard/a.txt");
+        // // do_exec("/sdcard/ANProcessGuard");
+        // } catch(Exception e) {
+        // e.printStackTrace();
+        // }
+        // }
+        // });
+    }
+
+    private void startClock() {
+        Intent intent = new Intent(this, ClockReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        // We want the alarm to go off 10 seconds from now.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.SECOND, 10);
+        // Schedule the alarm!
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                10 * 1000, sender);
     }
 
     private String do_exec(String cmd) {
@@ -91,5 +102,29 @@ public class MyApplication extends Application {
             e.printStackTrace();
         }
         return cmd;
+    }
+    
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        System.out.println("onTerminate");
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        System.out.println("onConfigurationChanged");
+    }
+    
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        System.out.println("onLowMemory");
+    }
+    
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        System.out.println("onTrimMemory");
     }
 }
