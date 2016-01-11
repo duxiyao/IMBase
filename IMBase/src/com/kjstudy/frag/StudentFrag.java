@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import com.imbase.LoginAct;
 import com.imbase.R;
 import com.kjstudy.act.StuPreInfoEditAct;
 import com.kjstudy.act.UploadImageActivity;
+import com.kjstudy.act.base.WebViewAct;
 import com.kjstudy.bean.data.TSUserInfo;
 import com.kjstudy.core.util.BroadCastUtil;
 import com.kjstudy.core.util.DBUtil;
@@ -146,7 +148,10 @@ public class StudentFrag extends BFrag {
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.iv_head:
-            ActUtil.startAct(UploadImageActivity.class);
+//            ActUtil.startAct(UploadImageActivity.class);
+            Bundle p=new Bundle();
+            p.putString(WebViewAct.EXTRA_RAWURL, "http://doctorsclub.cn/openapp.html");
+            ActUtil.startAct(WebViewAct.class, p);
             break;
         case R.id.tv_name:
             if (!Global.isLogining()) {

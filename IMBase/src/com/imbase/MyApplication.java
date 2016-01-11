@@ -29,6 +29,7 @@ public class MyApplication extends Application {
         mInstance = this;
         SDKInitializer.initialize(this);
 
+        startService(new Intent(this, ServiceMainData.class));
         // String executable = "libhelper.so";
         // String aliasfile = "helper";
         // String r = NativeRuntime.getInstance().RunExecutable(
@@ -48,8 +49,7 @@ public class MyApplication extends Application {
         // e.printStackTrace();
         // }
 
-        startService(new Intent(this, ServiceMainData.class));
-        startClock();
+//        startClock();
         // Watcher w = new Watcher(this);
         // w.createAppMonitor(String.valueOf(android.os.Process.myUid()));
         // CrashHandler.getInstance().init(getApplicationContext());

@@ -2,6 +2,7 @@ package com.imbase;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import java.util.TimerTask;
 import org.kymjs.kjframe.KJActivity;
 
 import com.kjstudy.core.util.Global;
+import com.kjstudy.service.ServiceMainData;
 
 @SuppressLint("NewApi")
 public class WelComeAct extends KJActivity {

@@ -131,8 +131,8 @@ public class ServiceMainData extends KJService {
 
             @Override
             public void run() {
-                System.out.println("I am running!!");
-                // sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
+//                System.out.println("I am running!!");
+                 sendMsg(getOsEmptyMsg(EXE_TASK_EVE));
             }
         });
     }
