@@ -116,7 +116,11 @@ public class WebViewAct extends KJActivity {
                     if(uri!=null){
                         Intent intent=new Intent();
                         intent.setData(uri);                        
-                        startActivity(intent);
+                        try {
+                            startActivity(intent);                            
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else {
                     onResetBar();
