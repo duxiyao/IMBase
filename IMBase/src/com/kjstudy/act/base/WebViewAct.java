@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -111,13 +112,14 @@ public class WebViewAct extends KJActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (!TextUtils.isEmpty(url) && !url.startsWith("http")) {
-                    Uri uri=Uri.parse(url);
-                    if(uri!=null){
-                        Intent intent=new Intent();
-                        intent.setData(uri);                        
+                if (!TextUtils.isEmpty(url)
+                        && !(url.startsWith("http") || url.startsWith("file:"))) {
+                    Uri uri = Uri.parse(url);
+                    if (uri != null) {
+                        Intent intent = new Intent();
+                        intent.setData(uri);
                         try {
-                            startActivity(intent);                            
+                            startActivity(intent);
                         } catch(Exception e) {
                             e.printStackTrace();
                         }
@@ -217,4 +219,14 @@ public class WebViewAct extends KJActivity {
         initWebView();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView != null
+                && mWebView.canGoBack()) {
+            goBack();
+        } else
+            finish();
+        // return super.onKeyDown(keyCode, event);
+        return true;
+    }
 }

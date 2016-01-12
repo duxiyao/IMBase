@@ -150,7 +150,7 @@ public class StudentFrag extends BFrag {
         case R.id.iv_head:
 //            ActUtil.startAct(UploadImageActivity.class);
             Bundle p=new Bundle();
-            p.putString(WebViewAct.EXTRA_RAWURL, "http://doctorsclub.cn/openapp.html");
+            p.putString(WebViewAct.EXTRA_RAWURL, "file:///android_asset/ichartjs-master/samples/index.html");
             ActUtil.startAct(WebViewAct.class, p);
             break;
         case R.id.tv_name:

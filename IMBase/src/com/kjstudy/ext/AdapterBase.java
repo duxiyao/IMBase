@@ -9,6 +9,7 @@ import org.kymjs.kjframe.ui.AnnotateUtil;
 import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.content.Context;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,19 +144,20 @@ public abstract class AdapterBase<T, V> extends BaseAdapter {
     }
 
     public void addDatas(List<T> datas) {
-        addDatas(datas,true); 
+        addDatas(datas, true);
     }
-    
+
     public void addDatas(List<T> datas, boolean isNotify) {
         if (null == mDatas)
-            mDatas=new ArrayList<T>();
+            mDatas = new ArrayList<T>();
         if (null != datas) {
             for (T t : datas) {
                 mDatas.add(t);
             }
         }
-        if (isNotify)
+        if (isNotify) {
             notifyDataSetChanged();
+        }
     }
 
     private void remove(T o, boolean isNotify) {

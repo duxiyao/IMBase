@@ -9,6 +9,8 @@ import org.kymjs.kjframe.ui.AnnotateUtil;
 import org.kymjs.kjframe.utils.DensityUtils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +25,20 @@ import com.imbase.R;
 
 public abstract class AdapterBaseN<D, H> extends BaseAdapter {
     protected Context mContext;
+
     protected List<D> mDatas;
+
     private View emptyView;
+
     private ViewGroup parent;
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     /**
      * 空数据时，充满listview剩下所有布局显示。
      */
     public final static int MATCH_REMAINING_PLACE = 0x00000000;
+
     /**
      * 空数据显示的view需要多大空间，就使用多大空间，自适应布局。
      */
@@ -45,6 +53,7 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
      * 空数据时的布局资源文件Id。
      */
     private int resLayoutId = R.layout.empty;
+
     private String mShowTxtWhenEmpty;
 
     // private int defaultNetBrokenLayId = R.layout.load_failed_hint;
@@ -62,7 +71,7 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
 
     /**
      * 设置空数据时显示的资源文件Id。
-     *
+     * 
      * @param resLayoutId
      */
     public void setEmptyView(int resLayoutId) {
@@ -75,7 +84,7 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
 
     /**
      * 设置空数据显示时的方式。全显示或者自适显示。
-     *
+     * 
      * @param displayPlace
      */
     public void setDisplayPlace(int displayPlace) {
@@ -124,8 +133,19 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
             }
         }
         this.mDatas = tmp;
-        if (isNotify)
-            notifyDataSetChanged();
+        if (isNotify) {
+            if (!Looper.getMainLooper().getThread().getName()
+                    .equals(Thread.currentThread().getName())) {
+                mHandler.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            } else
+                notifyDataSetChanged();
+        }
     }
 
     private void remove(D d, boolean isNotify) {
@@ -173,13 +193,13 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
             BindLayout bl = (BindLayout) cls.getAnnotation(BindLayout.class);
             if (bl != null)
                 return bl.id();
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    protected abstract void process(D d, H h);
+    protected abstract void process(int position, D d, H h);
 
     private View getEmptyView(int position, View convertView, ViewGroup parent) {
         final int screenWidth = DensityUtils.getScreenW();
@@ -187,15 +207,15 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
         final int listViewBottom = parent.getBottom();
         AbsListView.LayoutParams params = null;
         switch (displayPlace) {
-            case MATCH_REMAINING_PLACE:
-                params = new AbsListView.LayoutParams(screenWidth, listViewBottom);
-                break;
-            case WRAP_REMAINING_PLACE:
-                params = new AbsListView.LayoutParams(screenWidth,
-                        LayoutParams.WRAP_CONTENT);
-                break;
-            default:
-                break;
+        case MATCH_REMAINING_PLACE:
+            params = new AbsListView.LayoutParams(screenWidth, listViewBottom);
+            break;
+        case WRAP_REMAINING_PLACE:
+            params = new AbsListView.LayoutParams(screenWidth,
+                    LayoutParams.WRAP_CONTENT);
+            break;
+        default:
+            break;
         }
         if (emptyView == null)
             emptyView = LayoutInflater.from(mContext)
@@ -228,8 +248,14 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
         }
 
         if (holder != null) {
-            if (null != mDatas && position < mDatas.size() && mDatas.get(position) != null)
-                process(mDatas.get(position), holder);
+            if (null != mDatas && position < mDatas.size()
+                    && mDatas.get(position) != null) {
+                try {
+                    process(position, mDatas.get(position), holder);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return convertView;
@@ -249,7 +275,7 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
             Class cls = getGenericType(1);
             Object obj = cls.newInstance();
             return (H) obj;
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -277,7 +303,8 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
     private void showWhenEmpty() {
         if (emptyView != null && emptyView instanceof TextView) {
             if (R.layout.empty == emptyView.getId()) {
-                ((TextView) emptyView.findViewById(R.id.tv)).setText(mShowTxtWhenEmpty);
+                ((TextView) emptyView.findViewById(R.id.tv))
+                        .setText(mShowTxtWhenEmpty);
             } else
                 ((TextView) emptyView).setText(mShowTxtWhenEmpty);
         }
