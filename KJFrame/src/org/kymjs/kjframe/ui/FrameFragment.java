@@ -15,6 +15,8 @@
  */
 package org.kymjs.kjframe.ui;
 
+import org.kymjs.kjframe.utils.bars.AbsBarUtil;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -100,6 +102,7 @@ public abstract class FrameFragment extends Fragment implements OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflaterView(inflater, container, savedInstanceState);
+        AnnotateUtil.FATHERNAME=Fragment.class.getName();
         AnnotateUtil.initBindView(this, view);
         initData();
         initWidget(view);

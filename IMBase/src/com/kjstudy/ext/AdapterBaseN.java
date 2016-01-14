@@ -263,8 +263,10 @@ public abstract class AdapterBaseN<D, H> extends BaseAdapter {
 
     protected H initHolder(int position, View convertView) {
         H holder = getHolder();
-        if (holder != null)
+        if (holder != null){
+            AnnotateUtil.FATHERNAME=BaseAdapter.class.getName();
             AnnotateUtil.initBindView(holder, convertView);
+        }
         if (holder != null)
             convertView.setTag(holder);
         return holder;

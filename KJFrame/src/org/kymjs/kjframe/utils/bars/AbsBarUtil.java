@@ -24,6 +24,7 @@ public abstract class AbsBarUtil implements OnClickListener{
 			mView = LayoutInflater.from(
 					KJActivityStack.create().topActivity()
 							.getApplicationContext()).inflate(mLayoutId, null);
+			AnnotateUtil.FATHERNAME=AbsBarUtil.class.getName();
 			AnnotateUtil.initBindView(this, mView);
 		}
 	}

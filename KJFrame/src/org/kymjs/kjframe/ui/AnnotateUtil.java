@@ -32,15 +32,47 @@ import android.view.View.OnClickListener;
  * @version 1.1
  */
 public class AnnotateUtil {
+    
+
+
+    public static String FATHERNAME = "java.lang.Object";
+
+    /**  
+    * @Description:  检测其所有父类绑定控件。调用前需将{@link #FATHERNAME}赋父类的字串值
+    * @author  duxiyao
+    * @date 2016年1月14日 下午4:45:38 
+    * @param obj
+    * @param sourceView      
+    */
+    public static void initBindView(Object obj, View sourceView) {
+        if (obj == null)
+            return;
+        Class cls = obj.getClass();
+        try {
+            while (!FATHERNAME.equals(cls.getName())) {
+                try {
+                    Field[] fields = cls.getDeclaredFields();
+                    initBindView(fields, obj, sourceView);
+                    cls=cls.getSuperclass();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     /**
      * @param currentClass
      *            当前类，一般为Activity或Fragment
      * @param sourceView
      *            待绑定控件的直接或间接父控件
      */
-    public static void initBindView(Object currentClass, View sourceView) {
+    public static void initBindView(Field[] fields,Object currentClass, View sourceView) {
         // 通过反射获取到全部属性，反射的字段可能是一个类（静态）字段或实例字段
-        Field[] fields = currentClass.getClass().getDeclaredFields();
+//        Field[] fields = currentClass.getClass().getDeclaredFields();
         if (fields != null && fields.length > 0) {
             for (Field field : fields) {
                 // 返回BindView类型的注解内容
