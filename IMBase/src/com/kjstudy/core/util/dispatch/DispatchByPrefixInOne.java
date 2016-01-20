@@ -8,6 +8,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @Description 在一个类中进行条件分发处理
+ * @author duxiyao
+ * @date 2016年1月9日 上午10:41:20
+ * 
+ */
 public class DispatchByPrefixInOne {
     LinkedHashMap<String, LinkedList<Method>> lhmPrefix;
 
@@ -16,6 +22,10 @@ public class DispatchByPrefixInOne {
     LinkedHashMap<String, LinkedList<AnoPrefix>> lhmAno;
 
     LinkedList<String> llAno;
+
+    public synchronized void dispatchInOne(Object obj, Object... args) {
+        dispatch(obj, obj, args);
+    }
 
     public synchronized void dispatch(Object prefix, Object target,
             Object... args) {
@@ -30,7 +40,8 @@ public class DispatchByPrefixInOne {
                 AnoPrefix ano = m.getAnnotation(AnoPrefix.class);
                 if (ano != null) {
                     String pre = ano.pre();
-                    if (pre == null || pre.trim().length() == 0||(!ano.isCondition()))
+                    if (pre == null || pre.trim().length() == 0
+                            || (!ano.isCondition()))
                         continue;
                     if (!llAno.contains(pre)) {
                         llAno.add(pre);
@@ -74,7 +85,15 @@ public class DispatchByPrefixInOne {
                 boolean isRun = true;
                 for (Method m : methods) {
                     if (isRun) {
-                        isRun = isRun && (Boolean) m.invoke(prefix, args);
+                        try {
+                            Class<?>[] pt = m.getParameterTypes();
+                            if (args == null || pt != null
+                                    && pt.length == args.length)
+                                isRun = isRun
+                                        && (Boolean) m.invoke(prefix, args);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
                     } else
                         break;
                 }
@@ -84,7 +103,14 @@ public class DispatchByPrefixInOne {
                     Method m = methods.get(i);
                     AnoPrefix ano = lhmAno.get(pre).get(i);
                     if (isRun || (!isRun && ano.un())) {
-                        m.invoke(target, args);
+                        try {
+                            Class<?>[] pt = m.getParameterTypes();
+                            if (args == null || pt != null
+                                    && pt.length == args.length)
+                                m.invoke(target, args);
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
                         if (ano.finish()) {
                             return;
                         }
@@ -102,7 +128,7 @@ public class DispatchByPrefixInOne {
         try {
             for (Method m : obj.getClass().getMethods()) {
                 AnoPrefix ano = m.getAnnotation(AnoPrefix.class);
-                if (ano != null && ano.order() != -1&&!ano.isCondition()) {
+                if (ano != null && ano.order() != -1 && !ano.isCondition()) {
                     hm.put(ano.order(), m);
                     l.add(ano.order());
                 }

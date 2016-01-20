@@ -26,7 +26,9 @@ public class DispatchByChain {
 
         for (Method m : mHandlers) {
             try {
-                m.invoke(obj, args);
+                Class<?>[] pt = m.getParameterTypes();
+                if (args == null || pt != null && pt.length == args.length)
+                    m.invoke(obj, args);
             } catch(Exception e) {
                 e.printStackTrace();
             }

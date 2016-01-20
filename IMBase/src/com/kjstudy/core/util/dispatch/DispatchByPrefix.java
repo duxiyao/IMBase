@@ -8,6 +8,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @Description 两个类进行匹配处理 一个类只写条件，一个类只写处理函数
+ * @author duxiyao
+ * @date 2016年1月9日 上午10:41:20
+ * 
+ */
 public class DispatchByPrefix {
     LinkedHashMap<String, LinkedList<Method>> lhmPrefix;
 
@@ -74,7 +80,10 @@ public class DispatchByPrefix {
                 boolean isRun = true;
                 for (Method m : methods) {
                     if (isRun) {
-                        isRun = isRun && (Boolean) m.invoke(prefix, args);
+                        Class<?>[] pt = m.getParameterTypes();
+                        if (args == null || pt != null
+                                && pt.length == args.length)
+                            isRun = isRun && (Boolean) m.invoke(prefix, args);
                     } else
                         break;
                 }
@@ -84,7 +93,10 @@ public class DispatchByPrefix {
                     Method m = methods.get(i);
                     AnoPrefix ano = lhmAno.get(pre).get(i);
                     if (isRun || (!isRun && ano.un())) {
-                        m.invoke(target, args);
+                        Class<?>[] pt = m.getParameterTypes();
+                        if (args == null || pt != null
+                                && pt.length == args.length)
+                            m.invoke(target, args);
                         if (ano.finish()) {
                             return;
                         }
