@@ -79,7 +79,7 @@ public class DispatchByPrefixInOne {
             }
         }
 
-        for (String pre : llAno) {
+        for (String pre : lhmProxy.keySet()) {
             try {
                 LinkedList<Method> methods = lhmPrefix.get(pre);
                 boolean isRun = true;
