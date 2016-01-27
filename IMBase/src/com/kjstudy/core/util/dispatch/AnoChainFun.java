@@ -13,12 +13,6 @@ import java.lang.annotation.Target;
  */ 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AnoFunDescription {
-    /**  
-    * @Description:  描述改函数是做什么逻辑的
-    * @author  duxiyao
-    * @date 2016年1月13日 下午2:44:35 
-    * @return      
-    */
-    public String description();
+public @interface AnoChainFun {
+    public int order();
 }
