@@ -2,7 +2,9 @@ package com.kjstudy.communication;
 
 import java.util.List;
 
-import org.kymjs.kjframe.ui.ViewInject;
+
+
+import org.myframe.ui.ViewInject;
 
 import android.app.PendingIntent;
 import android.content.Context;

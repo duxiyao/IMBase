@@ -15,7 +15,8 @@
  *******************************************************************************/
 package uk.co.senab.photoview;
 
-import org.kymjs.kjframe.utils.KJLoger;
+
+import org.myframe.utils.MLoger;
 
 import uk.co.senab.photoview.PhotoViewAttacher.OnMatrixChangedListener;
 import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
@@ -61,7 +62,7 @@ public class PhotoView extends ImageView implements IPhotoView {
 		try {
 			super.onDraw(canvas);
 		} catch (Exception e) {
-			KJLoger.debug("PhotoView",
+			MLoger.debug("PhotoView",
 					" onDraw() Canvas: trying to use a recycled bitmap");
 		}
 	}

@@ -3,8 +3,11 @@ package com.kjstudy.act;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
+
+
+
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
 
 import android.content.Intent;
 import android.view.View;
@@ -18,7 +21,7 @@ import com.kjstudy.core.util.ParamsUtil;
 import com.kjstudy.core.util.ViewUtil;
 import com.kjstudy.ext.AdapterBase;
 
-public class MyFriendsUI extends KJActivity {
+public class MyFriendsUI extends MActivity {
 
 	@BindView(id = R.id.lv)
 	private ListView mLv;

@@ -1,9 +1,12 @@
 package com.kjstudy.test.act;
 
 import java.util.List;
+ 
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
+
+
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -24,7 +27,7 @@ import com.kjstudy.test.view.MapInfo;
 import com.kjstudy.test.view.ZndzDataUtil;
 
 @SuppressLint("NewApi")
-public class ZndzAct extends KJActivity {
+public class ZndzAct extends MActivity {
 
 	@BindView(id = R.id.iv)
 	private CustomeImgView mIv;

@@ -1,8 +1,9 @@
 package com.kjstudy.communication;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.KJActivityStack;
-import org.kymjs.kjframe.ui.ViewInject;
+
+import org.myframe.MActivity;
+import org.myframe.ui.ActivityStack;
+import org.myframe.ui.ViewInject;
 
 import android.content.Intent;
 
@@ -68,9 +69,9 @@ public class LoginHelper implements InitListener, OnECDeviceConnectListener {
 
 		} else if (ECConnectState.CONNECT_SUCCESS.equals(state)) {
 			ViewInject.toast("connect success");
-			Object obj = KJActivityStack.create().topActivity();
-			if (obj instanceof KJActivity) {
-				KJActivity act = (KJActivity) obj;
+			Object obj = ActivityStack.create().topActivity();
+			if (obj instanceof MActivity) {
+				MActivity act = (MActivity) obj;
 				act.skipActivity(act, MyFriendsUI.class);
 			}
 		}

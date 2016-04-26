@@ -2,9 +2,13 @@ package com.kjstudy.act;
 
 import java.util.List;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
-import org.kymjs.kjframe.utils.StringUtils;
+
+
+
+
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
+import org.myframe.utils.StringUtils;
 
 import android.bluetooth.BluetoothClass.Device;
 import android.content.Context;
@@ -31,7 +35,7 @@ import com.kjstudy.core.util.ViewUtil;
 import com.kjstudy.ext.AdapterBase;
 import com.kjstudy.plugin.ChattingItemView;
 
-public class ChattingUI extends KJActivity {
+public class ChattingUI extends MActivity {
 
 	@BindView(id = R.id.lv_chatting)
 	private ListView mLvChatting;

@@ -2,14 +2,15 @@ package com.kjstudy.test.act;
 
 import java.util.ArrayList;
 import java.util.List;
+ 
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
 
 import com.imbase.R;
 import com.kjstudy.test.view.ImgView;
 
-public class ImgHeadAct extends KJActivity {
+public class ImgHeadAct extends MActivity {
 
 	@BindView(id = R.id.iv)
 	private ImgView mIv;

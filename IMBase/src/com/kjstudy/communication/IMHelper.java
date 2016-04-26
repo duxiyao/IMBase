@@ -2,8 +2,11 @@ package com.kjstudy.communication;
 
 import java.util.List;
 
-import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.StringUtils;
+
+
+
+import org.myframe.ui.ViewInject;
+import org.myframe.utils.StringUtils;
 
 import android.bluetooth.BluetoothClass.Device;
 import android.os.Process;

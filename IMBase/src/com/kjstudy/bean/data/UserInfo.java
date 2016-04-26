@@ -1,7 +1,7 @@
 package com.kjstudy.bean.data;
 
-import org.kymjs.kjframe.database.annotate.Id;
-import org.kymjs.kjframe.database.annotate.Transient;
+import org.myframe.database.annotate.Transient;
+
 
 public class UserInfo extends EntityData {
 	/**

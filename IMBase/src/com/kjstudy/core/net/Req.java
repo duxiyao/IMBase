@@ -29,10 +29,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
-import org.kymjs.kjframe.KJHttp;
-import org.kymjs.kjframe.http.HttpCallBack;
-import org.kymjs.kjframe.http.HttpParams;
-import org.kymjs.kjframe.utils.KJLoger;
+ 
+
+import org.myframe.MHttp;
+import org.myframe.http.HttpCallBack;
+import org.myframe.http.HttpParams;
 
 import android.util.Log;
 
@@ -44,7 +45,7 @@ public class Req {
 	
 	public static void login(String name,String pwd,HttpCallBack cb){
 		String url=mUrlPre+"HLogin.ashx";
-        KJHttp kjh = new KJHttp();
+        MHttp kjh = new MHttp();
         HttpParams params = new HttpParams(); 
         params.put("email", name);
         params.put("pwd", pwd);

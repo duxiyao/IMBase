@@ -2,12 +2,12 @@ package com.imbase;
 
 import java.util.ArrayList;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
-import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.KJLoger;
-import org.kymjs.kjframe.widget.KJViewPager;
-import org.kymjs.kjframe.widget.KJViewPager.OnViewChangeListener;
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
+import org.myframe.ui.ViewInject;
+import org.myframe.utils.MLoger;
+import org.myframe.widget.KJViewPager;
+import org.myframe.widget.KJViewPager.OnViewChangeListener;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -25,7 +25,7 @@ import com.kjstudy.communication.SDKHelper;
 import com.kjstudy.plugin.MainFooterView;
 import com.zbar.lib.SCQrcodeRetAct;
 
-public class MainAct extends KJActivity {
+public class MainAct extends MActivity {
 
 	@BindView(id = R.id.vp_main)
 	private KJViewPager mVp;
@@ -67,7 +67,7 @@ public class MainAct extends KJActivity {
 
 			@Override
 			public void OnViewChange(int view) {
-				KJLoger.debug("vc-->" + view);
+				MLoger.debug("vc-->" + view);
 			}
 		});
 //		final HomePageFragment fragHome = new HomePageFragment();

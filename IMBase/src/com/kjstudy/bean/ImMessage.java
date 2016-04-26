@@ -1,6 +1,7 @@
 package com.kjstudy.bean;
 
-import org.kymjs.kjframe.database.annotate.Transient;
+
+import org.myframe.database.annotate.Transient;
 
 import com.kjstudy.a.im.AMsgView;
 

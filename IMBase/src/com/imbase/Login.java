@@ -1,13 +1,20 @@
 package com.imbase;
 
 import java.util.Map;
+ 
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.http.HttpCallBack;
-import org.kymjs.kjframe.ui.BindView;
-import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.KJLoger;
-import org.kymjs.kjframe.utils.StringUtils;
+
+
+
+
+
+
+import org.myframe.MActivity;
+import org.myframe.http.HttpCallBack;
+import org.myframe.ui.BindView;
+import org.myframe.ui.ViewInject;
+import org.myframe.utils.MLoger;
+import org.myframe.utils.StringUtils;
 
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -29,7 +36,7 @@ import com.kjstudy.test.act.ImgHeadAct;
 import com.kjstudy.test.act.ZndzAct;
 import com.umeng.update.UmengUpdateAgent;
 
-public class Login extends KJActivity {
+public class Login extends MActivity {
 
 	@BindView(id = R.id.et_name)
 	private EditText etName;
@@ -105,7 +112,7 @@ public class Login extends KJActivity {
 			ViewInject.toast("密码不能为空!");
 			return;
 		}
-		KJLoger.debug("name=" + name + "  pwd=" + pwd);
+		MLoger.debug("name=" + name + "  pwd=" + pwd);
 		if (mProgressDialog == null)
 			mProgressDialog = ViewInject.getprogress(this,
 					StringUtils.getResString(R.string.request_from_net), false);

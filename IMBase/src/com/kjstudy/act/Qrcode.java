@@ -1,7 +1,8 @@
 package com.kjstudy.act;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.ui.BindView;
+
+import org.myframe.MActivity;
+import org.myframe.ui.BindView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +16,7 @@ import com.kjstudy.core.thread.ThreadManager;
 import com.zbar.lib.CaptureActivity;
 import com.zbar.lib.QRCodeUtil;
 
-public class Qrcode extends KJActivity {
+public class Qrcode extends MActivity {
 
 	private final int REQUEST_CODE_QRCODE = 0x8765;// 启动二维码扫描界面的请求码
 	
